@@ -21,7 +21,7 @@ module.exports = function(grunt) {
     pgcreatedb: {
       default: {
         connection: {
-          user: 'codyunger', //config.connection.user
+          user: config.connection.user,
           password: config.connection.password,
           host: config.connection.host,
           port: config.connection.port,
