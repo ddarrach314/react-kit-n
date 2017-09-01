@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
 import reducer from './reducers';
+import store from './reduxStore';
 import StoreForm from './components/StoreForm';
-
-const store = createStore(reducer);
 
 class App extends React.Component {
   render() {
@@ -21,9 +19,9 @@ class App extends React.Component {
 const ConnectedApp = () => {
   return (
     <Provider store={store}>
-      <App />
+      <StoreForm />
     </Provider>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<ConnectedApp />, document.getElementById('root'));
