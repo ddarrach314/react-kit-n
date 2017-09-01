@@ -1,6 +1,8 @@
 //take in as input 'onion' and server out the files needed' 
 //may be refactored into multiple files/modules depending on need. 
-var _ = require('lodash');
+const _ = require('lodash');
+const fs = require('fs');
+const path = require('path');
 
 const actionInput = (type, target) => {
   //take in type from action and target
@@ -82,11 +84,16 @@ const createActionJsContent = (onion) => {
     // create and save action list to actionList array
     actionList = actionList.concat(`const ${action.name} = (${actionInput(action.type, target)}) => ({\n  type: ${type},\n  ${actionOutput(action.type, target)}\n})\n\n`);
   });
-  //stitchs together the header, export and action functions
+  //stitch together the header, export and action functions
   actionsJs = actionsJs.concat(makeHeader(types), makeExport(types), actionList);
   
   //create file actions.js in working directory
   
-  //write string result to file
-  
+  //create actions.js and write string result to file
+  fs.writeFile(path.join(__dirname, 'actions.js'), actionsJs, (err) => {
+    if(err) throw err;
+    console.log('File write completed for Action.js');
+  })
 };
+
+module.exports.createActionJsContent = createActionJsContent;
