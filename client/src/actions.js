@@ -1,0 +1,7 @@
+const SET_STORE = 'SET_STORE';
+const SET_STORE_WARNING = 'SET_STORE_WARNING';
+
+export const types = {
+  SET_STORE,
+  SET_STORE_WARNING
+};
