@@ -1,7 +1,6 @@
-const initialState = {};
+import {combineReducers} from 'redux';
+import storeReducer from './store';
 
-const reducer = (state = initialState, action) => {
-  return state;
-};
+combineReducers(storeReducer);
 
 export default reducer;
