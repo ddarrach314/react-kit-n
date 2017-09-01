@@ -3,23 +3,27 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import reducer from './reducers';
+import StoreForm from './components/StoreForm';
 
 const store = createStore(reducer);
 
 class App extends React.Component {
   render() {
     return (
-      <h1>Hello World from React</h1>
+      <div>
+        <h1>Hello World from React</h1>
+        <StoreForm />
+      </div>
     );
   }
 }
 
 const ConnectedApp = () => {
   return (
-    <Provider>
+    <Provider store={store}>
       <App />
     </Provider>
   );
 };
 
-ReactDOM.render(<h1>Hello World from React</h1>, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
