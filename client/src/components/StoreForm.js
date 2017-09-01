@@ -6,7 +6,7 @@ class StoreForm extends React.Component {
     super(props);
     this.state = {
       storeInput: JSON.stringify(props.store || {}),
-      warning: false
+      warning: ''
     };
     this.processTextArea = _.debounce(this.processTextArea.bind(this), 1000);
     this.handleChangeTextArea = this.handleChangeTextArea.bind(this);
@@ -21,11 +21,10 @@ class StoreForm extends React.Component {
     try {
       var parsedNewStoreInput = JSON.parse(newStoreInput);
       // this.props.setStore(parsedNewStoreInput);
-      this.setState({warning: false});
+      this.setState({warning: ''});
     } catch (error) {
-      console.log(error);
-      // this.props.setWarning('Invalid Store JSON');
-      this.setState({warning: true});
+      // this.props.setWarning(error.toString());
+      this.setState({warning: error.toString()});
     }
   }
 
@@ -40,7 +39,7 @@ class StoreForm extends React.Component {
   render() {
     return (
       <div>
-        {this.state.warning && 'Invalid Store'}
+        {this.state.warning}
         <textarea value={this.state.storeInput} onChange={this.handleChangeTextArea} ></textarea>
       </div>
     );
