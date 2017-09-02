@@ -33,7 +33,7 @@ describe('Action.js file creator', () => {
       }
     }
   };
-  let sampleOutput = `/* Actions file */\n\nconst ADD_TODO = "ADD_TODO";\nconst DELETE_TODO = "DELETE_TODO";\nconst SET_TODO = "SET_TODO";\nconst SET_USERNAME = "SET_USERNAME";\n\nexport const types = {\n  ADD_TODO,\n  DELETE_TODO,\n  SET_TODO,\n  SET_USERNAME,\n}\n\nconst addTodo = (item) => ({\n  type: ADD_TODO,\n  item\n})\n\nconst deleteTodo = (index) => ({\n  type: DELETE_TODO,\n  index\n})\n\nconst setTodo = (index, value) => ({\n  type: SET_TODO,\n  index,\n  value\n})\n\nconst setUsername = (value) => ({\n  type: SET_USERNAME,\n  value\n})\n\n`;
+  let sampleOutput = `/* Actions file */\n\nconst ADD_TODO = "ADD_TODO";\nconst DELETE_TODO = "DELETE_TODO";\nconst SET_TODO = "SET_TODO";\nconst SET_USERNAME = "SET_USERNAME";\n\nexport const types = {\n  ADD_TODO,\n  DELETE_TODO,\n  SET_TODO,\n  SET_USERNAME,\n}\n\nexport const addTodo = (item) => ({\n  type: ADD_TODO,\n  item\n})\n\nexport const deleteTodo = (index) => ({\n  type: DELETE_TODO,\n  index\n})\n\nexport const setTodo = (index, value) => ({\n  type: SET_TODO,\n  index,\n  value\n})\n\nexport const setUsername = (value) => ({\n  type: SET_USERNAME,\n  value\n})\n\n`;
 
   let curDir = path.join(__dirname, '../');
   const { sep } = require('path');
@@ -45,8 +45,8 @@ describe('Action.js file creator', () => {
   });
 
   after((done) => {
-    fs.unlinkSync(actionJs)
-    fs.rmdir(testFolder, done);
+    //fs.unlinkSync(actionJs)
+    //fs.rmdir(testFolder, done);
   });
 
   it(`created an Action.js file in ${testFolder} directory`, (done) => {

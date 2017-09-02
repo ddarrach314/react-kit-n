@@ -82,7 +82,7 @@ const createActionJsContent = (onion, dir, cb) => {
     let type = snakeType.toUpperCase();
     types.push(type);
     // create and save action list to actionList array
-    actionList = actionList.concat(`const ${action.name} = (${actionInput(action.type, target)}) => ({\n  type: ${type},\n  ${actionOutput(action.type, target)}\n})\n\n`);
+    actionList = actionList.concat(`export const ${action.name} = (${actionInput(action.type, target)}) => ({\n  type: ${type},\n  ${actionOutput(action.type, target)}\n})\n\n`);
   });
   //stitch together the header, export and action functions
   actionsJs = actionsJs.concat(makeHeader(types), makeExport(types), actionList);
