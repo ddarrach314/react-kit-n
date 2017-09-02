@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import {connect} from 'react-redux';
-import {actions} from '../actions';
+import actions from '../actions';
 import {bindActionCreators} from 'redux';
 
 class OutputStoreForm extends React.Component {
@@ -29,9 +29,9 @@ class OutputStoreForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.store.lastUpdatedBy !== 'STORE_FORM') {
+    if (nextProps.outputStore.lastUpdatedBy !== 'STORE_FORM') {
       this.setState({
-        storeInput: JSON.stringify(nextProps.store.store)
+        storeInput: JSON.stringify(nextProps.outputStore.outputStore)
       });
     }
   }
@@ -39,7 +39,7 @@ class OutputStoreForm extends React.Component {
   render() {
     return (
       <div>
-        {this.props.store.warning}
+        {this.props.outputStore.warning}
         <textarea value={this.state.storeInput} onChange={this.handleChangeTextArea} ></textarea>
       </div>
     );
@@ -48,7 +48,7 @@ class OutputStoreForm extends React.Component {
 
 OutputStoreForm = connect(
   (state) => (
-    {store: state.outputStoreReducer}
+    {outputStore: state.outputStoreReducer}
   ),
   (dispatch) => (
     {

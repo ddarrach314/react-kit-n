@@ -1,9 +1,9 @@
 import * as types from './types';
 
-export const setOutputStore = (newStore, lastUpdatedBy) => (
+export const setOutputStore = (newOutputStore, lastUpdatedBy) => (
   {
     type: types.SET_OUTPUT_STORE,
-    newStore,
+    newOutputStore,
     lastUpdatedBy
   }
 );

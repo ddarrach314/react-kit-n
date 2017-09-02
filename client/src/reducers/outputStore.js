@@ -11,7 +11,7 @@ const outputStoreReducer = (state = initialState, action) => {
   switch (action.type) {
   case types.SET_OUTPUT_STORE:
     return {
-      outputStore: action.newStore,
+      outputStore: action.newOutputStore,
       warning: '',
       lastUpdatedBy: action.lastUpdatedBy
     };

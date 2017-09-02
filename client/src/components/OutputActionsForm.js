@@ -15,3 +15,9 @@ class OutputActionsForm extends React.Component {
     </div>;
   }
 }
+
+OutputActionsForm = connect(
+  (state) => (
+    {store: state.outputStoreReducer}
+  )
+)(OutputActionsForm);
