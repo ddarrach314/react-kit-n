@@ -65,13 +65,13 @@ const makeExport = (types) => {
   return exp;
 };
 
-const createActionJsContent = (onion) => {
-  //ingredients: whole onion
+const createActionJsContent = (onion, dir, cb) => {
+  //ingredients: whole onion, directory to create file in, callback 
   //process: slice onion for actions layer and store
   let store = onion.store;
   let actions = onion.actions;
   let types = [];
-  let actionList = [];
+  let actionList = '';
   let actionsJs = '/* Actions file */\n\n';
   // pull types out of onion.actions into types array as 'ACTIONTYPE_ACTIONTARGET'
   _.forEach(actions, (action) => {
@@ -90,9 +90,10 @@ const createActionJsContent = (onion) => {
   //create file actions.js in working directory
   
   //create actions.js and write string result to file
-  fs.writeFile(path.join(__dirname, 'actions.js'), actionsJs, (err) => {
+  fs.writeFile(path.join(dir, 'actions.js'), actionsJs, (err) => {
     if(err) throw err;
-    console.log('File write completed for Action.js');
+    // console.log('File write completed for Action.js');
+    cb();
   })
 };
 
