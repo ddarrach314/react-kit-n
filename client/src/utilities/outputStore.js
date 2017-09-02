@@ -1,4 +1,4 @@
-export const getTargetsFromStore = (store) => {
+export const getTargetsFromOutputStore = (outputStore) => {
   let targetsTypes = {};
   let objMapper = (targets, parent = '') => {
     for (var key in targets) {
@@ -15,7 +15,8 @@ export const getTargetsFromStore = (store) => {
       }
       targetsTypes[parent + key] = type;
     }
-  }
-  objMapper(store);
+  };
+  objMapper(outputStore);
   return targetsTypes;
-}
+};
+

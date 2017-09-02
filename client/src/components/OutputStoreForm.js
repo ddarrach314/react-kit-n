@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {actions} from '../actions';
 import {bindActionCreators} from 'redux';
 
-class StoreForm extends React.Component {
+class OutputStoreForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,9 +22,9 @@ class StoreForm extends React.Component {
     let newStoreInput = this.state.storeInput;
     try {
       var parsedNewStoreInput = JSON.parse(newStoreInput);
-      this.props.actions.setStore(parsedNewStoreInput, 'STORE_FORM');
+      this.props.actions.setOutputStore(parsedNewStoreInput, 'STORE_FORM');
     } catch (error) {
-      this.props.actions.setStoreWarning(error.toString());
+      this.props.actions.setOutputStoreWarning(error.toString());
     }
   }
 
@@ -46,15 +46,15 @@ class StoreForm extends React.Component {
   }
 }
 
-StoreForm = connect(
+OutputStoreForm = connect(
   (state) => (
-    {store: state.storeReducer}
+    {store: state.outputStoreReducer}
   ),
   (dispatch) => (
     {
       actions: bindActionCreators(actions, dispatch)
     }
   )
-)(StoreForm);
+)(OutputStoreForm);
 
-export default StoreForm;
+export default OutputStoreForm;

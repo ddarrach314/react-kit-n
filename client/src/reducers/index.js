@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
-import storeReducer from './store';
+import outputStoreReducer from './outputStore';
+import outputActionsReducer from './outputActions';
 
-const reducer = combineReducers({storeReducer});
+const reducer = combineReducers({outputStoreReducer, outputActionsReducer});
 
 export default reducer;

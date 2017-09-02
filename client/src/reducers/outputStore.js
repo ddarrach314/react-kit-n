@@ -2,21 +2,21 @@ import * as types from '../actions/types';
 import _ from 'lodash';
 
 const initialState = {
-  store: {},
+  outputStore: {},
   warning: '',
   lastUpdatedBy: null
 };
 
-const storeReducer = (state = initialState, action) => {
+const outputStoreReducer = (state = initialState, action) => {
   switch (action.type) {
-  case types.SET_STORE:
+  case types.SET_OUTPUT_STORE:
     return {
-      store: action.newStore,
+      outputStore: action.newStore,
       warning: '',
       lastUpdatedBy: action.lastUpdatedBy
     };
 
-  case types.SET_STORE_WARNING:
+  case types.SET_OUTPUT_STORE_WARNING:
     state = _.cloneDeep(state);
     state.warning = action.warning;
     return state;
@@ -25,4 +25,4 @@ const storeReducer = (state = initialState, action) => {
   return state;
 };
 
-export default storeReducer;
+export default outputStoreReducer;
