@@ -1,0 +1,13 @@
+// store
+export const SET_STORE = 'SET_STORE';
+export const SET_STORE_WARNING = 'SET_STORE_WARNING';
+
+// actions
+export const INITIATE_NEW_ACTION = 'INITIATE_NEW_ACTION';
+export const SAVE_ACTION = 'SAVE_ACTION';
+export const ENTER_EDITING = 'ENTER_EDITING';
+export const EXIT_EDITING = 'EXIT_EDITING';
+export const EDIT_ACTION_TYPE = 'EDIT_ACTION_TYPE';
+export const EDIT_ACTION_NAME = 'EDIT_ACTION_NAME';
+export const EDIT_ACTION_TARGET = 'EDIT_ACTION_TARGET';
+export const REMOVE_ACTION = 'REMOVE_ACTION';
