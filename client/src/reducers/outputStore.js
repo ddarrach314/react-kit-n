@@ -19,6 +19,7 @@ const outputStoreReducer = (state = initialState, action) => {
   case types.SET_OUTPUT_STORE_WARNING:
     state = _.cloneDeep(state);
     state.warning = action.warning;
+    state.lastUpdatedBy = action.lastUpdatedBy;
     return state;
 
   }

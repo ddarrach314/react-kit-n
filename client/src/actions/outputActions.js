@@ -1,8 +1,8 @@
 import * as types from './types';
 
-export const createNewOutputAction = () => {
-  type: types.CREATE_NEW_OUTPUT_ACTION;
-};
+export const createNewOutputAction = () => (
+  {type: types.CREATE_NEW_OUTPUT_ACTION}
+);
 
 export const editOutputActionType = (index, newType) => (
   {

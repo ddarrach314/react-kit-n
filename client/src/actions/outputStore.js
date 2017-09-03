@@ -8,9 +8,10 @@ export const setOutputStore = (newOutputStore, lastUpdatedBy) => (
   }
 );
 
-export const setOutputStoreWarning = (warning) => (
+export const setOutputStoreWarning = (warning, lastUpdatedBy) => (
   {
     type: types.SET_OUTPUT_STORE_WARNING,
-    warning
+    warning,
+    lastUpdatedBy
   }
 );

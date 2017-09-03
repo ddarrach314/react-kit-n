@@ -24,7 +24,7 @@ class OutputStoreForm extends React.Component {
       var parsedNewStoreInput = JSON.parse(newStoreInput);
       this.props.actions.setOutputStore(parsedNewStoreInput, 'STORE_FORM');
     } catch (error) {
-      this.props.actions.setOutputStoreWarning(error.toString());
+      this.props.actions.setOutputStoreWarning(error.toString(), 'STORE_FORM');
     }
   }
 
@@ -48,7 +48,7 @@ class OutputStoreForm extends React.Component {
 
 OutputStoreForm = connect(
   (state) => (
-    {outputStore: state.outputStoreReducer}
+    {outputStore: state.outputStore}
   ),
   (dispatch) => (
     {

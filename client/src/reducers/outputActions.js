@@ -17,7 +17,7 @@ const outputActionsReducer = (state = initialState, action) => {
       target: '',
       valid: false
     }];
-    return {ctions, nextId};
+    return {outputActions, nextId};
         
   case types.EDIT_OUTPUT_ACTION_TYPE:
     state = _.cloneDeep(state);
@@ -32,6 +32,7 @@ const outputActionsReducer = (state = initialState, action) => {
   case types.EDIT_OUTPUT_ACTION_TARGET:
     state = _.cloneDeep(state);
     state.outputActions[action.index].target = action.newTarget;
+    state.outputActions[action.index].type = '';
     return state;
 
   case types.EDIT_OUTPUT_ACTION_VALID:
@@ -41,7 +42,7 @@ const outputActionsReducer = (state = initialState, action) => {
 
   case types.REMOVE_OUTPUT_ACTION:
     state = _.cloneDeep(state);
-    state.splice(action.index, 1);
+    state.outputActions.splice(action.index, 1);
     return state;
 
   }

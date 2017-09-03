@@ -4,6 +4,7 @@ import {Provider} from 'react-redux';
 import reducer from './reducers';
 import store from './reduxStore';
 import OutputStoreForm from './components/OutputStoreForm';
+import OutputActionsForm from './components/OutputActionsForm';
 
 class App extends React.Component {
   render() {
@@ -19,7 +20,10 @@ class App extends React.Component {
 const ConnectedApp = () => {
   return (
     <Provider store={store}>
-      <OutputStoreForm />
+      <div>
+        <OutputStoreForm />
+        <OutputActionsForm />
+      </div>
     </Provider>
   );
 };
