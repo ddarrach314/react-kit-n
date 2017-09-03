@@ -1,8 +1,10 @@
-import * as storeUtilities from './store';
-import * as actionsUtilities from './actions';
+import * as outputStoreUtilities from './outputStore';
+import * as outputActionsUtilities from './outputActions';
 import _ from 'lodash';
 
-export const utilities = {
-  store: storeUtilities,
-  actions: actionsUtilities
-}
+const utilities = {
+  outputStore: outputStoreUtilities,
+  outputActions: outputActionsUtilities
+};
+
+export default utilities;

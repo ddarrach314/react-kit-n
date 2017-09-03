@@ -3,14 +3,15 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import reducer from './reducers';
 import store from './reduxStore';
-import StoreForm from './components/StoreForm';
+import OutputStoreForm from './components/OutputStoreForm';
+import OutputActionsForm from './components/OutputActionsForm';
 
 class App extends React.Component {
   render() {
     return (
       <div>
         <h1>Hello World from React</h1>
-        <StoreForm />
+        <OutputStoreForm />
       </div>
     );
   }
@@ -19,7 +20,10 @@ class App extends React.Component {
 const ConnectedApp = () => {
   return (
     <Provider store={store}>
-      <StoreForm />
+      <div>
+        <OutputStoreForm />
+        <OutputActionsForm />
+      </div>
     </Provider>
   );
 };

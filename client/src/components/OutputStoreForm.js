@@ -1,10 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 import {connect} from 'react-redux';
-import {actions} from '../actions';
+import actions from '../actions';
 import {bindActionCreators} from 'redux';
 
-class StoreForm extends React.Component {
+class OutputStoreForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,16 +22,16 @@ class StoreForm extends React.Component {
     let newStoreInput = this.state.storeInput;
     try {
       var parsedNewStoreInput = JSON.parse(newStoreInput);
-      this.props.actions.setStore(parsedNewStoreInput, 'STORE_FORM');
+      this.props.actions.setOutputStore(parsedNewStoreInput, 'STORE_FORM');
     } catch (error) {
-      this.props.actions.setStoreWarning(error.toString());
+      this.props.actions.setOutputStoreWarning(error.toString(), 'STORE_FORM');
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.store.lastUpdatedBy !== 'STORE_FORM') {
+    if (nextProps.outputStore.lastUpdatedBy !== 'STORE_FORM') {
       this.setState({
-        storeInput: JSON.stringify(nextProps.store.store)
+        storeInput: JSON.stringify(nextProps.outputStore.outputStore)
       });
     }
   }
@@ -39,22 +39,22 @@ class StoreForm extends React.Component {
   render() {
     return (
       <div>
-        {this.props.store.warning}
+        {this.props.outputStore.warning}
         <textarea value={this.state.storeInput} onChange={this.handleChangeTextArea} ></textarea>
       </div>
     );
   }
 }
 
-StoreForm = connect(
+OutputStoreForm = connect(
   (state) => (
-    {store: state.storeReducer}
+    {outputStore: state.outputStore}
   ),
   (dispatch) => (
     {
       actions: bindActionCreators(actions, dispatch)
     }
   )
-)(StoreForm);
+)(OutputStoreForm);
 
-export default StoreForm;
+export default OutputStoreForm;

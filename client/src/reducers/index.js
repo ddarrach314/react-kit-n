@@ -1,6 +1,10 @@
 import {combineReducers} from 'redux';
-import storeReducer from './store';
+import outputStoreReducer from './outputStore';
+import outputActionsReducer from './outputActions';
 
-const reducer = combineReducers({storeReducer});
+const reducer = combineReducers({
+  outputStore: outputStoreReducer,
+  outputActions: outputActionsReducer
+});
 
 export default reducer;
