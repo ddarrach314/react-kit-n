@@ -20,9 +20,18 @@ class App extends React.Component {
 const ConnectedApp = () => {
   return (
     <Provider store={store}>
-      <div>
-        <OutputStoreForm />
-        <OutputActionsForm />
+      <div className="container">
+        <nav className="navbar navbar-custom">
+          <h1 className="navbar-brand">
+            <a href="" className="navbar-brand">Redux-Kit-N</a>
+          </h1>
+        </nav>
+        <div className="row no-gutters pageContent">
+          <OutputStoreForm />
+          <OutputActionsForm />
+          <div className="col-2"></div>
+          <div className="col-2"></div>
+        </div>
       </div>
     </Provider>
   );

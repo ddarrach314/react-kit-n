@@ -91,10 +91,10 @@ const createActionJsContent = (onion, dir, cb) => {
   
   //create actions.js and write string result to file
   fs.writeFile(path.join(dir, 'actions.js'), actionsJs, (err) => {
-    if(err) throw err;
+    if (err) { throw err; }
     // console.log('File write completed for Action.js');
     cb();
-  })
+  });
 };
 
 module.exports.createActionJsContent = createActionJsContent;
