@@ -48,6 +48,7 @@
     "grunt": "~0.4.5",
     "grunt-eslint": "^19.0.0",
     "grunt-mocha-test": "^0.13.2",
+    "jest": "^20.0.4",
     "mocha": "^3.2.0",
     "node-mocks-http": "^1.6.1",
     "supertest": "^3.0.0",
