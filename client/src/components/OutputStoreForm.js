@@ -37,6 +37,7 @@ class OutputStoreForm extends React.Component {
   }
 
   componentDidMount() {
+    var context = this;
     var textareas = document.getElementsByTagName('textarea');
     var count = textareas.length;
     for (var i = 0; i < count; i++) {
@@ -46,6 +47,7 @@ class OutputStoreForm extends React.Component {
           var s = this.selectionStart;
           this.value = this.value.substring(0, this.selectionStart) + '\t' + this.value.substring(this.selectionEnd);
           this.selectionEnd = s + 1; 
+          context.setState({storeInput: this.value}, context.processTextArea);
         }
       };
     }
@@ -57,8 +59,7 @@ class OutputStoreForm extends React.Component {
         <h2>Store</h2>
         <textarea className="outputStoreFormTextArea"
           value={this.state.storeInput}
-          onChange={this.handleChangeTextArea}
-        ></textarea>
+          onChange={this.handleChangeTextArea}/>
         <div className="outputStoreFormError">{this.props.outputStore.warning}</div>
       </div>
     );
