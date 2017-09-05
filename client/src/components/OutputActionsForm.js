@@ -11,7 +11,7 @@ let actions = bindActionCreators(unboundActions, store.dispatch);
 class OutputActionsForm extends React.Component {
   render() {
     return (
-      <div className="col-5">
+      <div className="col-4">
         <div className="outputActionsHeading">
           <h2>Actions</h2>
           <button className="btn btn-md btn-primary btn-block" onClick={actions.createNewOutputAction}>Add Action</button>
@@ -84,8 +84,8 @@ class OutputAction extends React.Component {
               )}
             </select>
           </div>
-          <button className="col-3 align-self-end removeOutputAction btn btn-sm btn-primary btn-block"
-            onClick={this.handleClickRemove.bind(this)}>Remove Action</button>
+          <i className="material-icons col-3 align-self-end removeOutputAction" 
+            onClick={this.handleClickRemove.bind(this)}>delete</i>
         </div>
       </div>
     );

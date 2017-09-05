@@ -1,5 +1,6 @@
 html, body {
   color: #484848;
+  background-color: #f9f9f9;
 }
 
 .container {
@@ -35,6 +36,24 @@ p {
 
 .pageContent {
   padding: 40px 7.5vw 0 7.5vw;
+}
+
+.outputComponents {
+  width: 100%;
+  height: 60vh;
+  border: thin solid #484848;
+  overflow: scroll;
+}
+
+.outputComponentListItem {
+  display: flex;
+}
+
+.tree {
+  width: 100%;
+  height: 60vh;
+  border: thin solid #484848;
+  overflow: scroll;
 }
 
 .outputStoreFormTextArea {
