@@ -60,22 +60,31 @@ class OutputAction extends React.Component {
           {JSON.stringify(this.props.outputAction)}
         </div>
         <div className="row no-gutters">
-          <input className="col-3" value={this.props.outputAction.name} onChange={this.handleChangeName.bind(this)}></input>
-          <select className="col-3" value={this.props.outputAction.target} onChange={this.handleChangeTarget.bind(this)}>
-            <option value=''></option>
-            {Object.keys(this.props.targetsTypes).map((target) => (
-              <option value={target}>{target}</option>
-            )
-            )}
-          </select>
-          <select className="col-3" value={this.props.outputAction.type} onChange={this.handleChangeType.bind(this)}>
-            <option value=''></option>
-            {utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.props.outputAction.target]).map((type) => (
-              <option value={type}>{type}</option>
-            )
-            )}
-          </select>
-          <button className="col-3 btn btn-sm btn-primary btn-block"
+          <div className="col-3">
+            <p>Name</p>
+            <input className="outputActionName" value={this.props.outputAction.name} onChange={this.handleChangeName.bind(this)}></input>
+          </div>
+          <div className="col-3">
+            <p>Target</p>
+            <select className="outputActionSelect" value={this.props.outputAction.target} onChange={this.handleChangeTarget.bind(this)}>
+              <option value=''></option>
+              {Object.keys(this.props.targetsTypes).map((target) => (
+                <option value={target}>{target}</option>
+              )
+              )}
+            </select>
+          </div>
+          <div className="col-3">
+            <p>Type</p>
+            <select className="outputActionSelect" value={this.props.outputAction.type} onChange={this.handleChangeType.bind(this)}>
+              <option value=''></option>
+              {utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.props.outputAction.target]).map((type) => (
+                <option value={type}>{type}</option>
+              )
+              )}
+            </select>
+          </div>
+          <button className="col-3 align-self-end removeOutputAction btn btn-sm btn-primary btn-block"
             onClick={this.handleClickRemove.bind(this)}>Remove Action</button>
         </div>
       </div>
