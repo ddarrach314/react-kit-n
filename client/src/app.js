@@ -5,28 +5,8 @@ import reducer from './reducers';
 import store from './reduxStore';
 import OutputStoreForm from './components/OutputStoreForm';
 import OutputActionsForm from './components/OutputActionsForm';
-import Tree from './components/Tree';
-import OutputComponentList from './components/OutputComponentList';
+import ComponentsAndTree from './components/ComponentsAndTree';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-const sampleOutputComponents = {
-  '0': {
-    name: 'App',
-    children: ['1', '3']
-  },
-  '1': {
-    name: 'Child1',
-    children: ['4']
-  },
-  '3': {
-    name: 'Child2',
-    children: []
-  },
-  '4': {
-    name: 'Grandchild1',
-    children: []
-  }
-};
 
 class App extends React.Component {
   render() {
@@ -50,8 +30,7 @@ const ConnectedApp = () => {
             </h1>
           </nav>
           <div className="row no-gutters pageContent">
-            <OutputComponentList outputComponents={sampleOutputComponents}/>
-            <Tree outputComponents={sampleOutputComponents}/>
+            <ComponentsAndTree />
             <OutputStoreForm />
             <OutputActionsForm />
           </div>

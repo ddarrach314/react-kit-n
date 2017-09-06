@@ -11,10 +11,11 @@ let actions = bindActionCreators(unboundActions, store.dispatch);
 class OutputActionsForm extends React.Component {
   render() {
     return (
-      <div className="col-sm-3 outputActionsCol">
+      <div className="col-md-3 outputActionsCol">
         <div className="outputActionsHeading">
-          <h2>Actions</h2>
-          <button className="addActionButton btn btn-md btn-primary btn-block" onClick={actions.createNewOutputAction}>Add Action</button>
+          <h3>Actions</h3>
+          <i className="material-icons addActionButton"
+            onClick={actions.createNewOutputAction}>library_add</i>
         </div>
         <div className="outputActionsList">
           {this.props.outputActions.outputActions.map((outputAction, index) => (

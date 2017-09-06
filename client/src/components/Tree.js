@@ -5,8 +5,8 @@ import utilities from '../utilities/index';
 class Tree extends React.Component {
   render() {
     return (
-      <div className="col-sm-3 treeCol">
-        <h2>App Tree</h2>
+      <div className="col-md-6 treeCol">
+        <h3>App Tree</h3>
         <div className="tree">
           {utilities.tree.generateTreeArray(this.props.outputComponents)}
         </div>
