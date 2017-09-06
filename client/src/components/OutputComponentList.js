@@ -5,7 +5,7 @@ import _ from 'lodash';
 class OutputComponentList extends React.Component {
   render() {
     return (
-      <div className="col-2">
+      <div className="col-sm-2 outputComponentsCol">
         <h2>Components</h2>
         <div className="outputComponents">
           {_.map(this.props.outputComponents, (outputComponent) => (

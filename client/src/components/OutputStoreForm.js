@@ -55,7 +55,7 @@ class OutputStoreForm extends React.Component {
 
   render() {
     return (
-      <div className="col-3">
+      <div className="col-sm-3 outputStoreCol">
         <h2>Store</h2>
         <textarea className="outputStoreFormTextArea"
           value={this.state.storeInput}
