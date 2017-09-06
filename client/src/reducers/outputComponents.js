@@ -49,7 +49,7 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       if (action.id === '0') {
         throw 'You may not remove initial app component.';
       }
-      console.log(action);
+
       newState = makeMutableCopy(state, `components.${action.id}`);
       delete newState.components[action.id];
       return newState;
