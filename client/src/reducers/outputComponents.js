@@ -21,8 +21,8 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
   try {
     switch (action.type) {
     case types.SELECT_COMPONENT:
-      if (action.id in components) {
-        return _.assign({selected: action.id}, state);
+      if (action.id in state.components) {
+        return _.assign({}, state, {selected: action.id});
       } else {
         throw 'The component id you passed does not exist in state.components.';
       }
