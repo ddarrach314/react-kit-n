@@ -4,6 +4,8 @@ const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 
+const types = [];
+
 const actionInput = (type, target) => {
   //take in type from action and target
   if (type === 'add') { return 'item'; }
@@ -65,12 +67,11 @@ const makeExport = (types) => {
   return exp;
 };
 
-const createActionJsContent = (onion, dir, cb) => {
+const createActionJs = (onion, dir, cb) => {
   //ingredients: whole onion, directory to create file in, callback 
   //process: slice onion for actions layer and store
   let store = onion.store;
   let actions = onion.actions;
-  let types = [];
   let actionList = '';
   let actionsJs = '/* Actions file */\n\n';
   // pull types out of onion.actions into types array as 'ACTIONTYPE_ACTIONTARGET'
@@ -82,7 +83,7 @@ const createActionJsContent = (onion, dir, cb) => {
     let type = snakeType.toUpperCase();
     types.push(type);
     // create and save action list to actionList array
-    actionList = actionList.concat(`const ${action.name} = (${actionInput(action.type, target)}) => ({\n  type: ${type},\n  ${actionOutput(action.type, target)}\n})\n\n`);
+    actionList = actionList.concat(`export const ${action.name} = (${actionInput(action.type, target)}) => ({\n  type: ${type},\n  ${actionOutput(action.type, target)}\n})\n\n`);
   });
   //stitch together the header, export and action functions
   actionsJs = actionsJs.concat(makeHeader(types), makeExport(types), actionList);
@@ -97,4 +98,4 @@ const createActionJsContent = (onion, dir, cb) => {
   });
 };
 
-module.exports.createActionJsContent = createActionJsContent;
+module.exports.createActionJs = createActionJs;
