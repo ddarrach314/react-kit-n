@@ -47,6 +47,16 @@ p {
 
 .outputComponentListItem {
   display: flex;
+  height: 25px;
+}
+
+.outputComponentListItemName {
+  width: 50%;
+  height: 100%;
+}
+
+.outputComponentListItemInput {
+  width: 100%;
 }
 
 .tree {
