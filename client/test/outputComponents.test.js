@@ -7,7 +7,7 @@ const actionAppliers = createActionAppliers(actions, reducer);
 
 const initialState = {
   selected: '0',
-  nextId: '1',
+  nextId: 1,
   components: {
     0: {
       name: 'App',
@@ -31,5 +31,9 @@ describe('Component reducer functions', () => {
       .toEqual({name: 'Component1', children: []});
     expect(state.components[2])
       .toEqual({name: 'Component2', children: []});
+  });
+
+  test('Updates components correctly', () => {
+    let state = actionAppliers.addComponent(initialState);
   });
 });

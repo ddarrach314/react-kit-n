@@ -6,7 +6,7 @@ const { makeMutableCopy } = utils;
 
 const initialState = {
   selected: '0',
-  nextId: '1',
+  nextId: 1,
   components: {
     0: {
       name: 'App',
@@ -28,11 +28,12 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       }
 
     case types.ADD_COMPONENT:
-      newState = makeMutableCopy(state, 'components.0');
+      newState = makeMutableCopy(state, 'components.0', 'nextId');
       newState.components[state.nextId] = {
         name: `Component${state.nextId}`,
         children: []
       };
+      newState.nextId += 1;
       return newState;
 
     case types.UPDATE_COMPONENT:
