@@ -47,5 +47,5 @@ describe('Component reducer functions', () => {
     state1 = actionAppliers.addComponent(state1);
     let state2 = actionAppliers.removeComponent(state1, '1');
     expect(keys(state2.components)).toEqual(['0', '2']);
-  })
+  });
 });
