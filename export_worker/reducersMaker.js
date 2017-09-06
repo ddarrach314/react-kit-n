@@ -2,12 +2,8 @@ const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 
-/*
-**NOTE:  actionsMaker.js MUST be run and complete before reducersMaker is called.
-Reducers relies on the types array being populated to avoid having to re-create it.
-Composer.js should handle this through promise chains.   
-
-This module will create the reducers file  main funciton will require the following inputs:
+/*  
+This module will create the reducers file  main function will require the following inputs:
   1: Onion object (onion)
   2: working directory to add file to (dir)
   3: callBack to trigger next part of the chain (callBack) 
@@ -56,7 +52,7 @@ const createReducersJs = (onion, dir, cb) => {
     reducersJs = reducersJs.concat(caseMaker(action, target));
   })
 
-  let defaultAndExport = `\n    default:\n      return state;\n  };\n};\n\nexport default reducer\n`;
+  let defaultAndExport = `\n    default:\n      return state;\n  };\n};\n\nexport default reducer;\n`;
   //zip everything together and create file!!! 
   reducersJs = reducersJs.concat(defaultAndExport);
 
