@@ -13,7 +13,7 @@ class OutputActionsForm extends React.Component {
     return (
       <div className="col-md-3 outputActionsCol">
         <div className="outputActionsHeading">
-          <h3>Actions</h3>
+          <h4>Actions</h4>
           <i className="material-icons addActionButton"
             onClick={actions.createNewOutputAction}>add_circle_outline</i>
         </div>

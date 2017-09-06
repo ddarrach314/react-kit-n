@@ -56,7 +56,7 @@ class OutputStoreForm extends React.Component {
   render() {
     return (
       <div className="col-md-3 outputStoreCol">
-        <h3>Store</h3>
+        <h4>Store</h4>
         <textarea className="outputStoreFormTextArea"
           value={this.state.storeInput}
           onChange={this.handleChangeTextArea}/>
