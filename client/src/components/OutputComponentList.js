@@ -26,8 +26,8 @@ class OutputComponentList extends React.Component {
             onClick={this.handleClickAdd}>library_add</i>
         </div>
         <div className="outputComponents">
-          {_.map(this.props.outputComponents, (outputComponent) => (
-            <OutputComponentListItem name={outputComponent.name} />
+          {_.map(this.props.outputComponents, (outputComponent, id) => (
+            <OutputComponentListItem outputComponent={outputComponent} id={id} />
           )
           )}
         </div>
