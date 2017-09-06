@@ -1,29 +1,56 @@
 // let exampleOnion = {
 //   store: {
-//     todos: []
+//     todos: [],
 //     username: null
 //   },
 
 //   actions: {
 //     1: {
-//       name: 'addTodo'
-//       type: 'add'
+//       name: 'addTodo',
+//       type: 'add',
 //       target: 'todos'
 //     },
 //     2: {
-//       name 'deleteTodo',
+//       name: 'deleteTodo',
 //       type: 'delete',
 //       target: 'todos',
 //     },
 //     3: {
 //       name: 'setTodo',
 //       type: 'setIn'
-//     }
+//     },
 //     4: {
 //       name: 'setUsername',
 //       type: 'set'
 //     }
-//   }
+//   },
+
+//   components: {
+//     1: {
+//       name: 'componentName',
+//       children: [2, 3, 4]
+//     },
+
+//     2: {
+//       name: 'exampleChild',
+//       children: []
+//     },
+
+//     3: {
+//       name: 'exampleChild2',
+//       children: [5]
+//     },
+
+//     4: {
+//       name: 'exampleChildList',
+//       children: []
+//     },
+
+//     5: {
+//       name: 'exampleChildOfChild',
+//       children: []
+//     }
+//   },
 // }
 
 // /*files
@@ -62,3 +89,5 @@
 //   type: SET_USERNAME,
 //   value
 // }
+
+
