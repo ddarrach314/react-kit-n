@@ -9,16 +9,10 @@ class OutputComponentListItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      hover: false,
       editing: false,
-      hover: false
+      expanded: false
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handlePencilClick = this.handlePencilClick.bind(this);
-    this.handleCheckClick = this.handleCheckClick.bind(this);
-    this.handleMouseEnter = this.handleMouseEnter.bind(this);
-    this.handleMouseLeave = this.handleMouseLeave.bind(this);
-    this.handleClickRemove = this.handleClickRemove.bind(this);
   }
 
   handleSubmit(event) {
@@ -50,19 +44,40 @@ class OutputComponentListItem extends React.Component {
     actions.removeComponent(this.props.id);
   }
 
+  handleClickExpand() {
+    this.setState({expanded: true});
+  }
+
+  handleClickHide() {
+    this.setState({expanded: false});
+  }
+
   render() {
     return this.state.editing ? (
       <div className="outputComponentListItem">
-        <form className="outputComponentListItemName" onSubmit={this.handleSubmit}>
-          <input className="outputComponentListItemInput" onChange={this.handleChange} value={this.props.outputComponent.name}/>
+        <form className="outputComponentListItemName" onSubmit={this.handleSubmit.bind(this)}>
+          <input className="outputComponentListItemInput" onChange={this.handleChange.bind(this)} value={this.props.outputComponent.name}/>
         </form>
-        <i className="material-icons" onClick={this.handleCheckClick}>done</i>
+        <i className="material-icons" onClick={this.handleCheckClick.bind(this)}>done</i>
       </div>
     ) : (
-      <div className="outputComponentListItem" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
-        <div className="outputComponentListItemName">{this.props.outputComponent.name}</div>
-        {this.state.hover && <i className="material-icons" onClick={this.handlePencilClick}>mode_edit</i>}
-        {this.state.hover && <i className="material-icons" onClick={this.handleClickRemove}>delete</i>}
+      <div>
+        <div className="outputComponentListItem" onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>
+          <div className="outputComponentListItemName">{this.props.outputComponent.name}</div>
+          {this.state.hover && this.state.expanded && <i className="material-icons" onClick={this.handleClickHide.bind(this)}>keyboard_arrow_up</i>}
+          {this.state.hover && !this.state.expanded && <i className="material-icons" onClick={this.handleClickExpand.bind(this)}>keyboard_arrow_down</i>}
+          {this.state.hover && <i className="material-icons" onClick={this.handlePencilClick.bind(this)}>mode_edit</i>}
+          {this.state.hover && <i className="material-icons" onClick={this.handleClickRemove.bind(this)}>clear</i>}
+        </div>
+        {this.state.expanded &&
+          <div>
+            <div>Children:</div>
+            {this.props.outputComponent.children.map((child) => (
+              <div>{this.props.outputComponents[child].name}</div>
+            )
+            )}
+          </div>
+        }
       </div>
     );
 

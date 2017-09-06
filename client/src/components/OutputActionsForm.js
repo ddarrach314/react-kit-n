@@ -15,7 +15,7 @@ class OutputActionsForm extends React.Component {
         <div className="outputActionsHeading">
           <h3>Actions</h3>
           <i className="material-icons addActionButton"
-            onClick={actions.createNewOutputAction}>library_add</i>
+            onClick={actions.createNewOutputAction}>add_circle_outline</i>
         </div>
         <div className="outputActionsList">
           {this.props.outputActions.outputActions.map((outputAction, index) => (
@@ -86,7 +86,7 @@ class OutputAction extends React.Component {
             </select>
           </div>
           <i className="material-icons col-1 align-self-end removeOutputAction" 
-            onClick={this.handleClickRemove.bind(this)}>delete</i>
+            onClick={this.handleClickRemove.bind(this)}>clear</i>
         </div>
       </div>
     );

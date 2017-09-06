@@ -23,11 +23,11 @@ class OutputComponentList extends React.Component {
         <div className="outputComponentsHeading">
           <h3>Components</h3>
           <i className="material-icons addComponentButton"
-            onClick={this.handleClickAdd}>library_add</i>
+            onClick={this.handleClickAdd}>add_circle_outline</i>
         </div>
         <div className="outputComponents">
           {_.map(this.props.outputComponents, (outputComponent, id) => (
-            <OutputComponentListItem outputComponent={outputComponent} id={id} />
+            <OutputComponentListItem outputComponents={this.props.outputComponents} outputComponent={outputComponent} id={id} />
           )
           )}
         </div>
