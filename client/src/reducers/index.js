@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import outputStoreReducer from './outputStore';
 import outputActionsReducer from './outputActions';
-import outputComponentsReducer from './outputActions';
+import outputComponentsReducer from './outputComponents';
 
 const reducer = combineReducers({
   outputStore: outputStoreReducer,
