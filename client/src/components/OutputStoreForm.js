@@ -45,8 +45,8 @@ class OutputStoreForm extends React.Component {
         if (e.keyCode === 9 || e.which === 9) {
           e.preventDefault();
           var s = this.selectionStart;
-          this.value = this.value.substring(0, this.selectionStart) + '\t' + this.value.substring(this.selectionEnd);
-          this.selectionEnd = s + 1; 
+          this.value = this.value.substring(0, this.selectionStart) + '  ' + this.value.substring(this.selectionEnd);
+          this.selectionEnd = s + 2; 
           context.setState({storeInput: this.value}, context.processTextArea);
         }
       };
