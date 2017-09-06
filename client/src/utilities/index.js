@@ -14,6 +14,7 @@ const splitOnFirstPeriod = (string) => {
     return [string];
   }
 };
+
 const makeMutableCopy = (obj, ...lookups) => {
   /*
     Accepts on object and lookups paths.
