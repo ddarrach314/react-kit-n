@@ -2,7 +2,7 @@ import * as types from './types';
 
 export const selectComponent = (id) => ({
   type: types.SELECT_COMPONENT,
-  id
+  id: id.toString()
 });
 
 export const addComponent = () => ({
@@ -11,13 +11,13 @@ export const addComponent = () => ({
 
 export const updateComponent = (id, update) => ({
   type: types.UPDATE_COMPONENT,
-  id: id,
+  id: id.toString(),
   update: update
 });
 
 export const removeComponent = (id) => ({
   type: types.REMOVE_COMPONENT,
-  id
+  id: id.toString()
 });
 
 export const addChildComponent = ({parent, child}) => ({

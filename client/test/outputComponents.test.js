@@ -33,6 +33,13 @@ describe('Component reducer functions', () => {
       .toEqual({name: 'Component2', children: []});
   });
 
+  test('Selects components correctly', () => {
+    let state1 = actionAppliers.addComponent(initialState);
+    let state2 = actionAppliers.selectComponent(state1, '1');
+    expect(state2).not.toBe(state1);
+    expect(state2.selected).toEqual('1');
+  });
+
   test('Updates components correctly', () => {
     let state1 = actionAppliers.addComponent(initialState);
     let state2 = actionAppliers.updateComponent(state1, 1, {name: 'test'});
