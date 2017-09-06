@@ -20,8 +20,14 @@ export const removeComponent = (id) => ({
   id
 });
 
-export const specifyChildComponent = ({parent, child}) => ({
-  type: types.SPECIFY_CHILD_COMPONENT,
-  parent,
-  child
+export const addChildComponent = ({parent, child}) => ({
+  type: types.ADD_CHILD_COMPONENT,
+  parent: parent.toString(),
+  child: child.toString()
+});
+
+export const removeChildComponent = ({parent, childIndex}) => ({
+  type: types.REMOVE_CHILD_COMPONENT,
+  parent: parent.toString(),
+  childIndex
 });

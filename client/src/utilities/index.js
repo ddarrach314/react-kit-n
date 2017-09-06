@@ -46,10 +46,9 @@ const makeMutableCopy = (obj, ...lookups) => {
     let copiedKeys = _.mapValues(
       lookupsByFirstKey,
       (shiftedLookup, key) => {
-        return makeMutableCopy(obj[key], shiftedLookup);
+        return makeMutableCopy(obj[key], ...shiftedLookup);
       }
     );
-
     let initial = Array.isArray(obj)
       ? []
       : {};
