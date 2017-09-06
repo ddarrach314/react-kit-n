@@ -34,6 +34,18 @@ describe('Component reducer functions', () => {
   });
 
   test('Updates components correctly', () => {
-    let state = actionAppliers.addComponent(initialState);
+    let state1 = actionAppliers.addComponent(initialState);
+    let state2 = actionAppliers.updateComponent(state1, 1, {name: 'test'});
+
+    expect(state2.components[1].name).toBe('test');
+    expect(state1.components[1]).not.toBe(state2.components[1]);
+    expect(state1.components[0]).toBe(state2.components[0]);
   });
+
+  test('Removes components correctly', () => {
+    let state1 = actionAppliers.addComponent(initialState);
+    state1 = actionAppliers.addComponent(state1);
+    let state2 = actionAppliers.removeComponent(state1, '1');
+    expect(keys(state2.components)).toEqual(['0', '2']);
+  })
 });

@@ -37,7 +37,7 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       return newState;
 
     case types.UPDATE_COMPONENT:
-      newState = makeMutableCopy(state, `component.${action.id}`);
+      newState = makeMutableCopy(state, `components.${action.id}`);
       newState.components[action.id] = _.assign(
         {},
         newState.components[action.id],
@@ -49,9 +49,9 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       if (action.id === '0') {
         throw 'You may not remove initial app component.';
       }
-
+      console.log(action);
       newState = makeMutableCopy(state, `components.${action.id}`);
-      delete newState[action.id];
+      delete newState.components[action.id];
       return newState;
 
     case types.SPECIFY_CHILD_COMPONENT:
