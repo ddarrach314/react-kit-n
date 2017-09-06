@@ -54,7 +54,7 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       delete newState.components[action.id];
       return newState;
 
-    case types.SPECIFY_CHILD_COMPONENT:
+    case types.ADD_CHILD_COMPONENT:
       if (action.parent in state.components[action.child]) {
         throw 'You may not add a child to a parent if the child has the parent as a child';
       } else if (action.parent === action.child) {
@@ -67,12 +67,29 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
 
       let newState = makeMutableCopy(
         state,
-        `components.${action.parent}.children`
+        `components.${action.parent}.children.0`
       );
 
-      newState.components[action.parents].children += action.child;
+      newState.components[action.parent].children.push(
+        action.child
+      );
+
+      return newState;
+
+    case types.REMOVE_CHILD_COMPONENT:
+      if (!(action.parent in state.components)) {
+        throw 'The specified parent id does not exist';
+      }
+
+      newState = makeMutableCopy(
+        state,
+        `components.${action.parent}.children.${action.childIndex}`
+      );
+
+      newState.components[action.parent].children.splice(action.childIndex, 1);
       return newState;
     }
+
   } catch (err) {
     console.log(err);
   }

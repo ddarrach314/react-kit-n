@@ -43,9 +43,64 @@ describe('Component reducer functions', () => {
   });
 
   test('Removes components correctly', () => {
-    let state1 = actionAppliers.addComponent(initialState);
-    state1 = actionAppliers.addComponent(state1);
+    let setup = actionAppliers.addComponent(initialState);
+    let state1 = actionAppliers.addComponent(setup);
     let state2 = actionAppliers.removeComponent(state1, '1');
-    expect(keys(state2.components)).toEqual(['0', '2']);
+    expect(Object.keys(state2.components)).toEqual(['0', '2']);
+    expect(state2.components).not.toBe(state1.components);
+  });
+
+  test('Adds child components', () => {
+    let setup = actionAppliers.addComponent(initialState);
+    let state1 = actionAppliers.addComponent(setup);
+    let state2 = actionAppliers.addChildComponent(state1, {
+      parent: '0',
+      child: '1'
+    });
+    let state3 = actionAppliers.addChildComponent(state2, {
+      parent: '0',
+      child: '2'
+    });
+
+    expect(state1.components[0].children).not.toBe(
+      state2.components[0].children
+    );
+    expect(state2.components[0].children).toEqual(['1']);
+    expect(state3.components[0].children).toEqual(['1', '2']);
+  });
+
+  test('Removes child components', () => {
+
+    let setup = actionAppliers.addComponent(initialState);
+    setup = actionAppliers.addComponent(setup);
+    setup = actionAppliers.addChildComponent(setup, {
+      parent: '0',
+      child: '1'
+    });
+    let state1 = actionAppliers.addChildComponent(setup, {
+      parent: '0',
+      child: '2'
+    });
+    let state2 = actionAppliers.removeChildComponent(state1, {
+      parent: '0',
+      childIndex: 0
+    });
+
+    let state3 = actionAppliers.removeChildComponent(state1, {
+      parent: '0',
+      childIndex: 1
+    });
+
+    let state4 = actionAppliers.removeChildComponent(state1, {
+      parent: '0',
+      childIndex: 2
+    });
+
+    expect(state2.components[0].children).not.toBe(
+      state1.components[0].children
+    );
+    expect(state2.components[0].children).toEqual(['2']);
+    expect(state3.components[0].children).toEqual(['1']);
+    expect(state4.components[0].children).toEqual(['1', '2']);
   });
 });
