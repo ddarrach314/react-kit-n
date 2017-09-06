@@ -11,10 +11,11 @@ let actions = bindActionCreators(unboundActions, store.dispatch);
 class OutputActionsForm extends React.Component {
   render() {
     return (
-      <div className="col-4">
+      <div className="col-md-3 outputActionsCol">
         <div className="outputActionsHeading">
-          <h2>Actions</h2>
-          <button className="btn btn-md btn-primary btn-block" onClick={actions.createNewOutputAction}>Add Action</button>
+          <h4>Actions</h4>
+          <i className="material-icons addActionButton"
+            onClick={actions.createNewOutputAction}>add_circle_outline</i>
         </div>
         <div className="outputActionsList">
           {this.props.outputActions.outputActions.map((outputAction, index) => (
@@ -64,7 +65,7 @@ class OutputAction extends React.Component {
             <p>Name</p>
             <input className="outputActionName" value={this.props.outputAction.name} onChange={this.handleChangeName.bind(this)}></input>
           </div>
-          <div className="col-3">
+          <div className="col-4">
             <p>Target</p>
             <select className="outputActionSelect" value={this.props.outputAction.target} onChange={this.handleChangeTarget.bind(this)}>
               <option value=''></option>
@@ -74,7 +75,7 @@ class OutputAction extends React.Component {
               )}
             </select>
           </div>
-          <div className="col-3">
+          <div className="col-4">
             <p>Type</p>
             <select className="outputActionSelect" value={this.props.outputAction.type} onChange={this.handleChangeType.bind(this)}>
               <option value=''></option>
@@ -84,8 +85,8 @@ class OutputAction extends React.Component {
               )}
             </select>
           </div>
-          <i className="material-icons col-3 align-self-end removeOutputAction" 
-            onClick={this.handleClickRemove.bind(this)}>delete</i>
+          <i className="material-icons col-1 align-self-end removeOutputAction" 
+            onClick={this.handleClickRemove.bind(this)}>clear</i>
         </div>
       </div>
     );
