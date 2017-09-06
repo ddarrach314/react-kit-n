@@ -1,5 +1,6 @@
 import * as outputStoreUtilities from './outputStore';
 import * as outputActionsUtilities from './outputActions';
+import * as treeUtilities from './tree';
 import _ from 'lodash';
 
 const splitOnFirstPeriod = (string) => {
@@ -59,7 +60,8 @@ const makeMutableCopy = (obj, ...lookups) => {
 const utilities = {
   makeMutableCopy,
   outputStore: outputStoreUtilities,
-  outputActions: outputActionsUtilities
+  outputActions: outputActionsUtilities,
+  tree: treeUtilities
 };
 
 export default utilities;
