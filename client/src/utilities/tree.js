@@ -3,13 +3,13 @@ import _ from 'lodash';
 
 export const generateTreeArray = (outputComponents, TreeBranch) => {
   let treeArray = [];
-  let traverseOutputComponents = (indent, id) => {
-    treeArray.push(<TreeBranch name={outputComponents[id].name} indent={indent} id={id}/>);
-    outputComponents[id].children.forEach((child) => {
-      traverseOutputComponents(indent + 20, child.componentId);
+  let traverseOutputComponents = (indent, componentId, outputPropsHash) => {
+    treeArray.push(<TreeBranch name={outputComponents[componentId].name} indent={indent} id={componentId} outputPropsHash={outputPropsHash}/>);
+    outputComponents[componentId].children.forEach((child) => {
+      traverseOutputComponents(indent + 20, child.componentId, `${outputPropsHash}.${child.childId}`);
     });
   };
-  traverseOutputComponents(0, '0');
+  traverseOutputComponents(0, '0', '0');
   return treeArray;
 };
 
