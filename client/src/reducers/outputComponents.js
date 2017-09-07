@@ -74,8 +74,8 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       );
 
       newState.components[action.parent].children.push({
-        cId: action.child,
-        pId: newState.components[action.parent].nextId.toString()
+        componentId: action.child,
+        childId: newState.components[action.parent].nextId.toString()
       });
 
       newState.components[action.parent].nextId += 1;

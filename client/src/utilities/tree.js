@@ -5,7 +5,7 @@ export const generateTreeArray = (outputComponents, TreeBranch) => {
   let traverseOutputComponents = (indent, id) => {
     treeArray.push(<TreeBranch name={outputComponents[id].name} indent={indent} id={id}/>);
     outputComponents[id].children.forEach((child) => {
-      traverseOutputComponents(indent + 20, child);
+      traverseOutputComponents(indent + 20, child.componentId);
     });
   };
   traverseOutputComponents(0, '0');
