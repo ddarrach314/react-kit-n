@@ -1,6 +1,6 @@
 import React from 'react';
-import TreeBranch from './TreeBranch';
 import utilities from '../utilities/index';
+import TreeBranch from './TreeBranch';
 
 class Tree extends React.Component {
   render() {
@@ -8,7 +8,10 @@ class Tree extends React.Component {
       <div className="col-md-8 treeCol">
         <h4>App Tree</h4>
         <div className="tree">
-          {utilities.tree.generateTreeArray(this.props.outputComponents)}
+          {utilities.tree.generateTreeArray(
+            this.props.outputComponents,
+            TreeBranch
+          )}
         </div>
       </div>
     );
