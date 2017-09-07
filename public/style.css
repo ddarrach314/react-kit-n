@@ -74,6 +74,16 @@ p {
   width: 100%;
 }
 
+.move {
+  cursor: move;
+  user-select: none;
+}
+
+.pointer {
+  cursor: pointer;
+  user-select: none;
+}
+
 .componentsAndTreeCol {
   /*margin-right: 15px;*/
 }
@@ -107,6 +117,7 @@ p {
   color: #268bd2;
   background-color: #f8f5ec;
   padding: 5px 5px 5px 5px;
+  font-family: 'Consolas';
 }
 
 textarea:focus {

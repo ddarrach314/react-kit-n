@@ -52,6 +52,10 @@ class OutputComponentListItem extends React.Component {
     this.setState({expanded: false});
   }
 
+  handleDrag(event) {
+    event.dataTransfer.setData('text', this.props.id);
+  }
+
   render() {
     return this.state.editing ? (
       <div className="outputComponentListItem">
@@ -63,7 +67,7 @@ class OutputComponentListItem extends React.Component {
     ) : (
       <div>
         <div className="outputComponentListItem" onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>
-          <div className="outputComponentListItemName">{this.props.outputComponent.name}</div>
+          <div className="outputComponentListItemName move" draggable="true" onDragStart={this.handleDrag.bind(this)}>{this.props.outputComponent.name}</div>
           {this.state.hover && this.state.expanded && <i className="material-icons" onClick={this.handleClickHide.bind(this)}>keyboard_arrow_up</i>}
           {this.state.hover && !this.state.expanded && <i className="material-icons" onClick={this.handleClickExpand.bind(this)}>keyboard_arrow_down</i>}
           {this.state.hover && <i className="material-icons" onClick={this.handlePencilClick.bind(this)}>mode_edit</i>}
