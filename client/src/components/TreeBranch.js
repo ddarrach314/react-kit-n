@@ -6,6 +6,14 @@ import {bindActionCreators} from 'redux';
 let actions = bindActionCreators(unboundActions, store.dispatch);
 
 class TreeBranch extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hover: false,
+      expanded: false
+    };
+  }
+
   handleDragOver(event) {
     event.preventDefault();
   }
@@ -16,12 +24,42 @@ class TreeBranch extends React.Component {
     actions.addChildComponent({parent: this.props.id, child: data});
   }
 
+  handleClickExpand() {
+    this.setState({expanded: true});
+  }
+
+  handleClickHide() {
+    this.setState({expanded: false});
+  }
+
+  handleMouseEnter() {
+    this.setState({hover: true});
+  }
+
+  handleMouseLeave() {
+    this.setState({hover: false});
+  }
+
   render() {
     let divStyle = {
       marginLeft: this.props.indent + 'px'
     };
     return (
-      <div style={divStyle} onDragOver={this.handleDragOver.bind(this)} onDrop={this.handleDrop.bind(this)}>{this.props.name}</div>
+      <div style={divStyle}>
+        <div className="treeBranchName" onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>
+          <div onDragOver={this.handleDragOver.bind(this)} 
+            onDrop={this.handleDrop.bind(this)}>{this.props.name}</div>
+          {this.state.hover && this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickHide.bind(this)}>keyboard_arrow_up</i>}
+          {this.state.hover && !this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickExpand.bind(this)}>keyboard_arrow_down</i>}
+        </div>
+        {this.state.expanded && 
+          <div>
+            <div>Props:</div>
+            <div>Actions:</div>
+            <div>Store Connection:</div>
+          </div>
+        }
+      </div>
     );
   }
 }
