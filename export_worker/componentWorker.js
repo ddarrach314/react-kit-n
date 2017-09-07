@@ -27,6 +27,6 @@ const exportStatement = (/*...*/) => {
 const createComponent = (onion, dir, cb) => {
 
 
-}
+};
 
 module.exports.createComponent = createComponent;

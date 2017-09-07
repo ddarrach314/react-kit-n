@@ -2,6 +2,7 @@ import React from 'react';
 import store from '../reduxStore';
 import unboundActions from '../actions';
 import {bindActionCreators} from 'redux';
+import OutputComponentListItemChild from './OutputComponentListItemChild';
 
 let actions = bindActionCreators(unboundActions, store.dispatch);
 
@@ -11,8 +12,7 @@ class OutputComponentListItem extends React.Component {
     this.state = {
       hover: false,
       editing: false,
-      expanded: false,
-      hoverChild: false
+      expanded: false
     };
   }
 
@@ -68,14 +68,6 @@ class OutputComponentListItem extends React.Component {
     data !== this.props.id && actions.addChildComponent({parent: this.props.id, child: data});
   }
 
-  handleMouseEnterChild() {
-    this.setState({hoverChild: true});
-  }
-
-  handleMouseLeaveChild() {
-    this.setState({hoverChild: false});
-  }
-
   render() {
     return this.state.editing ? (
       <div className="outputComponentListItem">
@@ -99,13 +91,8 @@ class OutputComponentListItem extends React.Component {
         </div>
         {this.state.expanded &&
           <div>
-            {this.props.outputComponent.children.map((child) => (
-              <div className="outputComponentChild"
-                onMouseEnter={this.handleMouseEnterChild.bind(this)}
-                onMouseLeave={this.handleMouseLeaveChild.bind(this)}>
-                <div>{this.props.outputComponents[child].name}</div>
-                {this.state.hoverChild && <i className="material-icons">backspace</i>}
-              </div>
+            {this.props.outputComponent.children.map((child, childIndex) => (
+              <OutputComponentListItemChild parentComponentId={this.props.id} childIndex={childIndex} name={this.props.outputComponents[child.componentId].name}/>
             )
             )}
           </div>
