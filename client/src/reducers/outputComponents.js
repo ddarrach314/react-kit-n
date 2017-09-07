@@ -52,8 +52,15 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       if (action.id === '0') {
         throw 'You may not remove initial app component.';
       }
-      newState = makeMutableCopy(state, `components.${action.id}`);
+
+      newState = makeMutableCopy(state, 'components');
+      newState.components = _.cloneDeep(newState.components);
       delete newState.components[action.id];
+      for (var component of Object.values(newState.components)) {
+        for (var index = component.children.length - 1; index >= 0; index--) {
+          component.children[index].componentId === action.id && component.children.splice(index, 1);
+        }
+      }
       return newState;
 
     case types.ADD_CHILD_COMPONENT:

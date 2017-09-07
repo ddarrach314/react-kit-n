@@ -64,7 +64,6 @@ class OutputComponentListItem extends React.Component {
   handleDrop(event) {
     event.preventDefault();
     let data = event.dataTransfer.getData('text');
-    console.log(data, typeof data);
     data !== this.props.id && actions.addChildComponent({parent: this.props.id, child: data});
   }
 
