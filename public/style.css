@@ -49,6 +49,7 @@ p {
 
 .addComponentButton {
   margin-left: 10px;
+  margin-bottom: 6px;
 }
 
 .outputComponents {
@@ -72,6 +73,11 @@ p {
 
 .outputComponentListItemInput {
   width: 100%;
+}
+
+.outputComponentChild {
+  display: flex;
+  margin-left: 20px;
 }
 
 .move {
@@ -134,6 +140,7 @@ textarea:focus {
 
 .addActionButton {
   margin-left: 10px;
+  margin-bottom: 6px;
 }
 
 .outputActionsHeading {
