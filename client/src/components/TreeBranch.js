@@ -10,7 +10,8 @@ class TreeBranch extends React.Component {
     super(props);
     this.state = {
       hover: false,
-      expanded: false
+      expanded: false,
+      outputStoreConnection: false
     };
   }
 
@@ -40,6 +41,10 @@ class TreeBranch extends React.Component {
     this.setState({hover: false});
   }
 
+  handleClickConnect() {
+    this.setState({outputStoreConnection: !this.state.outputStoreConnection});
+  }
+
   render() {
     let divStyle = {
       marginLeft: this.props.indent + 'px'
@@ -49,13 +54,14 @@ class TreeBranch extends React.Component {
         <div style={divStyle} className="treeBranchName" onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>
           <div onDragOver={this.handleDragOver.bind(this)} 
             onDrop={this.handleDrop.bind(this)}>{this.props.name}</div>
+          {this.state.outputStoreConnection && <i className="material-icons pointer reactBlue" onClick={this.handleClickConnect.bind(this)}>link</i>}
+          {this.state.hover && !this.state.outputStoreConnection && <i className="material-icons pointer" onClick={this.handleClickConnect.bind(this)}>link</i>}
           {this.state.hover && this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickHide.bind(this)}>keyboard_arrow_up</i>}
           {this.state.hover && !this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickExpand.bind(this)}>keyboard_arrow_down</i>}
         </div>
         {this.state.expanded && 
           <div>
-            <div>Props from Store:</div>
-            <div>Props from Ancestor:</div>
+            <div>Props:</div>
             <div>Actions:</div>
           </div>
         }

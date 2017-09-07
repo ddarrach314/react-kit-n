@@ -110,6 +110,10 @@ p {
   display: flex;
 }
 
+.reactBlue {
+  color: #00d8ff;
+}
+
 .outputStoreCol {
   /*margin-left: -35px;*/
   /*padding-right: 30px;*/
