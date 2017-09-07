@@ -1,7 +1,6 @@
-import TreeBranch from '../components/TreeBranch';
 import React from 'react';
 
-export const generateTreeArray = (outputComponents) => {
+export const generateTreeArray = (outputComponents, TreeBranch) => {
   let treeArray = [];
   let traverseOutputComponents = (indent, id) => {
     treeArray.push(<TreeBranch name={outputComponents[id].name} indent={indent} id={id}/>);
