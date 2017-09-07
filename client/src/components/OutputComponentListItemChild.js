@@ -19,13 +19,18 @@ class OutputComponentListItemChild extends React.Component {
     this.setState({hover: false});
   }
 
+  handleClickRemove() {
+    actions.removeChildComponent({parent: this.props.parentComponentId, childIndex: this.props.childIndex});
+  }
+
   render() {
     return (
       <div className="outputComponentChild"
         onMouseEnter={this.handleMouseEnter.bind(this)}
         onMouseLeave={this.handleMouseLeave.bind(this)}>
         <div>{this.props.name}</div>
-        {this.state.hover && <i className="material-icons">backspace</i>}
+        {this.state.hover && <i className="material-icons pointer"
+          onClick={this.handleClickRemove.bind(this)}>backspace</i>}
       </div>
     );
   }
