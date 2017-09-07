@@ -10,7 +10,9 @@ const initialState = {
   components: {
     0: {
       name: 'App',
-      children: []
+      children: [],
+      connected: false,
+      nextId: 0
     }
   }
 };
@@ -31,7 +33,8 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       newState = makeMutableCopy(state, 'components.0', 'nextId');
       newState.components[state.nextId] = {
         name: `Component${state.nextId}`,
-        children: []
+        children: [],
+        nextId: 0
       };
       newState.nextId += 1;
       return newState;
@@ -70,10 +73,12 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
         `components.${action.parent}.children.0`
       );
 
-      newState.components[action.parent].children.push(
-        action.child
-      );
+      newState.components[action.parent].children.push({
+        cId: action.child,
+        pId: newState.components[action.parent].nextId.toString()
+      });
 
+      newState.components[action.parent].nextId += 1;
       return newState;
 
     case types.REMOVE_CHILD_COMPONENT:
