@@ -45,8 +45,8 @@ class TreeBranch extends React.Component {
       marginLeft: this.props.indent + 'px'
     };
     return (
-      <div style={divStyle}>
-        <div className="treeBranchName" onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>
+      <div>
+        <div style={divStyle} className="treeBranchName" onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>
           <div onDragOver={this.handleDragOver.bind(this)} 
             onDrop={this.handleDrop.bind(this)}>{this.props.name}</div>
           {this.state.hover && this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickHide.bind(this)}>keyboard_arrow_up</i>}
@@ -54,9 +54,9 @@ class TreeBranch extends React.Component {
         </div>
         {this.state.expanded && 
           <div>
-            <div>Props:</div>
+            <div>Props from Store:</div>
+            <div>Props from Ancestor:</div>
             <div>Actions:</div>
-            <div>Store Connection:</div>
           </div>
         }
       </div>
