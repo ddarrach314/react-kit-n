@@ -74,6 +74,16 @@ p {
   width: 100%;
 }
 
+.move {
+  cursor: move;
+  user-select: none;
+}
+
+.pointer {
+  cursor: pointer;
+  user-select: none;
+}
+
 .componentsAndTreeCol {
   /*margin-right: 15px;*/
 }

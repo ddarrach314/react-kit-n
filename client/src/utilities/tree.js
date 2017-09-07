@@ -4,7 +4,7 @@ import React from 'react';
 export const generateTreeArray = (outputComponents) => {
   let treeArray = [];
   let traverseOutputComponents = (indent, id) => {
-    treeArray.push(<TreeBranch name={outputComponents[id].name} indent={indent} />);
+    treeArray.push(<TreeBranch name={outputComponents[id].name} indent={indent} id={id}/>);
     outputComponents[id].children.forEach((child) => {
       traverseOutputComponents(indent + 20, child);
     });
