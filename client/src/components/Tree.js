@@ -10,6 +10,7 @@ class Tree extends React.Component {
         <div className="tree">
           {utilities.tree.generateTreeArray(
             this.props.outputComponents,
+            this.props.outputComponentProps,
             TreeBranch
           )}
         </div>

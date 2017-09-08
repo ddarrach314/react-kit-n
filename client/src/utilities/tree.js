@@ -1,10 +1,14 @@
 import React from 'react';
 import _ from 'lodash';
 
-export const generateTreeArray = (outputComponents, TreeBranch) => {
+export const generateTreeArray = (outputComponents, outputComponentProps, TreeBranch) => {
   let treeArray = [];
   let traverseOutputComponents = (indent, componentId, outputPropsKey) => {
-    treeArray.push(<TreeBranch name={outputComponents[componentId].name} indent={indent} id={componentId} outputPropsKey={outputPropsKey}/>);
+    treeArray.push(<TreeBranch name={outputComponents[componentId].name} 
+      indent={indent} 
+      id={componentId} 
+      outputPropsKey={outputPropsKey}
+      outputComponentProps={outputComponentProps[outputPropsKey]}/>);
     outputComponents[componentId].children.forEach((child) => {
       traverseOutputComponents(indent + 20, child.componentId, `${outputPropsKey}_${child.childId}`);
     });

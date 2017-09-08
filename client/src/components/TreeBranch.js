@@ -10,8 +10,7 @@ class TreeBranch extends React.Component {
     super(props);
     this.state = {
       hover: false,
-      expanded: false,
-      outputStoreConnection: false
+      expanded: false
     };
   }
 
@@ -42,7 +41,7 @@ class TreeBranch extends React.Component {
   }
 
   handleClickConnect() {
-    this.setState({outputStoreConnection: !this.state.outputStoreConnection});
+    actions.toggleComponentConnection(this.props.outputPropsKey);
   }
 
   render() {
@@ -55,8 +54,8 @@ class TreeBranch extends React.Component {
           <div className="treeBranchName"
             onDragOver={this.handleDragOver.bind(this)} 
             onDrop={this.handleDrop.bind(this)}>{this.props.name}</div>
-          {this.state.outputStoreConnection && <i className="material-icons pointer reactBlue" onClick={this.handleClickConnect.bind(this)}>link</i>}
-          {this.state.hover && !this.state.outputStoreConnection && <i className="material-icons pointer" onClick={this.handleClickConnect.bind(this)}>link</i>}
+          {this.props.outputComponentProps && this.props.outputComponentProps.connected && <i className="material-icons pointer reactBlue" onClick={this.handleClickConnect.bind(this)}>link</i>}
+          {this.state.hover && (!this.props.outputComponentProps || !this.props.outputComponentProps.connected) && <i className="material-icons pointer" onClick={this.handleClickConnect.bind(this)}>link</i>}
           {this.state.hover && this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickHide.bind(this)}>keyboard_arrow_up</i>}
           {this.state.hover && !this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickExpand.bind(this)}>keyboard_arrow_down</i>}
         </div>
