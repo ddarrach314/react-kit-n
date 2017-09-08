@@ -2,6 +2,7 @@ import React from 'react';
 import store from '../reduxStore';
 import unboundActions from '../actions';
 import {bindActionCreators} from 'redux';
+import TreeBranchPropOrAction from './TreeBranchPropOrAction';
 
 let actions = bindActionCreators(unboundActions, store.dispatch);
 
