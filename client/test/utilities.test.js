@@ -40,3 +40,30 @@ describe('makeMutableCopy', function() {
     }
   );
 });
+
+describe('Ancestry key utils', () => {
+  test('it finds all ancestor keys correctly', () => {
+    let ancestryKey = '0_0_1_2';
+    let ancestorKeys = utils.tree.getAncestorKeys(ancestryKey);
+    expect(ancestorKeys).toEqual([
+      '0',
+      '0_0',
+      '0_0_1'
+    ]);
+  });
+
+  test('it evaluates whether a component has a connected parent', () => {
+    let componentProps = {
+      '0_0': {connected: false},
+      '0_1': {connected: true}
+    };
+
+    const checkForInheritedConnection = utils.tree.checkForInheritedConnection;
+    expect(checkForInheritedConnection('0_0', componentProps)).toBe(false);
+    expect(checkForInheritedConnection('0_0_0', componentProps)).toBe(false);
+    expect(checkForInheritedConnection('0_1_0', componentProps)).toBe(true);
+    expect(checkForInheritedConnection('0_1', componentProps)).toBe(false);
+    expect(checkForInheritedConnection('0_2', componentProps)).toBe(false);
+    expect(checkForInheritedConnection('0', componentProps)).toBe(false);
+  });
+});
