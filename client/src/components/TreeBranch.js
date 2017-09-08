@@ -100,7 +100,7 @@ class TreeBranch extends React.Component {
                 <select value={this.state.selectedProp} onChange={this.handleSelectProp.bind(this)}>
                 </select>
                 <i className="material-icons pointer green"
-                  onClick={this.handleClickAddProp.bind(this)}>add_circle_outline</i>
+                  onClick={this.handleClickAddProp.bind(this)}>add</i>
               </div>
             </div>
             <div className="treeBranchModifyRow">
@@ -110,7 +110,7 @@ class TreeBranch extends React.Component {
                 <select value={this.state.selectedAction} onChange={this.handleSelectAction.bind(this)}>
                 </select>
                 <i className="material-icons pointer green"
-                  onClick={this.handleClickAddAction.bind(this)}>add_circle_outline</i>
+                  onClick={this.handleClickAddAction.bind(this)}>add</i>
               </div>
             </div>
           </div>

@@ -16,7 +16,7 @@ class OutputActionsForm extends React.Component {
         <div className="outputActionsHeading">
           <h4>Actions</h4>
           <i className="material-icons addActionButton pointer green"
-            onClick={actions.createNewOutputAction}>add_circle_outline</i>
+            onClick={actions.createNewOutputAction}>add</i>
         </div>
         <div className="outputActionsList">
           {this.props.outputActions.outputActions.map((outputAction, index) => (

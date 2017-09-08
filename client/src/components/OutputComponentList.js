@@ -23,7 +23,7 @@ class OutputComponentList extends React.Component {
         <div className="outputComponentsHeading">
           <h4>Components</h4>
           <i className="material-icons addComponentButton pointer green"
-            onClick={this.handleClickAdd}>add_circle_outline</i>
+            onClick={this.handleClickAdd}>add</i>
         </div>
         <div className="outputComponents">
           {_.map(this.props.outputComponents, (outputComponent, id) => (
