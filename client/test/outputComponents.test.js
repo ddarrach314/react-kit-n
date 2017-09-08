@@ -153,7 +153,7 @@ describe('Component reducer functions', () => {
       [state1] = applier.applyActions(
         initialState,
         {name: 'addComponent'},
-        {name: 'addChildComponent', args: [{parent: '0', child: '1'}]},
+        {name: 'addChildComponent', args: [{parent: '0', child: '1'}]}
       );
     });
 
@@ -174,7 +174,7 @@ describe('Component reducer functions', () => {
         {name: 'toggleComponentConnection', args: ['0_0']},
         {name: 'bindActionToComponent', args: ['0_0', '0']},
         {name: 'bindActionToComponent', args: ['0_0', '0']},
-        {name: 'bindActionToComponent', args: ['0_0', '1']},
+        {name: 'bindActionToComponent', args: ['0_0', '1']}
       );
 
       expect(state3.componentProps['0_0'].actions).toEqual(['0', '1']);
@@ -187,7 +187,7 @@ describe('Component reducer functions', () => {
         state1,
         {name: 'toggleComponentConnection', args: ['0_0']},
         {name: 'bindStorePropToComponent', args: ['0_0', 'prop1']},
-        {name: 'bindStorePropToComponent', args: ['0_0', 'prop1.prop2']},
+        {name: 'bindStorePropToComponent', args: ['0_0', 'prop1.prop2']}
       );
 
       expect(state3.componentProps['0_0'].storeProps).toEqual(['prop1', 'prop1.prop2']);
