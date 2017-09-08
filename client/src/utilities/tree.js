@@ -4,11 +4,15 @@ import _ from 'lodash';
 export const generateTreeArray = (outputComponents, outputComponentProps, TreeBranch) => {
   let treeArray = [];
   let traverseOutputComponents = (indent, componentId, outputPropsKey) => {
+    let inheritsConnection = checkForInheritedConnection(outputPropsKey, outputComponentProps);
+    let connectionCanBeToggled = !inheritsConnection && !checkForConnectedDescendants(outputPropsKey, outputComponentProps);
     treeArray.push(<TreeBranch name={outputComponents[componentId].name} 
       indent={indent} 
       id={componentId} 
       outputPropsKey={outputPropsKey}
-      outputComponentProps={outputComponentProps[outputPropsKey]}/>);
+      outputComponentProps={outputComponentProps[outputPropsKey]}
+      inheritsConnection={inheritsConnection}
+      connectionCanBeToggled={connectionCanBeToggled}/>);
     outputComponents[componentId].children.forEach((child) => {
       traverseOutputComponents(indent + 20, child.componentId, `${outputPropsKey}_${child.childId}`);
     });

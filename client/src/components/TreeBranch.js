@@ -41,7 +41,7 @@ class TreeBranch extends React.Component {
   }
 
   handleClickConnect() {
-    actions.toggleComponentConnection(this.props.outputPropsKey);
+    this.props.connectionCanBeToggled && actions.toggleComponentConnection(this.props.outputPropsKey);
   }
 
   render() {
