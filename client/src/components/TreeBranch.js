@@ -59,10 +59,11 @@ class TreeBranch extends React.Component {
     let divStyle = {
       marginLeft: this.props.indent + 'px'
     };
+    let underline = this.props.inheritsConnection ? ' blueUnderline' : '';
     return (
       <div>
         <div style={divStyle} className="treeBranchNameRow" onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>
-          <div className="treeBranchName"
+          <div className={`treeBranchName${underline}`}
             onDragOver={this.handleDragOver.bind(this)} 
             onDrop={this.handleDrop.bind(this)}>{this.props.name}</div>
           {this.props.outputComponentProps && this.props.outputComponentProps.connected && <i className="material-icons pointer reactBlue" onClick={this.handleClickConnect.bind(this)}>link</i>}
