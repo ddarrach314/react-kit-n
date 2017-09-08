@@ -16,10 +16,10 @@ const initialState = {
     0: {
       name: 'App',
       children: [],
-      connected: false,
       nextId: 0
     }
-  }
+  },
+  componentProps: {}
 };
 
 describe('Component reducer functions', () => {
@@ -88,14 +88,14 @@ describe('Component reducer functions', () => {
     expect(state1.components[0].children).not.toBe(
       state2.components[0].children
     );
-    expect(state2.components[0].children).toEqual([{cId: '1', pId: '0'}]);
+    expect(state2.components[0].children).toEqual([{componentId: '1', childId: '0'}]);
     expect(state3.components[0].children).toEqual([
-      {cId: '1', pId: '0'},
-      {cId: '2', pId: '1'}
+      {componentId: '1', childId: '0'},
+      {componentId: '2', childId: '1'}
     ]);
   });
 
-  test('Correctly increments pId after children are removed', () => {
+  test('Correctly increments childId after children are removed', () => {
     let [state] = applier.applyActions(
       initialState,
       {name: 'addComponent'},
@@ -106,8 +106,8 @@ describe('Component reducer functions', () => {
     );
 
     expect(state.components[0].children).toEqual([
-      {pId: '1', cId: '1'},
-      {pId: '2', cId: '1'},
+      {childId: '1', componentId: '1'},
+      {childId: '2', componentId: '1'},
     ]);
   });
 
@@ -138,11 +138,62 @@ describe('Component reducer functions', () => {
     expect(state2.components[0].children).not.toBe(
       state1.components[0].children
     );
-    expect(state2.components[0].children).toEqual([{cId: '2', pId: '1'}]);
-    expect(state3.components[0].children).toEqual([{cId: '1', pId: '0'}]);
+    expect(state2.components[0].children).toEqual([{componentId: '2', childId: '1'}]);
+    expect(state3.components[0].children).toEqual([{componentId: '1', childId: '0'}]);
     expect(state4.components[0].children).toEqual([
-      {cId: '1', pId: '0'},
-      {cId: '2', pId: '1'}
+      {componentId: '1', childId: '0'},
+      {componentId: '2', childId: '1'}
     ]);
   });
+
+  describe('Add properties to tree nodes', () => {
+    let state1;
+
+    beforeEach(() => {
+      [state1] = applier.applyActions(
+        initialState,
+        {name: 'addComponent'},
+        {name: 'addChildComponent', args: [{parent: '0', child: '1'}]}
+      );
+    });
+
+    test('Toggles store connection', () => {
+      let [state3, state2] = applier.applyActions(
+        state1,
+        {name: 'toggleComponentConnection', args: ['0_0']},
+        {name: 'toggleComponentConnection', args: ['0_0']}
+      );
+
+      expect(state2.componentProps['0_0'].connected).toBe(true);
+      expect(state3.componentProps['0_0'].connected).toBe(false);
+    });
+
+    test('Bind actions to component', () => {
+      let [state3, state2] = applier.applyActions(
+        state1,
+        {name: 'toggleComponentConnection', args: ['0_0']},
+        {name: 'bindActionToComponent', args: ['0_0', '0']},
+        {name: 'bindActionToComponent', args: ['0_0', '0']},
+        {name: 'bindActionToComponent', args: ['0_0', '1']}
+      );
+
+      expect(state3.componentProps['0_0'].actions).toEqual(['0', '1']);
+      expect(state3.componentProps['0_0'].connected).toBe(true);
+      expect(state2.componentProps['0_0'].actions).toEqual(['0']);
+    });
+
+    test('Bind actions to component', () => {
+      let [state3, state2] = applier.applyActions(
+        state1,
+        {name: 'toggleComponentConnection', args: ['0_0']},
+        {name: 'bindStorePropToComponent', args: ['0_0', 'prop1']},
+        {name: 'bindStorePropToComponent', args: ['0_0', 'prop1.prop2']}
+      );
+
+      expect(state3.componentProps['0_0'].storeProps).toEqual(['prop1', 'prop1.prop2']);
+      expect(state3.componentProps['0_0'].connected).toBe(true);
+      expect(state2.componentProps['0_0'].storeProps).toEqual(['prop1']);
+    });
+  });
+
 });

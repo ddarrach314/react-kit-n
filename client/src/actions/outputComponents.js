@@ -31,3 +31,20 @@ export const removeChildComponent = ({parent, childIndex}) => ({
   parent: parent.toString(),
   childIndex
 });
+
+export const toggleComponentConnection = (outputPropsKey) => ({
+  type: types.TOGGLE_COMPONENT_CONNECTION,
+  outputPropsKey
+});
+
+export const bindActionToComponent = (outputPropsKey, outputAction) => ({
+  type: types.BIND_ACTION_TO_COMPONENT,
+  outputPropsKey,
+  outputAction
+});
+
+export const bindStorePropToComponent = (outputPropsKey, outputStoreProp) => ({
+  type: types.BIND_STORE_PROP_TO_COMPONENT,
+  outputPropsKey,
+  outputStoreProp
+});

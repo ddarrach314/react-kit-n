@@ -11,10 +11,10 @@ const initialState = {
     0: {
       name: 'App',
       children: [],
-      connected: false,
       nextId: 0
     }
-  }
+  },
+  componentProps: {}
 };
 
 const outputComponentsReducer = (state = initialState, action = {}) => {
@@ -52,7 +52,6 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       if (action.id === '0') {
         throw 'You may not remove initial app component.';
       }
-
       newState = makeMutableCopy(state, `components.${action.id}`);
       delete newState.components[action.id];
       return newState;
@@ -93,10 +92,86 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
 
       newState.components[action.parent].children.splice(action.childIndex, 1);
       return newState;
-    }
 
+    case types.TOGGLE_COMPONENT_CONNECTION:
+      newState = makeMutableCopy(
+        state,
+        `componentProps.${action.outputPropsKey}`
+      );
+
+      let connected = (
+        state.componentProps[action.outputPropsKey] &&
+        state.componentProps[action.outputPropsKey].connected
+      );
+
+      newState.componentProps[action.outputPropsKey] = _.assign(
+        {},
+        state.componentProps[action.outputPropsKey],
+        {connected: !connected}
+      );
+
+      return newState;
+
+    case types.BIND_ACTION_TO_COMPONENT:
+      newState = makeMutableCopy(
+        state,
+        `componentProps.${action.outputPropsKey}`
+      );
+
+      newState.componentProps[action.outputPropsKey] = _.assign(
+        {actions: []},
+        state.componentProps[action.outputPropsKey]
+      );
+
+      let actions = newState.componentProps[action.outputPropsKey].actions;
+
+      if (actions.indexOf(action.outputAction) > -1) {
+        return state;
+      }
+
+      newState = makeMutableCopy(
+        newState,
+        `componentProps.${action.outputPropsKey}.actions`
+      );
+
+      newState.componentProps[action.outputPropsKey].actions = [
+        ...actions,
+        action.outputAction
+      ];
+
+      return newState;
+
+    case types.BIND_STORE_PROP_TO_COMPONENT:
+      newState = makeMutableCopy(
+        state,
+        `componentProps.${action.outputPropsKey}`
+      );
+
+      newState.componentProps[action.outputPropsKey] = _.assign(
+        {storeProps: []},
+        state.componentProps[action.outputPropsKey]
+      );
+
+      let storeProps = newState.componentProps[action.outputPropsKey].storeProps;
+      if (storeProps.indexOf(action.outputStoreProp) > -1) {
+        return state;
+      }
+
+      newState = makeMutableCopy(
+        newState,
+        `componentProps.${action.outputPropsKey}.storeProps`
+      );
+
+      newState.componentProps[action.outputPropsKey].storeProps = [
+        ...storeProps,
+        action.outputStoreProp
+      ];
+
+      return newState;
+
+    }
   } catch (err) {
-    console.log(err);
+    console.log(err); 
   }
 
   return state;

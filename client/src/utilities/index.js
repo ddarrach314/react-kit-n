@@ -3,6 +3,16 @@ import * as outputActionsUtilities from './outputActions';
 import * as treeUtilities from './tree';
 import _ from 'lodash';
 
+const applyReducersSequentially = (...reducers) => {
+  return (originalState, action) => {
+    let updatedState;
+    reducers.forEach((reducer) => {
+      updatedState = reducer(updatedState || originalState, action);
+    });
+    return updatedState;
+  };
+};
+
 const splitOnFirstPeriod = (string) => {
   let firstPeriodIndex = string.indexOf('.');
   if (firstPeriodIndex >= 0) {
@@ -59,6 +69,7 @@ const makeMutableCopy = (obj, ...lookups) => {
 
 const utilities = {
   makeMutableCopy,
+  applyReducersSequentially,
   outputStore: outputStoreUtilities,
   outputActions: outputActionsUtilities,
   tree: treeUtilities
