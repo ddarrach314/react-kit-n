@@ -22,13 +22,27 @@ export const getAncestorKeys = (ancestryPath) => {
   );
 };
 
-export const checkForInheritedConnection = (ancestryPath, componentProps) => {
-  let ancestorKeys = getAncestorKeys(ancestryPath);
+export const checkForInheritedConnection = (outputPropsKey, componentProps) => {
+  let ancestorKeys = getAncestorKeys(outputPropsKey);
   for (let ancestorKey of ancestorKeys) {
     if ( componentProps[ancestorKey] &&
          componentProps[ancestorKey].connected === true ) {
       return true;
     }
   }
+  return false;
+};
+
+export const checkForConnectedDescendants = (outputPropsKey, componentProps) => {
+  for (let key in componentProps) {
+    if (
+      outputPropsKey === key.slice(0, outputPropsKey.length) &&
+      outputPropsKey !== key &&
+      componentProps[key].connected
+    ) {
+      return true;
+    }
+  }
+
   return false;
 };
