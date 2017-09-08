@@ -42,11 +42,13 @@ const makeMutableCopy = (obj, ...lookups) => {
     let lookupParts = splitOnFirstPeriod(lookup);
     if (lookupParts.length === 2) {
       let firstKey = lookupParts[0];
-      lookupsByFirstKey[firstKey] =
-        (lookupsByFirstKey[firstKey] || [])
-          .concat(
-            lookupParts[1]
-          );
+      if (firstKey in obj) {
+        lookupsByFirstKey[firstKey] =
+          (lookupsByFirstKey[firstKey] || [])
+            .concat(
+              lookupParts[1]
+            );
+      }
     }
   }
 

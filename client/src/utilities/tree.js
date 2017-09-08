@@ -51,6 +51,5 @@ export const checkForConnectedDescendants = (outputPropsKey, componentProps) => 
       return true;
     }
   }
-
   return false;
 };
