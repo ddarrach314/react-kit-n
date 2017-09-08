@@ -73,7 +73,7 @@ class OutputComponentListItem extends React.Component {
         <form className="outputComponentListItemName" onSubmit={this.handleSubmit.bind(this)}>
           <input className="outputComponentListItemInput" onChange={this.handleChange.bind(this)} value={this.props.outputComponent.name}/>
         </form>
-        <i className="material-icons pointer" onClick={this.handleCheckClick.bind(this)}>done</i>
+        <i className="material-icons pointer green" onClick={this.handleCheckClick.bind(this)}>done</i>
       </div>
     ) : (
       <div>
@@ -86,7 +86,7 @@ class OutputComponentListItem extends React.Component {
           {this.state.hover && this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickHide.bind(this)}>keyboard_arrow_up</i>}
           {this.state.hover && !this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickExpand.bind(this)}>keyboard_arrow_down</i>}
           {this.state.hover && <i className="material-icons pointer" onClick={this.handlePencilClick.bind(this)}>mode_edit</i>}
-          {this.state.hover && <i className="material-icons pointer" onClick={this.handleClickRemove.bind(this)}>clear</i>}
+          {this.state.hover && this.props.id !== '0' && <i className="material-icons pointer red" onClick={this.handleClickRemove.bind(this)}>clear</i>}
         </div>
         {this.state.expanded &&
           <div>

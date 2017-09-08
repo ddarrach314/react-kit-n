@@ -118,6 +118,14 @@ p {
   color: #00d8ff;
 }
 
+.green {
+  color: #44D62C;
+}
+
+.red {
+  color: #e50914;
+}
+
 .outputStoreCol {
   /*margin-left: -35px;*/
   /*padding-right: 30px;*/
