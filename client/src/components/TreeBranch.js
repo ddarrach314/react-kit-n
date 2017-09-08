@@ -51,8 +51,9 @@ class TreeBranch extends React.Component {
     };
     return (
       <div>
-        <div style={divStyle} className="treeBranchName" onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>
-          <div onDragOver={this.handleDragOver.bind(this)} 
+        <div style={divStyle} className="treeBranchNameRow" onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>
+          <div className="treeBranchName"
+            onDragOver={this.handleDragOver.bind(this)} 
             onDrop={this.handleDrop.bind(this)}>{this.props.name}</div>
           {this.state.outputStoreConnection && <i className="material-icons pointer reactBlue" onClick={this.handleClickConnect.bind(this)}>link</i>}
           {this.state.hover && !this.state.outputStoreConnection && <i className="material-icons pointer" onClick={this.handleClickConnect.bind(this)}>link</i>}
