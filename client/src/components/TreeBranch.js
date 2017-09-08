@@ -10,7 +10,8 @@ class TreeBranch extends React.Component {
     super(props);
     this.state = {
       hover: false,
-      expanded: false
+      expanded: false,
+      error: false
     };
   }
 
@@ -41,7 +42,17 @@ class TreeBranch extends React.Component {
   }
 
   handleClickConnect() {
-    this.props.connectionCanBeToggled && actions.toggleComponentConnection(this.props.outputPropsKey);
+    if (this.props.connectionCanBeToggled) {
+      actions.toggleComponentConnection(this.props.outputPropsKey);
+    } else {
+      this.setState({error: true}, function() {
+        setTimeout(this.hideErrorMessage.bind(this), 1500);
+      });
+    }
+  }
+
+  hideErrorMessage() {
+    this.setState({error: false});
   }
 
   render() {
@@ -58,6 +69,7 @@ class TreeBranch extends React.Component {
           {this.state.hover && (!this.props.outputComponentProps || !this.props.outputComponentProps.connected) && <i className="material-icons pointer" onClick={this.handleClickConnect.bind(this)}>link</i>}
           {this.state.hover && this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickHide.bind(this)}>keyboard_arrow_up</i>}
           {this.state.hover && !this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickExpand.bind(this)}>keyboard_arrow_down</i>}
+          {this.state.error && <div className="red">Only connect 1 tree level</div>}
         </div>
         {this.state.expanded && 
           <div>
