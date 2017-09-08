@@ -18,7 +18,7 @@ const initialState = {
 };
 
 const outputComponentsReducer = (state = initialState, action = {}) => {
-  let newState;
+  let newState, outputPropsKey;
 
   try {
     switch (action.type) {
@@ -120,65 +120,59 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       return newState;
 
     case types.BIND_ACTION_TO_COMPONENT:
+      outputPropsKey = action.outputPropsKey;
+      let outputAction = action.outputAction;
       newState = makeMutableCopy(
         state,
-        `componentProps.${action.outputPropsKey}`
+        `componentProps.${outputPropsKey}.actions.${outputAction}`
       );
 
-      newState.componentProps[action.outputPropsKey] = _.assign(
-        {actions: []},
-        state.componentProps[action.outputPropsKey]
-      );
+      newState.componentProps[outputPropsKey] =
+        newState.componentProps[outputPropsKey] || {};
 
-      let actions = newState.componentProps[action.outputPropsKey].actions;
+      newState.componentProps[outputPropsKey].actions =
+        newState.componentProps[outputPropsKey].actions || {};
 
-      if (actions.indexOf(action.outputAction) > -1) {
-        return state;
-      }
-
-      newState = makeMutableCopy(
-        newState,
-        `componentProps.${action.outputPropsKey}.actions`
-      );
-
-      newState.componentProps[action.outputPropsKey].actions = [
-        ...actions,
-        action.outputAction
-      ];
+      newState.componentProps[outputPropsKey].actions[outputAction] = outputAction;
 
       return newState;
+
+    /*
+    case types.REMOVE_ACTION_FROM_COMPONENT:
+      if (
+        !state.componentProps[action.outputPropsKey] ||
+        !state.componentProps[action.outputPropsKey].actions
+      ) {
+        return state;
+      }
+        newState = makeMutableCopy(
+          state,
+          `componentProps.${action.outputPropsKey}.actions`
+        )
+      }
+    */
 
     case types.BIND_STORE_PROP_TO_COMPONENT:
-      newState = makeMutableCopy(
+      outputPropsKey = action.outputPropsKey;
+      let outputStoreProp = action.outputStoreProp;
+
+      newState = makeMutableCopy (
         state,
-        `componentProps.${action.outputPropsKey}`
+        `componentProps.${outputPropsKey}.storeProps.${outputStoreProp}`
       );
 
-      newState.componentProps[action.outputPropsKey] = _.assign(
-        {storeProps: []},
-        state.componentProps[action.outputPropsKey]
-      );
+      newState.componentProps[outputPropsKey] =
+        newState.componentProps[outputPropsKey] || {};
 
-      let storeProps = newState.componentProps[action.outputPropsKey].storeProps;
-      if (storeProps.indexOf(action.outputStoreProp) > -1) {
-        return state;
-      }
+      newState.componentProps[outputPropsKey].storeProps =
+        newState.componentProps[outputPropsKey].storeProps || {};
 
-      newState = makeMutableCopy(
-        newState,
-        `componentProps.${action.outputPropsKey}.storeProps`
-      );
-
-      newState.componentProps[action.outputPropsKey].storeProps = [
-        ...storeProps,
-        action.outputStoreProp
-      ];
+      newState.componentProps[outputPropsKey].storeProps[outputStoreProp] = outputStoreProp;
 
       return newState;
-
     }
   } catch (err) {
-    console.log(err); 
+    console.log(err);
   }
 
   return state;

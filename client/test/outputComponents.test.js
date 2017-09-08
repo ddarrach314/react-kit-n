@@ -177,12 +177,12 @@ describe('Component reducer functions', () => {
         {name: 'bindActionToComponent', args: ['0_0', '1']}
       );
 
-      expect(state3.componentProps['0_0'].actions).toEqual(['0', '1']);
+      expect(state3.componentProps['0_0'].actions).toEqual({'0': '0', '1': '1'});
       expect(state3.componentProps['0_0'].connected).toBe(true);
-      expect(state2.componentProps['0_0'].actions).toEqual(['0']);
+      expect(state2.componentProps['0_0'].actions).toEqual({'0': '0'});
     });
 
-    test('Bind actions to component', () => {
+    test('Bind store props to component', () => {
       let [state3, state2] = applier.applyActions(
         state1,
         {name: 'toggleComponentConnection', args: ['0_0']},
@@ -190,9 +190,14 @@ describe('Component reducer functions', () => {
         {name: 'bindStorePropToComponent', args: ['0_0', 'prop1.prop2']}
       );
 
-      expect(state3.componentProps['0_0'].storeProps).toEqual(['prop1', 'prop1.prop2']);
+      expect(state3.componentProps['0_0'].storeProps).toEqual({
+        'prop1': 'prop1',
+        'prop1.prop2': 'prop1.prop2'
+      });
       expect(state3.componentProps['0_0'].connected).toBe(true);
-      expect(state2.componentProps['0_0'].storeProps).toEqual(['prop1']);
+      expect(state2.componentProps['0_0'].storeProps).toEqual({
+        'prop1': 'prop1'
+      });
     });
   });
 
