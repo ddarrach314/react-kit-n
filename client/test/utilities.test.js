@@ -66,4 +66,19 @@ describe('Ancestry key utils', () => {
     expect(checkForInheritedConnection('0_2', componentProps)).toBe(false);
     expect(checkForInheritedConnection('0', componentProps)).toBe(false);
   });
+
+  test('it evaluates where one of it\'s children is connected', () => {
+    let componentProps = {
+      '0_0_1': {connected: true},
+      '0_0_0_0': {connected: false},
+      '0_1_0': {connected: true}
+    };
+
+    const checkForConnectedDescendants = utils.tree.checkForConnectedDescendants;
+    expect(checkForConnectedDescendants('0_0', componentProps)).toBe(true);
+    expect(checkForConnectedDescendants('0_0_1', componentProps)).toBe(false);
+    expect(checkForConnectedDescendants('0_0_0', componentProps)).toBe(false);
+    expect(checkForConnectedDescendants('0_1', componentProps)).toBe(true);
+    expect(checkForConnectedDescendants('0', componentProps)).toBe(true);
+  });
 });
