@@ -114,6 +114,15 @@ p {
   margin-right: 15px;
 }
 
+.treeBranchModifyRow {
+  display: flex;
+}
+
+.treeBranchModifyItem {
+  display: flex;
+  align-items: center;
+}
+
 .blueUnderline {
   text-decoration: underline;
   text-decoration-color: #00d8ff;

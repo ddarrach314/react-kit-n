@@ -11,7 +11,9 @@ class TreeBranch extends React.Component {
     this.state = {
       hover: false,
       expanded: false,
-      error: false
+      error: false,
+      selectedProp: '',
+      selectedAction: ''
     };
   }
 
@@ -55,6 +57,22 @@ class TreeBranch extends React.Component {
     this.setState({error: false});
   }
 
+  handleSelectProp() {
+
+  }
+
+  handleSelectAction() {
+
+  }
+
+  handleClickAddProp() {
+
+  }
+
+  handleClickAddAction() {
+
+  }
+
   render() {
     let divStyle = {
       marginLeft: this.props.indent + 'px'
@@ -74,8 +92,26 @@ class TreeBranch extends React.Component {
         </div>
         {this.state.expanded && 
           <div>
-            <div>Props:</div>
-            <div>Actions:</div>
+            <div className="treeBranchModifyRow">
+              <div>Props:</div>
+
+              <div className="treeBranchModifyItem">
+                <select value={this.state.selectedProp} onChange={this.handleSelectProp.bind(this)}>
+                </select>
+                <i className="material-icons pointer green"
+                  onClick={this.handleClickAddProp.bind(this)}>add_circle_outline</i>
+              </div>
+            </div>
+            <div className="treeBranchModifyRow">
+              <div>Actions:</div>
+
+              <div className="treeBranchModifyItem">
+                <select value={this.state.selectedAction} onChange={this.handleSelectAction.bind(this)}>
+                </select>
+                <i className="material-icons pointer green"
+                  onClick={this.handleClickAddAction.bind(this)}>add_circle_outline</i>
+              </div>
+            </div>
           </div>
         }
       </div>
