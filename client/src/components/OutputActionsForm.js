@@ -14,7 +14,7 @@ class OutputActionsForm extends React.Component {
       <div className="col-md-3 outputActionsCol">
         <div className="outputActionsHeading">
           <h4>Actions</h4>
-          <i className="material-icons addActionButton"
+          <i className="material-icons addActionButton pointer green"
             onClick={actions.createNewOutputAction}>add_circle_outline</i>
         </div>
         <div className="outputActionsList">
@@ -56,38 +56,33 @@ class OutputAction extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
-          {JSON.stringify(this.props.outputAction)}
+      <div className="row no-gutters">
+        <div className="col-3">
+          <p>Name</p>
+          <input className="outputActionName" value={this.props.outputAction.name} onChange={this.handleChangeName.bind(this)}></input>
         </div>
-        <div className="row no-gutters">
-          <div className="col-3">
-            <p>Name</p>
-            <input className="outputActionName" value={this.props.outputAction.name} onChange={this.handleChangeName.bind(this)}></input>
-          </div>
-          <div className="col-4">
-            <p>Target</p>
-            <select className="outputActionSelect" value={this.props.outputAction.target} onChange={this.handleChangeTarget.bind(this)}>
-              <option value=''></option>
-              {Object.keys(this.props.targetsTypes).map((target) => (
-                <option value={target}>{target}</option>
-              )
-              )}
-            </select>
-          </div>
-          <div className="col-4">
-            <p>Type</p>
-            <select className="outputActionSelect" value={this.props.outputAction.type} onChange={this.handleChangeType.bind(this)}>
-              <option value=''></option>
-              {utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.props.outputAction.target]).map((type) => (
-                <option value={type}>{type}</option>
-              )
-              )}
-            </select>
-          </div>
-          <i className="material-icons col-1 align-self-end removeOutputAction" 
-            onClick={this.handleClickRemove.bind(this)}>clear</i>
+        <div className="col-4">
+          <p>Target</p>
+          <select className="outputActionSelect" value={this.props.outputAction.target} onChange={this.handleChangeTarget.bind(this)}>
+            <option value=''></option>
+            {Object.keys(this.props.targetsTypes).map((target) => (
+              <option value={target}>{target}</option>
+            )
+            )}
+          </select>
         </div>
+        <div className="col-4">
+          <p>Type</p>
+          <select className="outputActionSelect" value={this.props.outputAction.type} onChange={this.handleChangeType.bind(this)}>
+            <option value=''></option>
+            {utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.props.outputAction.target]).map((type) => (
+              <option value={type}>{type}</option>
+            )
+            )}
+          </select>
+        </div>
+        <i className="material-icons col-1 align-self-end removeOutputAction pointer red" 
+          onClick={this.handleClickRemove.bind(this)}>clear</i>
       </div>
     );
   }

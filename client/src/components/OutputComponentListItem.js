@@ -2,6 +2,7 @@ import React from 'react';
 import store from '../reduxStore';
 import unboundActions from '../actions';
 import {bindActionCreators} from 'redux';
+import OutputComponentListItemChild from './OutputComponentListItemChild';
 
 let actions = bindActionCreators(unboundActions, store.dispatch);
 
@@ -52,8 +53,18 @@ class OutputComponentListItem extends React.Component {
     this.setState({expanded: false});
   }
 
-  handleDrag(event) {
+  handleDragStart(event) {
     event.dataTransfer.setData('text', this.props.id);
+  }
+
+  handleDragOver(event) {
+    event.preventDefault();
+  }
+
+  handleDrop(event) {
+    event.preventDefault();
+    let data = event.dataTransfer.getData('text');
+    data !== this.props.id && actions.addChildComponent({parent: this.props.id, child: data});
   }
 
   render() {
@@ -62,22 +73,25 @@ class OutputComponentListItem extends React.Component {
         <form className="outputComponentListItemName" onSubmit={this.handleSubmit.bind(this)}>
           <input className="outputComponentListItemInput" onChange={this.handleChange.bind(this)} value={this.props.outputComponent.name}/>
         </form>
-        <i className="material-icons" onClick={this.handleCheckClick.bind(this)}>done</i>
+        <i className="material-icons pointer green" onClick={this.handleCheckClick.bind(this)}>done</i>
       </div>
     ) : (
       <div>
         <div className="outputComponentListItem" onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>
-          <div className="outputComponentListItemName move" draggable="true" onDragStart={this.handleDrag.bind(this)}>{this.props.outputComponent.name}</div>
-          {this.state.hover && this.state.expanded && <i className="material-icons" onClick={this.handleClickHide.bind(this)}>keyboard_arrow_up</i>}
-          {this.state.hover && !this.state.expanded && <i className="material-icons" onClick={this.handleClickExpand.bind(this)}>keyboard_arrow_down</i>}
-          {this.state.hover && <i className="material-icons" onClick={this.handlePencilClick.bind(this)}>mode_edit</i>}
-          {this.state.hover && <i className="material-icons" onClick={this.handleClickRemove.bind(this)}>clear</i>}
+          <div className="outputComponentListItemName move" 
+            draggable="true" 
+            onDragStart={this.handleDragStart.bind(this)}
+            onDragOver={this.handleDragOver.bind(this)} 
+            onDrop={this.handleDrop.bind(this)}>{this.props.outputComponent.name}</div>
+          {this.state.hover && this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickHide.bind(this)}>keyboard_arrow_up</i>}
+          {this.state.hover && !this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickExpand.bind(this)}>keyboard_arrow_down</i>}
+          {this.state.hover && <i className="material-icons pointer" onClick={this.handlePencilClick.bind(this)}>mode_edit</i>}
+          {this.state.hover && this.props.id !== '0' && <i className="material-icons pointer red" onClick={this.handleClickRemove.bind(this)}>clear</i>}
         </div>
         {this.state.expanded &&
           <div>
-            <div>Children:</div>
-            {this.props.outputComponent.children.map((child) => (
-              <div>{this.props.outputComponents[child].name}</div>
+            {this.props.outputComponent.children.map((child, childIndex) => (
+              <OutputComponentListItemChild parentComponentId={this.props.id} childIndex={childIndex} name={this.props.outputComponents[child.componentId].name}/>
             )
             )}
           </div>

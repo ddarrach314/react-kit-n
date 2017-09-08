@@ -49,6 +49,7 @@ p {
 
 .addComponentButton {
   margin-left: 10px;
+  margin-bottom: 6px;
 }
 
 .outputComponents {
@@ -74,6 +75,12 @@ p {
   width: 100%;
 }
 
+.outputComponentChild {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 20px;
+}
+
 .move {
   cursor: move;
   user-select: none;
@@ -97,6 +104,31 @@ p {
   border-bottom: medium solid #6653ff;
   overflow: scroll;
   padding: 5px 5px 5px 5px;
+}
+
+.treeBranchNameRow {
+  display: flex;
+}
+
+.treeBranchName {
+  margin-right: 15px;
+}
+
+.blueUnderline {
+  text-decoration: underline;
+  text-decoration-color: #00d8ff;
+}
+
+.reactBlue {
+  color: #00d8ff;
+}
+
+.green {
+  color: #44D62C;
+}
+
+.red {
+  color: #e50914;
 }
 
 .outputStoreCol {
@@ -134,6 +166,7 @@ textarea:focus {
 
 .addActionButton {
   margin-left: 10px;
+  margin-bottom: 6px;
 }
 
 .outputActionsHeading {

@@ -22,7 +22,7 @@ class OutputComponentList extends React.Component {
       <div className="col-md-4 outputComponentsCol">
         <div className="outputComponentsHeading">
           <h4>Components</h4>
-          <i className="material-icons addComponentButton pointer"
+          <i className="material-icons addComponentButton pointer green"
             onClick={this.handleClickAdd}>add_circle_outline</i>
         </div>
         <div className="outputComponents">

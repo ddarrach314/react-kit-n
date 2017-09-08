@@ -10,7 +10,10 @@ class ComponentsAndTree extends React.Component {
       <div className="col-md-6 componentsAndTreeCol">
         <div className="row no-gutters">
           <OutputComponentList outputComponents={this.props.outputComponents.components}/>
-          <Tree outputComponents={this.props.outputComponents.components}/>
+          <Tree outputStore={this.props.outputStore.outputStore} 
+            outputActions={this.props.outputActions.outputActions} 
+            outputComponents={this.props.outputComponents.components}
+            outputComponentProps={this.props.outputComponents.componentProps}/>
         </div>
       </div>
     );
@@ -20,7 +23,9 @@ class ComponentsAndTree extends React.Component {
 ComponentsAndTree = connect(
   (state) => (
     {
-      outputComponents: state.outputComponents
+      outputComponents: state.outputComponents,
+      outputStore: state.outputStore,
+      outputActions: state.outputActions
     }
   )
 )(ComponentsAndTree);
