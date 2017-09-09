@@ -1,6 +1,20 @@
-import {createStore} from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import * as storage from 'redux-storage';
+import createEngine from 'redux-storage-engine-localstorage';
+
 import reducer from './reducers';
 
-const store = createStore(reducer);
+const engine = createEngine('redux-kit-n-storage');
+const storageMiddleware = storage.createMiddleware(engine);
+
+const store = createStore(
+  reducer,
+  applyMiddleware(storageMiddleware)
+);
+
+const load = storage.createLoader(engine);
+
+load(store)
+  .then((newState) => console.log('Loaded state:', newState));
 
 export default store;
