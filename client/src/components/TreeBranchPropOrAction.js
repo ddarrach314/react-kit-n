@@ -33,8 +33,10 @@ class TreeBranchPropOrAction extends React.Component {
     return (
       <div className="treeBranchPropOrAction" onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>
         <div>{display}</div>
-        {this.state.hover && <i className="material-icons pointer red" 
-          onClick={this.handleClickDeletePropOrAction.bind(this)}>clear</i>}
+        {this.state.hover 
+          ? <i className="material-icons pointer red" 
+          onClick={this.handleClickDeletePropOrAction.bind(this)}>clear</i>
+          : <div className="deletePlaceHolder"></div>}
       </div>
     );
   }

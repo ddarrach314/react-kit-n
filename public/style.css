@@ -130,6 +130,7 @@ p {
 
 .outputPropOrActionSelect {
   width: 6em;
+  height: 30px;
   margin-right: 15px;
 }
 
@@ -141,7 +142,11 @@ p {
 .treeBranchPropOrAction {
   display: flex;
   align-items: center;
-  margin-left: 15px;
+  margin-right: 24px;
+}
+
+.deletePlaceHolder {
+  width: 24px;
 }
 
 .blueUnderline {
