@@ -5,7 +5,7 @@
     "start": "node ./server/index.js",
     "test": "NODE_ENV=test grunt test",
     "build": "webpack --watch",
-    "heroku-postbuild": "webpack -p",
+    "heroku-postbuild": "yarn run webpack -p",
     "dev-start": "nodemon server"
   },
   "author": "Hack Reactor",
