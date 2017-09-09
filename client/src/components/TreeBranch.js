@@ -161,75 +161,78 @@ class TreeBranch extends React.Component {
         {this.state.expanded && 
           <div>
             <div>
-              <div>Props</div>
-              <div className="treeBranchModifyItem">
-                <div className="outputPropOrActionLabel">Name:</div>
-                <input className="outputPropNameInput" 
-                  value={this.state.addedPropName}
-                  onChange={this.handlePropNameChange.bind(this)}></input>
-                <div className="outputPropOrActionLabel">Path:</div>
-                <select className="outputPropOrActionSelect" 
-                  value={this.state.selectedPropPath} 
-                  onChange={this.handleSelectPropPath.bind(this)}>
-                  <option value=''></option>
-                  {(this.props.inheritsConnection || this.props.outputComponentProps)
-                    && (this.props.inheritsConnection || this.props.outputComponentProps.connected) 
-                    && this.props.outputStorePropsOptions.map((option, index) => (
-                      <option key={index} value={option}>{option}</option>
+              <div>
+                <div>Props</div>
+                <div className="treeBranchModifyItem">
+                  <div className="outputPropOrActionLabel">Name:</div>
+                  <input className="outputPropNameInput" 
+                    value={this.state.addedPropName}
+                    onChange={this.handlePropNameChange.bind(this)}></input>
+                  <div className="outputPropOrActionLabel">Path:</div>
+                  <select className="outputPropOrActionSelect" 
+                    value={this.state.selectedPropPath} 
+                    onChange={this.handleSelectPropPath.bind(this)}>
+                    <option value=''></option>
+                    {(this.props.inheritsConnection || this.props.outputComponentProps)
+                      && (this.props.inheritsConnection || this.props.outputComponentProps.connected) 
+                      && this.props.outputStorePropsOptions.map((option, index) => (
+                        <option key={index} value={option}>{option}</option>
+                      )
+                      )}
+                  </select>
+                  <i className="material-icons pointer green"
+                    onClick={this.handleClickAddProp.bind(this)}>add</i>
+                </div>
+                {this.state.addPropError && <div className="red">Please select a prop path and unique prop name</div>}
+                {this.state.addPropConnectionError && <div className="red">Component must have store connection to add props</div>}
+                {(this.props.inheritsConnection || this.props.outputComponentProps)
+                  && (this.props.inheritsConnection || this.props.outputComponentProps.connected)
+                  && 
+                  <div className="treeBranchPropsActions">
+                    {this.props.outputComponentProps && _.map(this.props.outputComponentProps.storeProps, (storePropName, storePropPath) => (
+                      <TreeBranchPropOrAction storePropPath={storePropPath} 
+                        storePropName={storePropName} 
+                        outputPropsKey={this.props.outputPropsKey} 
+                        propOrAction='prop'/>
                     )
                     )}
-                </select>
-                <i className="material-icons pointer green"
-                  onClick={this.handleClickAddProp.bind(this)}>add</i>
+                  </div>}
               </div>
-              {this.state.addPropError && <div className="red">Please select a prop path and unique prop name</div>}
-              {this.state.addPropConnectionError && <div className="red">Component must have store connection to add props</div>}
-              {(this.props.inheritsConnection || this.props.outputComponentProps)
-                && (this.props.inheritsConnection || this.props.outputComponentProps.connected)
-                && 
-                <div className="treeBranchPropsActions">
-                  {this.props.outputComponentProps && _.map(this.props.outputComponentProps.storeProps, (storePropName, storePropPath) => (
-                    <TreeBranchPropOrAction storePropPath={storePropPath} 
-                      storePropName={storePropName} 
-                      outputPropsKey={this.props.outputPropsKey} 
-                      propOrAction='prop'/>
-                  )
-                  )}
-                </div>}
-            </div>
-            <div>
-              <div>Actions</div>
-              <div className="treeBranchModifyItem">
-                <div className="outputPropOrActionLabel">Name:</div>
-                <select className="outputPropOrActionSelect" 
-                  value={this.state.selectedAction} 
-                  onChange={this.handleSelectAction.bind(this)}>
-                  <option value=''></option>
-                  {(this.props.inheritsConnection || this.props.outputComponentProps)
-                    && (this.props.inheritsConnection || this.props.outputComponentProps.connected)
-                    && outputActionOptions.map((outputAction, index) => (
-                      <option key={index} value={outputAction.id}>{outputAction.name}</option>
+              <div>
+                <div>Actions</div>
+                <div className="treeBranchModifyItem">
+                  <div className="outputPropOrActionLabel">Name:</div>
+                  <select className="outputPropOrActionSelect" 
+                    value={this.state.selectedAction} 
+                    onChange={this.handleSelectAction.bind(this)}>
+                    <option value=''></option>
+                    {(this.props.inheritsConnection || this.props.outputComponentProps)
+                      && (this.props.inheritsConnection || this.props.outputComponentProps.connected)
+                      && outputActionOptions.map((outputAction, index) => (
+                        <option key={index} value={outputAction.id}>{outputAction.name}</option>
+                      )
+                      )}
+                  </select>
+                  <i className="material-icons pointer green"
+                    onClick={this.handleClickAddAction.bind(this)}>add</i>
+                </div>
+                {this.state.addActionError && <div className="red">Please select an action</div>}
+                {this.state.addActionConnectionError && <div className="red">Component must have store connection to add props</div>}
+                {(this.props.inheritsConnection || this.props.outputComponentProps)
+                  && (this.props.inheritsConnection || this.props.outputComponentProps.connected)
+                  &&
+                  <div className="treeBranchPropsActions">
+                    {this.props.outputComponentProps && _.map(this.props.outputComponentProps.actions, (outputActionId) => (
+                      <TreeBranchPropOrAction outputActionId={outputActionId}
+                        outputActionName={outputActions[outputActionId]}
+                        outputPropsKey={this.props.outputPropsKey} 
+                        propOrAction='action'/>
                     )
                     )}
-                </select>
-                <i className="material-icons pointer green"
-                  onClick={this.handleClickAddAction.bind(this)}>add</i>
+                  </div>}
               </div>
-              {this.state.addActionError && <div className="red">Please select an action</div>}
-              {this.state.addActionConnectionError && <div className="red">Component must have store connection to add props</div>}
-              {(this.props.inheritsConnection || this.props.outputComponentProps)
-                && (this.props.inheritsConnection || this.props.outputComponentProps.connected)
-                &&
-                <div className="treeBranchPropsActions">
-                  {this.props.outputComponentProps && _.map(this.props.outputComponentProps.actions, (outputActionId) => (
-                    <TreeBranchPropOrAction outputActionId={outputActionId}
-                      outputActionName={outputActions[outputActionId]}
-                      outputPropsKey={this.props.outputPropsKey} 
-                      propOrAction='action'/>
-                  )
-                  )}
-                </div>}
             </div>
+            <div className="outputPropsActionsBorderContainer"><div className="outputPropsActionsBorder"></div></div>
           </div>
         }
       </div>
