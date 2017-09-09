@@ -17,5 +17,21 @@
       "consumerSecret": "TWITTER_CLIENT_SECRET",
       "callbackURL": "TWITTER_CALLBACK_URL"
     }
-  }
+  },
+  "knex": {
+    "client": "postgresql",
+    "connection": "DATABASE_URL"
+    },
+    "pool": {
+      "min": 1,
+      "max": 20
+    },
+    "migrations": {
+      "tableName": "knex_migrations",
+      "directory": "db/migrations"
+    },
+    "seeds": {
+      "directory": "db/seeds"
+    }
+  },
 }
