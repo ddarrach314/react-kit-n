@@ -114,17 +114,12 @@ p {
   margin-right: 15px;
 }
 
-.treeBranchModifyRow {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .treeBranchModifyItem {
   display: flex;
   align-items: center;
 }
 
-.outputPropNameInputLabel {
+.outputPropOrActionLabel {
   margin-right: 5px;
 }
 
@@ -133,9 +128,14 @@ p {
   margin-right: 15px;
 }
 
-.outputPropPathSelect {
+.outputPropOrActionSelect {
   width: 6em;
   margin-right: 15px;
+}
+
+.treeBranchPropsActions {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .treeBranchPropOrAction {
