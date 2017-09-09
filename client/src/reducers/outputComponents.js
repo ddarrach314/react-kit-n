@@ -156,7 +156,7 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
     }
 
     case types.BIND_STORE_PROP_TO_COMPONENT: {
-      let {outputPropsKey, outputStoreProp} = action;
+      let {outputPropsKey, outputStoreProp, outputStorePropName} = action;
 
       newState = makeMutableCopy (
         state,
@@ -169,7 +169,9 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       newState.componentProps[outputPropsKey].storeProps =
         newState.componentProps[outputPropsKey].storeProps || {};
 
-      newState.componentProps[outputPropsKey].storeProps[outputStoreProp] = outputStoreProp;
+      newState.componentProps[outputPropsKey].storeProps[outputStoreProp] =
+        outputStorePropName;
+
       return newState;
     }
 
