@@ -11,6 +11,8 @@ class Tree extends React.Component {
           {utilities.tree.generateTreeArray(
             this.props.outputComponents,
             this.props.outputComponentProps,
+            Object.keys(utilities.outputStore.getTargetsFromOutputStore(this.props.outputStore)),
+            this.props.outputActions,
             TreeBranch
           )}
         </div>

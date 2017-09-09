@@ -116,11 +116,19 @@ p {
 
 .treeBranchModifyRow {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .treeBranchModifyItem {
   display: flex;
   align-items: center;
+  margin-left: 15px;
+}
+
+.treeBranchPropOrAction {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
 }
 
 .blueUnderline {

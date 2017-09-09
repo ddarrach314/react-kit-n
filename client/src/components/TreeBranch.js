@@ -3,6 +3,7 @@ import store from '../reduxStore';
 import unboundActions from '../actions';
 import {bindActionCreators} from 'redux';
 import TreeBranchPropOrAction from './TreeBranchPropOrAction';
+import _ from 'lodash';
 
 let actions = bindActionCreators(unboundActions, store.dispatch);
 
@@ -12,9 +13,11 @@ class TreeBranch extends React.Component {
     this.state = {
       hover: false,
       expanded: false,
-      error: false,
+      connectStoreError: false,
       selectedProp: '',
-      selectedAction: ''
+      selectedAction: '',
+      addPropError: false,
+      addActionError: false
     };
   }
 
@@ -48,25 +51,36 @@ class TreeBranch extends React.Component {
     if (this.props.connectionCanBeToggled) {
       actions.toggleComponentConnection(this.props.outputPropsKey);
     } else {
-      this.setState({error: true}, function() {
-        setTimeout(this.hideErrorMessage.bind(this), 1500);
+      this.setState({connectStoreError: true}, function() {
+        setTimeout(this.hideConnectStoreError.bind(this), 1500);
       });
     }
   }
 
-  hideErrorMessage() {
-    this.setState({error: false});
+  hideConnectStoreError() {
+    this.setState({connectStoreError: false});
   }
 
-  handleSelectProp() {
-
-  }
-
-  handleSelectAction() {
-
+  handleSelectProp(event) {
+    this.setState({selectedProp: event.target.value});
   }
 
   handleClickAddProp() {
+    if (this.state.selectedProp === '') {
+      this.setState({addPropError: true}, function() {
+        setTimeout(this.hideAddPropError.bind(this), 1500);
+      });
+    } else {
+      actions.bindStorePropToComponent(this.props.outputPropsKey, this.state.selectedProp);
+      this.setState({selectedProp: ''});
+    }
+  }
+
+  hideAddPropError() {
+    this.setState({addPropError: false});
+  }
+
+  handleSelectAction() {
 
   }
 
@@ -89,20 +103,29 @@ class TreeBranch extends React.Component {
           {this.state.hover && (!this.props.outputComponentProps || !this.props.outputComponentProps.connected) && <i className="material-icons pointer" onClick={this.handleClickConnect.bind(this)}>link</i>}
           {this.state.hover && this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickHide.bind(this)}>keyboard_arrow_up</i>}
           {this.state.hover && !this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickExpand.bind(this)}>keyboard_arrow_down</i>}
-          {this.state.error && <div className="red">Only connect 1 tree level</div>}
+          {this.state.connectStoreError && <div className="red">Only connect 1 tree level</div>}
         </div>
         {this.state.expanded && 
           <div>
             <div className="treeBranchModifyRow">
               <div>Props:</div>
-
+              {this.props.outputComponentProps && _.map(this.props.outputComponentProps.storeProps, (storeProp) => (
+                <TreeBranchPropOrAction storeProp={storeProp}/>
+              )
+              )}
               <div className="treeBranchModifyItem">
                 <select value={this.state.selectedProp} onChange={this.handleSelectProp.bind(this)}>
+                  <option value=''></option>
+                  {this.props.outputStorePropsOptions.map((option) => (
+                    <option value={option}>{option}</option>
+                  )
+                  )}
                 </select>
                 <i className="material-icons pointer green"
                   onClick={this.handleClickAddProp.bind(this)}>add</i>
               </div>
             </div>
+            {this.state.addPropError && <div className="red">Please select a prop</div>}
             <div className="treeBranchModifyRow">
               <div>Actions:</div>
 
