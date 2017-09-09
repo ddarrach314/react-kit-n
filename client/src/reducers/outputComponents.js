@@ -18,7 +18,7 @@ const initialState = {
 };
 
 const outputComponentsReducer = (state = initialState, action = {}) => {
-  let newState, outputPropsKey;
+  let newState;
 
   try {
     switch (action.type) {
@@ -119,9 +119,8 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
 
       return newState;
 
-    case types.BIND_ACTION_TO_COMPONENT:
-      outputPropsKey = action.outputPropsKey;
-      let outputAction = action.outputAction;
+    case types.BIND_ACTION_TO_COMPONENT: {
+      let {outputPropsKey, outputAction} = action;
       newState = makeMutableCopy(
         state,
         `componentProps.${outputPropsKey}.actions.${outputAction}`
@@ -136,25 +135,28 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       newState.componentProps[outputPropsKey].actions[outputAction] = outputAction;
 
       return newState;
+    }
 
-    /*
-    case types.REMOVE_ACTION_FROM_COMPONENT:
+    case types.REMOVE_ACTION_FROM_COMPONENT: {
+      let {outputPropsKey, outputAction} = action;
       if (
-        !state.componentProps[action.outputPropsKey] ||
-        !state.componentProps[action.outputPropsKey].actions
+        !state.componentProps[outputPropsKey] ||
+        !state.componentProps[outputPropsKey].actions
       ) {
         return state;
       }
-        newState = makeMutableCopy(
-          state,
-          `componentProps.${action.outputPropsKey}.actions`
-        )
-      }
-    */
 
-    case types.BIND_STORE_PROP_TO_COMPONENT:
-      outputPropsKey = action.outputPropsKey;
-      let outputStoreProp = action.outputStoreProp;
+      newState = makeMutableCopy(
+        state,
+        `componentProps.${outputPropsKey}.actions.${outputAction}`
+      );
+
+      delete newState.componentProps[outputPropsKey].actions[outputAction];
+      return newState;
+    }
+
+    case types.BIND_STORE_PROP_TO_COMPONENT: {
+      let {outputPropsKey, outputStoreProp} = action;
 
       newState = makeMutableCopy (
         state,
@@ -168,8 +170,27 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
         newState.componentProps[outputPropsKey].storeProps || {};
 
       newState.componentProps[outputPropsKey].storeProps[outputStoreProp] = outputStoreProp;
-
       return newState;
+    }
+
+    case types.REMOVE_STORE_PROP_FROM_COMPONENT: {
+      let {outputPropsKey, outputStoreProp} = action;
+      if (
+        !state.componentProps[outputPropsKey] ||
+        !state.componentProps[outputPropsKey].storeProps
+      ) {
+        return state;
+      }
+
+      newState = makeMutableCopy(
+        state,
+        `componentProps.${outputPropsKey}.storeProps.${outputStoreProp}`
+      );
+
+      delete newState.componentProps[outputPropsKey].storeProps[outputStoreProp];
+      return newState;
+    }
+
     }
   } catch (err) {
     console.log(err);

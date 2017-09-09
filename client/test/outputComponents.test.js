@@ -182,23 +182,63 @@ describe('Component reducer functions', () => {
       expect(state2.componentProps['0_0'].actions).toEqual({'0': '0'});
     });
 
+    test('Removes actions from component', () => {
+      let [state3, state2] = applier.applyActions(
+        state1,
+        {name: 'toggleComponentConnection', args: ['0_0']},
+        {name: 'bindActionToComponent', args: ['0_0', '0']},
+        {name: 'bindActionToComponent', args: ['0_0', '1']},
+        {name: 'removeActionFromComponent', args: ['0_0', '0']}
+      );
+
+      expect(state3.componentProps['0_0'].connected).toBe(true);
+      expect(state3.componentProps['0_0'].actions).toEqual(
+        {'1': '1'}
+      );
+      expect(state2.componentProps['0_0'].actions).toEqual({
+        '0': '0',
+        '1': '1'
+      });
+    });
+
     test('Bind store props to component', () => {
       let [state3, state2] = applier.applyActions(
         state1,
         {name: 'toggleComponentConnection', args: ['0_0']},
         {name: 'bindStorePropToComponent', args: ['0_0', 'prop1']},
+        {name: 'bindStorePropToComponent', args: ['0_0', 'prop1']},
         {name: 'bindStorePropToComponent', args: ['0_0', 'prop1.prop2']}
       );
 
+      expect(state3.componentProps['0_0'].connected).toBe(true);
       expect(state3.componentProps['0_0'].storeProps).toEqual({
         'prop1': 'prop1',
         'prop1.prop2': 'prop1.prop2'
       });
-      expect(state3.componentProps['0_0'].connected).toBe(true);
       expect(state2.componentProps['0_0'].storeProps).toEqual({
         'prop1': 'prop1'
       });
     });
+
+    test('Removes actions from component', () => {
+      let [state3, state2] = applier.applyActions(
+        state1,
+        {name: 'toggleComponentConnection', args: ['0_0']},
+        {name: 'bindStorePropToComponent', args: ['0_0', 'prop1']},
+        {name: 'bindStorePropToComponent', args: ['0_0', 'prop1.prop2']},
+        {name: 'removeStorePropFromComponent', args: ['0_0', 'prop1']}
+      );
+
+      expect(state3.componentProps['0_0'].connected).toBe(true);
+      expect(state3.componentProps['0_0'].storeProps).toEqual({
+        'prop1.prop2': 'prop1.prop2'
+      });
+      expect(state2.componentProps['0_0'].storeProps).toEqual({
+        'prop1': 'prop1',
+        'prop1.prop2': 'prop1.prop2'
+      });
+    });
+
   });
 
 });
