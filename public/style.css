@@ -242,4 +242,9 @@ textarea:focus {
   outline: none;
 }
 
+.submitForm {
+  margin-left: 5vw;
+  margin-top: 1em;
+}
+
 

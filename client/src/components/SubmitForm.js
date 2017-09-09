@@ -5,13 +5,13 @@ class SubmitForm extends React.Component {
   render() {
     let {actions, store, components} = this.props;
     return (
-      <form action='/download' method='get'>
+      <form className='submitForm' action='/download' method='get'>
         <input
           type='hidden'
           name='onion'
           value={JSON.stringify({actions, store, components})}
         />
-        <button> Export Application </button>
+        <button className='pointer button btn btn-lg btn-primary btn-block'> Export Application </button>
       </form>
     );
   }
