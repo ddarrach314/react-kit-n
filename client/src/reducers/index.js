@@ -1,4 +1,6 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
+import { LOAD } from 'redux-storage';
+import utils from '../utilities';
 import outputStoreReducer from './outputStore';
 import outputActionsReducer from './outputActions';
 import outputComponentsReducer from './outputComponents';
@@ -9,4 +11,15 @@ const reducer = combineReducers({
   outputComponents: outputComponentsReducer
 });
 
-export default reducer;
+const loadReducer = (state, action) => {
+  if (action.type === LOAD) {
+    return action.payload;
+  } else {
+    return state;
+  }
+};
+
+export default utils.applyReducersSequentially(
+  reducer,
+  loadReducer
+);
