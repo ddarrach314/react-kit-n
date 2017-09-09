@@ -70,6 +70,7 @@ p {
 .outputComponentListItemName {
   width: 75%;
   height: 100%;
+  font-weight: bold;
 }
 
 .outputComponentListItemInput {
@@ -113,16 +114,29 @@ p {
 
 .treeBranchName {
   margin-right: 15px;
+  font-weight: bold;
 }
 
 .outputPropsActionsBorderContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: .7em;
+  margin-bottom: .25em;
+}
+
+.outputPropsActionsBorder {
+  border-top: thin solid #bbb;
+  width: 80%;
+}
+
+.outputPropsActionsBorderBottomContainer {
   display: flex;
   justify-content: center;
   margin-top: 1em;
   margin-bottom: .5em;
 }
 
-.outputPropsActionsBorder {
+.outputPropsActionsBorderBottom {
   border-top: thin solid #6653ff;
   width: 95%;
 }
