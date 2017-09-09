@@ -15,7 +15,9 @@ export const generateTreeArray = (outputComponents, outputComponentProps, output
       connectionCanBeToggled={connectionCanBeToggled}
       outputActions={outputActions}
       outputStorePropsOptions={outputStorePropsOptions.filter((option) => (
-        !outputComponentProps[outputPropsKey] || !outputComponentProps[outputPropsKey].storeProps.hasOwnProperty(option)
+        !outputComponentProps[outputPropsKey] 
+        || !outputComponentProps[outputPropsKey].storeProps
+        || !outputComponentProps[outputPropsKey].storeProps.hasOwnProperty(option)
       )
       )}/>);
     outputComponents[componentId].children.forEach((child) => {

@@ -88,11 +88,16 @@ class TreeBranch extends React.Component {
 
   }
 
+  componentWillReceiveProps() {
+
+  }
+
   render() {
     let divStyle = {
       marginLeft: this.props.indent + 'px'
     };
     let underline = this.props.inheritsConnection ? ' blueUnderline' : '';
+
     return (
       <div>
         <div style={divStyle} className="treeBranchNameRow" onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>
@@ -110,16 +115,18 @@ class TreeBranch extends React.Component {
             <div className="treeBranchModifyRow">
               <div>Props:</div>
               {this.props.outputComponentProps && _.map(this.props.outputComponentProps.storeProps, (storeProp) => (
-                <TreeBranchPropOrAction storeProp={storeProp}/>
+                <TreeBranchPropOrAction storeProp={storeProp} outputPropsKey={this.props.outputPropsKey}/>
               )
               )}
               <div className="treeBranchModifyItem">
                 <select value={this.state.selectedProp} onChange={this.handleSelectProp.bind(this)}>
                   <option value=''></option>
-                  {this.props.outputStorePropsOptions.map((option) => (
-                    <option value={option}>{option}</option>
-                  )
-                  )}
+                  {(this.props.inheritsConnection || this.props.outputComponentProps)
+                    && (this.props.inheritsConnection || this.props.outputComponentProps.connected) 
+                    && this.props.outputStorePropsOptions.map((option, index) => (
+                      <option key={index} value={option}>{option}</option>
+                    )
+                    )}
                 </select>
                 <i className="material-icons pointer green"
                   onClick={this.handleClickAddProp.bind(this)}>add</i>
