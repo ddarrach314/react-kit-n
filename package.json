@@ -2,7 +2,7 @@
   "name": "course.thesis",
   "version": "1.0.0",
   "scripts": {
-    "start": "./server/index.js",
+    "start": "node ./server/index.js",
     "test": "NODE_ENV=test grunt test",
     "build": "webpack --watch",
     "heroku-postbuild": "webpack -p",
