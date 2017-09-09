@@ -122,7 +122,20 @@ p {
 .treeBranchModifyItem {
   display: flex;
   align-items: center;
-  margin-left: 15px;
+}
+
+.outputPropNameInputLabel {
+  margin-right: 5px;
+}
+
+.outputPropNameInput {
+  width: 7em;
+  margin-right: 15px;
+}
+
+.outputPropPathSelect {
+  width: 6em;
+  margin-right: 15px;
 }
 
 .treeBranchPropOrAction {

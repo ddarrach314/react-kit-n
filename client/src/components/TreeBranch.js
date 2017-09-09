@@ -10,14 +10,20 @@ let actions = bindActionCreators(unboundActions, store.dispatch);
 class TreeBranch extends React.Component {
   constructor(props) {
     super(props);
+    let outputPropNames = Object.values(this.props.outputComponentProps.storeProps);
+    outputPropNames = outputPropNames.map((name) => (
+      name.toLowerCase()
+    ));
     this.state = {
       hover: false,
       expanded: false,
       connectStoreError: false,
-      selectedProp: '',
+      selectedPropPath: '',
+      addedPropName: '',
       selectedAction: '',
       addPropError: false,
-      addActionError: false
+      addActionError: false,
+      outputPropNames
     };
   }
 
@@ -61,18 +67,22 @@ class TreeBranch extends React.Component {
     this.setState({connectStoreError: false});
   }
 
-  handleSelectProp(event) {
-    this.setState({selectedProp: event.target.value});
+  handlePropNameChange(event) {
+    this.setState({addedPropName: event.target.value});
+  }
+
+  handleSelectPropPath(event) {
+    this.setState({selectedPropPath: event.target.value});
   }
 
   handleClickAddProp() {
-    if (this.state.selectedProp === '') {
+    if (this.state.selectedPropPath === '' || this.state.outputPropNames.includes(this.state.addedPropName)) {
       this.setState({addPropError: true}, function() {
         setTimeout(this.hideAddPropError.bind(this), 1500);
       });
     } else {
-      actions.bindStorePropToComponent(this.props.outputPropsKey, this.state.selectedProp);
-      this.setState({selectedProp: ''});
+      actions.bindStorePropToComponent(this.props.outputPropsKey, this.state.selectedPropPath);
+      this.setState({selectedPropPath: ''});
     }
   }
 
@@ -112,14 +122,17 @@ class TreeBranch extends React.Component {
         </div>
         {this.state.expanded && 
           <div>
-            <div className="treeBranchModifyRow">
+            <div>
               <div>Props:</div>
-              {this.props.outputComponentProps && _.map(this.props.outputComponentProps.storeProps, (storeProp) => (
-                <TreeBranchPropOrAction storeProp={storeProp} outputPropsKey={this.props.outputPropsKey}/>
-              )
-              )}
               <div className="treeBranchModifyItem">
-                <select value={this.state.selectedProp} onChange={this.handleSelectProp.bind(this)}>
+                <div className="outputPropNameInputLabel">Name:</div>
+                <input className="outputPropNameInput" 
+                  value={this.state.addedPropName}
+                  onChange={this.handlePropNameChange.bind(this)}></input>
+                <div>Path:</div>
+                <select className="outputPropPathSelect" 
+                  value={this.state.selectedPropPath} 
+                  onChange={this.handleSelectPropPath.bind(this)}>
                   <option value=''></option>
                   {(this.props.inheritsConnection || this.props.outputComponentProps)
                     && (this.props.inheritsConnection || this.props.outputComponentProps.connected) 
@@ -131,8 +144,12 @@ class TreeBranch extends React.Component {
                 <i className="material-icons pointer green"
                   onClick={this.handleClickAddProp.bind(this)}>add</i>
               </div>
+              {this.state.addPropError && <div className="red">Please select a prop name and path</div>}
+              {this.props.outputComponentProps && _.map(this.props.outputComponentProps.storeProps, (storeProp) => (
+                <TreeBranchPropOrAction storeProp={storeProp} outputPropsKey={this.props.outputPropsKey}/>
+              )
+              )}
             </div>
-            {this.state.addPropError && <div className="red">Please select a prop</div>}
             <div className="treeBranchModifyRow">
               <div>Actions:</div>
 
