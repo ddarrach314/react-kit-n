@@ -8,8 +8,8 @@ takes as input the main directory folder & a callback
 */
 
 const createStoreJs = () => {
- let storeJs = 
-  `/* Store File */\n\nimport { createStore } from 'redux';\nimport reducer from './reducers';\n\nconst store = createStore(reducer);\n\nexport default store;\n`;
+  let storeJs = 
+  '/* Store File */\n\nimport { createStore } from \'redux\';\nimport reducer from \'./reducers\';\n\nconst store = createStore(reducer);\n\nexport default store;\n';
 
   // fs.writeFile(path.join(dir, 'store.js'), storeJs, (err) => {
   //   if (err) { throw err; }

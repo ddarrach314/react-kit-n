@@ -12,7 +12,7 @@ const _ = require('lodash');
 //res header should be set to 'Content-Type':'application/zip' prior to invoking this function
 const composer = (req, res) => {
   //pull the onion out of the req object
-  let onion =  req.body;
+  let onion = req.body;
   //easy ref vars
   const mainDir = '/client/src/';
   const compDir = mainDir + 'components/';
@@ -20,7 +20,7 @@ const composer = (req, res) => {
   let zipKit = archiver('zip'); //,{zlib: { level: 9 }}
 
   zipKit.on('warning', (err) => {
-    if(err.code === 'ENONET') {
+    if (err.code === 'ENONET') {
       console.log('zipKit warning', err);
     } else {
       throw err;
@@ -40,7 +40,7 @@ const composer = (req, res) => {
 
   //append/create files in the zipKit stream
   zipKit.append(action.createActionJs(onion), {
-    name:'actions.js',
+    name: 'actions.js',
     prefix: mainDir
   });
 
@@ -64,6 +64,6 @@ const composer = (req, res) => {
   });
 
   zipKit.finalize();
-}
+};
 
 module.exports.composer = composer;

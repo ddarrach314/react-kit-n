@@ -59,7 +59,8 @@ class OutputStoreForm extends React.Component {
         <h4>Store</h4>
         <textarea className="outputStoreFormTextArea"
           value={this.state.storeInput}
-          onChange={this.handleChangeTextArea}/>
+          onChange={this.handleChangeTextArea}
+          spellCheck="false"/>
         <div className="outputStoreFormError">{this.props.outputStore.warning}</div>
       </div>
     );

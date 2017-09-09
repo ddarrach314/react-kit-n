@@ -55,7 +55,7 @@ const createReducersJs = (onion) => {
   //   cb();
   // })
 
-  return reducersJs += `\n    default:\n      return state;\n  };\n};\n\nexport default reducer;\n`;
-  }
+  return reducersJs += '\n    default:\n      return state;\n  };\n};\n\nexport default reducer;\n';
+};
 
 module.exports.createReducersJs = createReducersJs;

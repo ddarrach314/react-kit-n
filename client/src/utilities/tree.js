@@ -1,18 +1,32 @@
 import React from 'react';
 import _ from 'lodash';
 
-export const generateTreeArray = (outputComponents, outputComponentProps, TreeBranch) => {
+export const generateTreeArray = (outputComponents, outputComponentProps, outputStorePropsOptions, outputActions, TreeBranch) => {
   let treeArray = [];
   let traverseOutputComponents = (indent, componentId, outputPropsKey) => {
     let inheritsConnection = checkForInheritedConnection(outputPropsKey, outputComponentProps);
     let connectionCanBeToggled = !inheritsConnection && !checkForConnectedDescendants(outputPropsKey, outputComponentProps);
+    let outputPropNames = outputComponentProps[outputPropsKey] && outputComponentProps[outputPropsKey].storeProps
+      ? Object.values(outputComponentProps[outputPropsKey].storeProps)
+      : [];
+    outputPropNames = outputPropNames.map((name) => (
+      name.toLowerCase()
+    ));
     treeArray.push(<TreeBranch name={outputComponents[componentId].name} 
       indent={indent} 
       id={componentId} 
       outputPropsKey={outputPropsKey}
       outputComponentProps={outputComponentProps[outputPropsKey]}
       inheritsConnection={inheritsConnection}
-      connectionCanBeToggled={connectionCanBeToggled}/>);
+      connectionCanBeToggled={connectionCanBeToggled}
+      outputActions={outputActions}
+      outputStorePropsOptions={outputStorePropsOptions.filter((option) => (
+        !outputComponentProps[outputPropsKey] 
+        || !outputComponentProps[outputPropsKey].storeProps
+        || !outputComponentProps[outputPropsKey].storeProps.hasOwnProperty(option)
+      )
+      )}
+      outputPropNames={outputPropNames}/>);
     outputComponents[componentId].children.forEach((child) => {
       traverseOutputComponents(indent + 20, child.componentId, `${outputPropsKey}_${child.childId}`);
     });

@@ -114,6 +114,36 @@ p {
   margin-right: 15px;
 }
 
+.treeBranchModifyRow {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.treeBranchModifyItem {
+  display: flex;
+  align-items: center;
+}
+
+.outputPropNameInputLabel {
+  margin-right: 5px;
+}
+
+.outputPropNameInput {
+  width: 7em;
+  margin-right: 15px;
+}
+
+.outputPropPathSelect {
+  width: 6em;
+  margin-right: 15px;
+}
+
+.treeBranchPropOrAction {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
 .blueUnderline {
   text-decoration: underline;
   text-decoration-color: #00d8ff;
