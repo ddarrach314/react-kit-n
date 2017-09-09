@@ -21,7 +21,8 @@ class TreeBranch extends React.Component {
       selectedAction: '',
       addPropError: false,
       addPropConnectionError: false,
-      addActionError: false
+      addActionError: false,
+      addActionConnectionError: false
     };
   }
 
@@ -106,7 +107,22 @@ class TreeBranch extends React.Component {
   }
 
   handleClickAddAction() {
-
+    if (this.state.selectedAction === ''  
+        || this.props.outputPropNames.includes(this.state.addedPropName.toLowerCase())
+    ) {
+      this.setState({addPropError: true}, function() {
+        setTimeout(this.hideAddPropError.bind(this), 1500);
+      });
+    } else if((!this.props.inheritsConnection && !this.props.outputComponentProps)
+        || (!this.props.inheritsConnection && !this.props.outputComponentProps.connected)
+    ) {
+      this.setState({addPropConnectionError: true}, function() {
+        setTimeout(this.hideAddPropConnectionError.bind(this), 1500);
+      });
+    } else {
+      actions.bindStorePropToComponent(this.props.outputPropsKey, this.state.selectedPropPath, this.state.addedPropName);
+      this.setState({selectedPropPath: '', addedPropName: ''});
+    }
   }
 
   componentWillReceiveProps() {
@@ -118,6 +134,12 @@ class TreeBranch extends React.Component {
       marginLeft: this.props.indent + 'px'
     };
     let underline = this.props.inheritsConnection ? ' blueUnderline' : '';
+    let outputActionOptions = this.props.outputComponentProps 
+      && this.props.outputComponentProps.actions 
+      ? this.props.outputActions.filter((outputAction) => (
+        !this.props.outputComponentProps.actions.hasOwnProperty(outputAction.id)
+      ))
+      : this.props.outputActions;
 
     return (
       <div>
@@ -171,7 +193,16 @@ class TreeBranch extends React.Component {
               <div>Actions</div>
               <div className="treeBranchModifyItem">
                 <div className="outputPropOrActionLabel">Name:</div>
-                <select className="outputPropOrActionSelect" value={this.state.selectedAction} onChange={this.handleSelectAction.bind(this)}>
+                <select className="outputPropOrActionSelect" 
+                  value={this.state.selectedAction} 
+                  onChange={this.handleSelectAction.bind(this)}>
+                  <option value=''></option>
+                  {(this.props.inheritsConnection || this.props.outputComponentProps)
+                    && (this.props.inheritsConnection || this.props.outputComponentProps.connected)
+                    && outputActionOptions.map((outputAction, index) => (
+                      <option key={index} value={outputAction.id}>{outputAction.name}</option>
+                    )
+                    )}
                 </select>
                 <i className="material-icons pointer green"
                   onClick={this.handleClickAddAction.bind(this)}>add</i>
