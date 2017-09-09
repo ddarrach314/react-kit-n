@@ -1,10 +1,4 @@
-//take in as input 'onion' and server out the files needed' 
-//may be refactored into multiple files/modules depending on need. 
 const _ = require('lodash');
-const fs = require('fs');
-const path = require('path');
-
-const types = [];
 
 const actionInput = (type, target) => {
   //take in type from action and target
@@ -48,10 +42,8 @@ const actionOutput = (type, target) => {
 
 const makeHeader = (types) => {
   let header = '';
-  _.forEach(types, (type) => {
-    header = header.concat(
-      `const ${type} = "${type}";\n`
-    );
+  types.forEach((type) => {
+    header += `const ${type} = "${type}";\n`;
   });
   return header;
 };
@@ -59,17 +51,15 @@ const makeHeader = (types) => {
 const makeExport = (types) => {
   let exp = '\nexport const types = {\n';
   types.forEach((type) => {
-    exp = exp.concat(
-      `  ${type},\n`
-    );
+    exp += `  ${type},\n`;
   });
-  exp = exp.concat('}\n\n');
-  return exp;
+  return exp += '}\n\n';
 };
 
-const createActionJs = (onion, dir, cb) => {
+const createActionJs = (onion) => {
   //ingredients: whole onion, directory to create file in, callback 
   //process: slice onion for actions layer and store
+  let types = [];
   let store = onion.store;
   let actions = onion.actions;
   let actionList = '';
@@ -83,19 +73,22 @@ const createActionJs = (onion, dir, cb) => {
     let type = snakeType.toUpperCase();
     types.push(type);
     // create and save action list to actionList array
-    actionList = actionList.concat(`export const ${action.name} = (${actionInput(action.type, target)}) => ({\n  type: ${type},\n  ${actionOutput(action.type, target)}\n})\n\n`);
+    actionList += `export const ${action.name} = (${actionInput(action.type, target)}) => ({\n  type: ${type},\n  ${actionOutput(action.type, target)}\n})\n\n`;
   });
   //stitch together the header, export and action functions
-  actionsJs = actionsJs.concat(makeHeader(types), makeExport(types), actionList);
+  actionsJs += makeHeader(types) + makeExport(types) + actionList;
   
   //create file actions.js in working directory
   
   //create actions.js and write string result to file
-  fs.writeFile(path.join(dir, 'actions.js'), actionsJs, (err) => {
-    if (err) { throw err; }
-    // console.log('File write completed for Action.js');
-    cb();
-  });
+  // fs.writeFile(path.join(dir, 'actions.js'), actionsJs, (err) => {
+  //   if (err) { throw err; }
+  //   // console.log('File write completed for Action.js');
+  //   cb();
+  // });
+  return actionsJs;
 };
+
+
 
 module.exports.createActionJs = createActionJs;
