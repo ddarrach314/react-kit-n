@@ -7,8 +7,6 @@ import _ from 'lodash';
 
 let actions = bindActionCreators(unboundActions, store.dispatch);
 
-// ACCOUNT FOR USE CASE WHERE USER DISCONNECTS AFTER PROPS HAVE BEEN ADDED
-
 class TreeBranch extends React.Component {
   constructor(props) {
     super(props);
@@ -186,15 +184,18 @@ class TreeBranch extends React.Component {
               </div>
               {this.state.addPropError && <div className="red">Please select a prop path and unique prop name</div>}
               {this.state.addPropConnectionError && <div className="red">Component must have store connection to add props</div>}
-              <div className="treeBranchPropsActions">
-                {this.props.outputComponentProps && _.map(this.props.outputComponentProps.storeProps, (storePropName, storePropPath) => (
-                  <TreeBranchPropOrAction storePropPath={storePropPath} 
-                    storePropName={storePropName} 
-                    outputPropsKey={this.props.outputPropsKey} 
-                    propOrAction='prop'/>
-                )
-                )}
-              </div>
+              {(this.props.inheritsConnection || this.props.outputComponentProps)
+                && (this.props.inheritsConnection || this.props.outputComponentProps.connected)
+                && 
+                <div className="treeBranchPropsActions">
+                  {this.props.outputComponentProps && _.map(this.props.outputComponentProps.storeProps, (storePropName, storePropPath) => (
+                    <TreeBranchPropOrAction storePropPath={storePropPath} 
+                      storePropName={storePropName} 
+                      outputPropsKey={this.props.outputPropsKey} 
+                      propOrAction='prop'/>
+                  )
+                  )}
+                </div>}
             </div>
             <div>
               <div>Actions</div>
@@ -216,15 +217,18 @@ class TreeBranch extends React.Component {
               </div>
               {this.state.addActionError && <div className="red">Please select an action</div>}
               {this.state.addActionConnectionError && <div className="red">Component must have store connection to add props</div>}
-              <div className="treeBranchPropsActions">
-                {this.props.outputComponentProps && _.map(this.props.outputComponentProps.actions, (outputActionId) => (
-                  <TreeBranchPropOrAction outputActionId={outputActionId}
-                    outputActionName={outputActions[outputActionId]}
-                    outputPropsKey={this.props.outputPropsKey} 
-                    propOrAction='action'/>
-                )
-                )}
-              </div>
+              {(this.props.inheritsConnection || this.props.outputComponentProps)
+                && (this.props.inheritsConnection || this.props.outputComponentProps.connected)
+                &&
+                <div className="treeBranchPropsActions">
+                  {this.props.outputComponentProps && _.map(this.props.outputComponentProps.actions, (outputActionId) => (
+                    <TreeBranchPropOrAction outputActionId={outputActionId}
+                      outputActionName={outputActions[outputActionId]}
+                      outputPropsKey={this.props.outputPropsKey} 
+                      propOrAction='action'/>
+                  )
+                  )}
+                </div>}
             </div>
           </div>
         }
