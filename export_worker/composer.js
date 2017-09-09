@@ -9,38 +9,15 @@ const fs = require('fs');
 Promise.promisifyAll(fs);
 const _ = require('lodash');
 
-
-/*  
-
-compose the various needed components together in the same directory and package for sending back to client that requested the package
-
-1. create main folder (client > src )
-  2. create actions folder (src > actions)
-  3. create reducers folder (src > reducers)
-  4. create components folder (src > components)
-5. create actions.js in actions
-6. create reducers.js in reducers
-7. create store.js in main
-8. create app.js in main 
-9. create components in components
-
-10. handle errors
-11. package (zip?) folder and send to requestor. 
-
-//potentialy refactor the workers to just be string factories and leave the file creation to composer... 
-*/
-
 //res header should be set to 'Content-Type':'application/zip' prior to invoking this function
 const composer = (req, res) => {
   //pull the onion out of the req object
-  
+  let onion =  req.body;
   //easy ref vars
   const mainDir = '/client/src/';
   const compDir = mainDir + 'components/';
   //setup the zip file  and output
-  let zipKit = archiver('zip',{
-    zlib: { level: 9 }
-  });
+  let zipKit = archiver('zip'); //,{zlib: { level: 9 }}
 
   zipKit.on('warning', (err) => {
     if(err.code === 'ENONET') {
@@ -79,7 +56,7 @@ const composer = (req, res) => {
   
   _.forEach(onion.components, (component, key) => {
     let compName = _.upperFirst(component.name) + '.jsx';
-    let thisDir = key === 0 ? mainDir : compDir;
+    let thisDir = key === '0' ? mainDir : compDir;
     zipKit.append(comp.createComponent(key, onion), {
       name: compName,
       prefix: thisDir
