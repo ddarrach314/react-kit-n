@@ -49,10 +49,15 @@ export const removeActionFromComponent = (outputPropsKey, outputAction) => ({
   outputAction
 });
 
-export const bindStorePropToComponent = (outputPropsKey, outputStoreProp) => ({
+export const bindStorePropToComponent = (
+  outputPropsKey,
+  outputStoreProp,
+  outputStorePropName
+) => ({
   type: types.BIND_STORE_PROP_TO_COMPONENT,
   outputPropsKey,
-  outputStoreProp
+  outputStoreProp,
+  outputStorePropName
 });
 
 export const removeStorePropFromComponent = (outputPropsKey, outputStoreProp) => ({
