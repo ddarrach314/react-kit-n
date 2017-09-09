@@ -10,7 +10,6 @@ const comp = require('../componentWorker.js');
 const fs = require('fs');
 const path = require('path');
 const { sep } = require('path');
-const AdmZip = require('adm-zip');
 
 
 const onion = {
@@ -184,32 +183,27 @@ describe('Composer', () => {
   let curDir = path.join(__dirname, '../');
   let testFolder = fs.mkdtempSync(`${curDir}${sep}`, );
   let zipFile = testFolder + '/test.zip';
-  
-  let download = fs.createWriteStream(zipFile, { 'autoClose': false });
-  let zip = '';
-  
+    
   before((done) => {
     let request = httpMocks.createRequest({ body: onion });
+    let download = fs.createWriteStream(zipFile, { 'autoClose': false });
     
     compose.composer(request, download);
     
     download.on('unpipe', () => {
       download.end();
-      zip = new AdmZip(zipFile);
       done();
     });
 
   });
 
-  after((done) => {
-    // let zip = fs.openSync(zipFile, 'r+');
-    // fs.closeSync(zip);
-    // fs.unlinkSync(zipFile);
-    
-    zip.deleteFile(testFolder);
-    fs.rmdirSync(testFolder);  
-    done();  
-  });
+  // after((done) => {
+  //   let zip = fs.openSync(zipFile, 'r+');
+  //   fs.closeSync(zip);
+  //   fs.unlinkSync(zipFile);
+  //   fs.rmdirSync(testFolder);  
+  //   done();  
+  // });
 
   it('creates a zip file', () => {
     expect(fs.existsSync(zipFile)).to.be.true;
