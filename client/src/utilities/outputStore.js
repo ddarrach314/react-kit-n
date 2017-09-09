@@ -7,6 +7,9 @@ export const getTargetsFromOutputStore = (outputStore) => {
         if (Array.isArray(targets[key])) {
           targetsTypes[parent + key] = 'array';
           continue;
+        } else if (targets[key] === null) {
+          targetsTypes[parent + key] = 'null';
+          continue;
         } else {
           targetsTypes[parent + key] = type;
           objMapper(targets[key], parent + key + '.');
