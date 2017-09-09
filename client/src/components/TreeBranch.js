@@ -107,26 +107,28 @@ class TreeBranch extends React.Component {
   }
 
   handleClickAddAction() {
-    if (this.state.selectedAction === ''  
-        || this.props.outputPropNames.includes(this.state.addedPropName.toLowerCase())
-    ) {
-      this.setState({addPropError: true}, function() {
-        setTimeout(this.hideAddPropError.bind(this), 1500);
+    if (this.state.selectedAction === '') {
+      this.setState({addActionError: true}, function() {
+        setTimeout(this.hideAddActionError.bind(this), 1500);
       });
     } else if((!this.props.inheritsConnection && !this.props.outputComponentProps)
         || (!this.props.inheritsConnection && !this.props.outputComponentProps.connected)
     ) {
-      this.setState({addPropConnectionError: true}, function() {
-        setTimeout(this.hideAddPropConnectionError.bind(this), 1500);
+      this.setState({addActionConnectionError: true}, function() {
+        setTimeout(this.hideAddActionConnectionError.bind(this), 1500);
       });
     } else {
-      actions.bindStorePropToComponent(this.props.outputPropsKey, this.state.selectedPropPath, this.state.addedPropName);
-      this.setState({selectedPropPath: '', addedPropName: ''});
+      actions.bindActionToComponent(this.props.outputPropsKey, this.state.selectedAction);
+      this.setState({selectedAction: ''});
     }
   }
 
-  componentWillReceiveProps() {
+  hideAddActionError() {
+    this.setState({addActionError: false});
+  }
 
+  hideAddActionConnectionError() {
+    this.setState({addActionConnectionError: false});
   }
 
   render() {
@@ -134,11 +136,16 @@ class TreeBranch extends React.Component {
       marginLeft: this.props.indent + 'px'
     };
     let underline = this.props.inheritsConnection ? ' blueUnderline' : '';
+    let outputActions = {};
     let outputActionOptions = this.props.outputComponentProps 
       && this.props.outputComponentProps.actions 
-      ? this.props.outputActions.filter((outputAction) => (
-        !this.props.outputComponentProps.actions.hasOwnProperty(outputAction.id)
-      ))
+      ? this.props.outputActions.filter((outputAction) => {
+        if (this.props.outputComponentProps.actions.hasOwnProperty(outputAction.id)) {
+          outputActions[outputAction.id] = outputAction.name;
+        } else {
+          return true;
+        }
+      })
       : this.props.outputActions;
 
     return (
@@ -207,10 +214,12 @@ class TreeBranch extends React.Component {
                 <i className="material-icons pointer green"
                   onClick={this.handleClickAddAction.bind(this)}>add</i>
               </div>
+              {this.state.addActionError && <div className="red">Please select an action</div>}
+              {this.state.addActionConnectionError && <div className="red">Component must have store connection to add props</div>}
               <div className="treeBranchPropsActions">
                 {this.props.outputComponentProps && _.map(this.props.outputComponentProps.actions, (outputActionId) => (
                   <TreeBranchPropOrAction outputActionId={outputActionId}
-                    outputActionName={this.props.outputActions[outputActionId]}
+                    outputActionName={outputActions[outputActionId]}
                     outputPropsKey={this.props.outputPropsKey} 
                     propOrAction='action'/>
                 )
