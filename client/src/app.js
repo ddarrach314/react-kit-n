@@ -6,6 +6,7 @@ import store from './reduxStore';
 import OutputStoreForm from './components/OutputStoreForm';
 import OutputActionsForm from './components/OutputActionsForm';
 import ComponentsAndTree from './components/ComponentsAndTree';
+import SubmitForm from './components/SubmitForm';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends React.Component {
@@ -34,6 +35,7 @@ const ConnectedApp = () => {
             <OutputStoreForm />
             <OutputActionsForm />
           </div>
+          <SubmitForm />
         </div>
       </MuiThemeProvider>
     </Provider>

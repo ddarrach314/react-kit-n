@@ -12,7 +12,7 @@ const _ = require('lodash');
 //res header should be set to 'Content-Type':'application/zip' prior to invoking this function
 const composer = (req, res) => {
   //pull the onion out of the req object
-  let onion = req.body;
+  let onion = req.onion;
   //easy ref vars
   const mainDir = '/client/src/';
   const compDir = mainDir + 'components/';
@@ -53,7 +53,7 @@ const composer = (req, res) => {
     name: 'store.js',
     prefix: mainDir
   });
-  
+
   _.forEach(onion.components, (component, key) => {
     let compName = _.upperFirst(component.name) + '.jsx';
     let thisDir = key === '0' ? mainDir : compDir;
