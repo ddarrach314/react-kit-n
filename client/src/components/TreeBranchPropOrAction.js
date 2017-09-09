@@ -12,7 +12,7 @@ class TreeBranchPropOrAction extends React.Component {
   }
 
   handleClickDeletePropOrAction() {
-    actions.removeStorePropFromComponent(this.props.outputPropsKey, this.props.storeProp);
+    actions.removeStorePropFromComponent(this.props.outputPropsKey, this.props.storePropPath);
   }
 
   handleMouseEnter() {
@@ -26,7 +26,7 @@ class TreeBranchPropOrAction extends React.Component {
   render() {
     return (
       <div className="treeBranchPropOrAction" onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>
-        <div>{this.props.storeProp}</div>
+        <div>{this.props.storePropName}: {this.props.storePropPath}</div>
         {this.state.hover && <i className="material-icons pointer red" 
           onClick={this.handleClickDeletePropOrAction.bind(this)}>clear</i>}
       </div>

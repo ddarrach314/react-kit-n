@@ -15,7 +15,7 @@ const importStatement = (key, childName) => {
 };
 
 const classStatement = (name) => {
-    return `/* Add additional import statements as needed for your app! */\n\nclass ${name} extends React.Component {\n`;
+  return `/* Add additional import statements as needed for your app! */\n\nclass ${name} extends React.Component {\n`;
 };
 
 const methodStatement = () => {
@@ -38,11 +38,11 @@ const storeConnect = () => {
 
 const exportStatement = (key, compName) => {
   //returns the export statement for all child components
-    //or render statement for app.jsx
+  //or render statement for app.jsx
   if (key === '0') {
     return `\n\nReactDOM.render(<${compName} />, document.getElementById('root'));\n`;
   } else {
-    return `\n\nexport default ${compName};\n` 
+    return `\n\nexport default ${compName};\n`; 
   }
 };
 
@@ -54,16 +54,16 @@ const createComponent = (key, onion) => {
   let compChildren = component.children; //array of components children
   let compJsxTemplate = `/* ${compName} Component File */\n\n`;
 
-  let appHead = `import React from 'react';\nimport ReactDOM from 'react-dom';\nimport { Provider } from 'react-redux';\nimport store from './store';\n`;
+  let appHead = 'import React from \'react\';\nimport ReactDOM from \'react-dom\';\nimport { Provider } from \'react-redux\';\nimport store from \'./store\';\n';
 
-  let compHead = `import React from 'react';\nimport { connect } from 'react-redux';\nimport store from '../store';\n`;  
+  let compHead = 'import React from \'react\';\nimport { connect } from \'react-redux\';\nimport store from \'../store\';\n';  
 
-  let appRenderTemplate = `  render() {\n    return (\n      <Provider store={store}>\n        {/*Space for wrapping HTML if needed */}\n`;
+  let appRenderTemplate = '  render() {\n    return (\n      <Provider store={store}>\n        {/*Space for wrapping HTML if needed */}\n';
 
-  let appRenderTemplateEnd = `        {/*Space for wrapping HTML if needed */}\n      </Provider>\n    );\n  };\n};`;
+  let appRenderTemplateEnd = '        {/*Space for wrapping HTML if needed */}\n      </Provider>\n    );\n  };\n};';
 
-  let compRenderTemplate = `  render() {\n    return (\n      {/*Space for wrapping HTML if needed */}\n`;
-  let compRenderTemplateEnd = `      {/*Space for wrapping HTML if needed */}\n    );\n  };\n};`;
+  let compRenderTemplate = '  render() {\n    return (\n      {/*Space for wrapping HTML if needed */}\n';
+  let compRenderTemplateEnd = '      {/*Space for wrapping HTML if needed */}\n    );\n  };\n};';
 
   if (compChildren.length) {
     _.forEach(compChildren, (childObj) => {
@@ -71,18 +71,18 @@ const createComponent = (key, onion) => {
       if (key === '0') {
         appHead += importStatement(key, childName);
         appRenderTemplate += renderChild(key, childName);
-      } else  {
+      } else {
         compHead += importStatement(key, childName);
         compRenderTemplate += renderChild(key, childName);
-      };
+      }
     });
-  };
+  }
 
   if (key === '0') {
     return compJsxTemplate + appHead + classStatement(compName) + methodStatement() + appRenderTemplate + appRenderTemplateEnd + exportStatement(key, compName);
   } else {
     return compJsxTemplate + compHead + classStatement(compName) + methodStatement() + compRenderTemplate + compRenderTemplateEnd + exportStatement(key, compName);
-  };
+  }
 };
 
 module.exports.createComponent = createComponent;

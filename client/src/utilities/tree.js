@@ -6,6 +6,12 @@ export const generateTreeArray = (outputComponents, outputComponentProps, output
   let traverseOutputComponents = (indent, componentId, outputPropsKey) => {
     let inheritsConnection = checkForInheritedConnection(outputPropsKey, outputComponentProps);
     let connectionCanBeToggled = !inheritsConnection && !checkForConnectedDescendants(outputPropsKey, outputComponentProps);
+    let outputPropNames = outputComponentProps[outputPropsKey] && outputComponentProps[outputPropsKey].storeProps
+      ? Object.values(outputComponentProps[outputPropsKey].storeProps)
+      : [];
+    outputPropNames = outputPropNames.map((name) => (
+      name.toLowerCase()
+    ));
     treeArray.push(<TreeBranch name={outputComponents[componentId].name} 
       indent={indent} 
       id={componentId} 
@@ -19,7 +25,8 @@ export const generateTreeArray = (outputComponents, outputComponentProps, output
         || !outputComponentProps[outputPropsKey].storeProps
         || !outputComponentProps[outputPropsKey].storeProps.hasOwnProperty(option)
       )
-      )}/>);
+      )}
+      outputPropNames={outputPropNames}/>);
     outputComponents[componentId].children.forEach((child) => {
       traverseOutputComponents(indent + 20, child.componentId, `${outputPropsKey}_${child.childId}`);
     });

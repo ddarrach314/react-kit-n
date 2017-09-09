@@ -7,13 +7,11 @@ import _ from 'lodash';
 
 let actions = bindActionCreators(unboundActions, store.dispatch);
 
+// ACCOUNT FOR USE CASE WHERE USER DISCONNECTS AFTER PROPS HAVE BEEN ADDED
+
 class TreeBranch extends React.Component {
   constructor(props) {
     super(props);
-    let outputPropNames = Object.values(this.props.outputComponentProps.storeProps);
-    outputPropNames = outputPropNames.map((name) => (
-      name.toLowerCase()
-    ));
     this.state = {
       hover: false,
       expanded: false,
@@ -22,8 +20,7 @@ class TreeBranch extends React.Component {
       addedPropName: '',
       selectedAction: '',
       addPropError: false,
-      addActionError: false,
-      outputPropNames
+      addActionError: false
     };
   }
 
@@ -76,13 +73,16 @@ class TreeBranch extends React.Component {
   }
 
   handleClickAddProp() {
-    if (this.state.selectedPropPath === '' || this.state.outputPropNames.includes(this.state.addedPropName)) {
+    if (this.state.selectedPropPath === '' 
+        || this.state.addedPropName === '' 
+        || this.props.outputPropNames.includes(this.state.addedPropName.toLowerCase())
+    ) {
       this.setState({addPropError: true}, function() {
         setTimeout(this.hideAddPropError.bind(this), 1500);
       });
     } else {
-      actions.bindStorePropToComponent(this.props.outputPropsKey, this.state.selectedPropPath);
-      this.setState({selectedPropPath: ''});
+      actions.bindStorePropToComponent(this.props.outputPropsKey, this.state.selectedPropPath, this.state.addedPropName);
+      this.setState({selectedPropPath: '', addedPropName: ''});
     }
   }
 
@@ -144,9 +144,9 @@ class TreeBranch extends React.Component {
                 <i className="material-icons pointer green"
                   onClick={this.handleClickAddProp.bind(this)}>add</i>
               </div>
-              {this.state.addPropError && <div className="red">Please select a prop name and path</div>}
-              {this.props.outputComponentProps && _.map(this.props.outputComponentProps.storeProps, (storeProp) => (
-                <TreeBranchPropOrAction storeProp={storeProp} outputPropsKey={this.props.outputPropsKey}/>
+              {this.state.addPropError && <div className="red">Please select a prop path and unique prop name</div>}
+              {this.props.outputComponentProps && _.map(this.props.outputComponentProps.storeProps, (storePropName, storePropPath) => (
+                <TreeBranchPropOrAction storePropPath={storePropPath} storePropName={storePropName} outputPropsKey={this.props.outputPropsKey}/>
               )
               )}
             </div>
