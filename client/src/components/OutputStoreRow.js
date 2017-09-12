@@ -13,7 +13,8 @@ class OutputStoreRow extends React.Component {
         };
     
     return (
-      <div>
+      <div style={divStyle}>
+      {this.props.name}{this.props.type}{JSON.stringify(this.props.path)}{JSON.stringify(this.props.initialValue)}
       </div>
     );
   }

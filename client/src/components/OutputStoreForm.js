@@ -39,18 +39,30 @@ class OutputStoreForm extends React.Component {
   }
 
   render() {
+    let fakeData = [
+      {name: 'recipeList', type: 'array', initialValue: [], elementSchema: {type: 'array', elementSchema: {type: 'string'}}},
+      {name: 'emptyListDisplay', type: 'boolean', initialValue: true},
+      {name: 'chefs', type: 'object', initialValue: {}, properties: [
+        {name: 'fNames', type: 'array', initialValue: [], elementSchema: {type: 'string'}},
+        {name: 'count', type: 'number', initialValue: 0}
+      ]}
+    ]
     return (
       <div className="col-md-3 outputStoreCol">
         <div className="outputStoreSchemaHeading">
-          <h4>Actions</h4>
+          <h4>Store Schema</h4>
           <i className="material-icons addStorePropertyButton pointer green"
             onClick={actions.createNewOutputAction}>add</i>
         </div>
-        {utilities.outputStore.generateStoreArray(this.props.outputStore.properties, OutputStoreRow)}
+        <div className="outputStoreFormTextArea"> 
+          {utilities.outputStore.generateStoreArray(fakeData, OutputStoreRow)}
+        </div>
       </div>
     );
   }  
 }
+
+//this.props.outputStore.properties
 
 OutputStoreForm = connect(
   (state) => (

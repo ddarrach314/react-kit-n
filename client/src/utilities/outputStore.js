@@ -1,3 +1,4 @@
+import React from 'react';
 import _ from 'lodash';
 
 export const buildPropertiesPath = (path) => {
@@ -41,22 +42,31 @@ export const getTargetsFromOutputStore = (outputStore) => {
 
 export const generateStoreArray = (outputStore, OutputStoreRow) => {
   let storeArray = [];
-  let traverseStore = (object, indent, isElementSchema) => {
+  let traverseStore = (object, indent, path, isElementSchema) => {
     if (isElementSchema) {
-      storeArray.push(<OutputStoreRow indent={indent} isElementSchema={true} propertyType={object.type} />);
+      storeArray.push(<OutputStoreRow path={path} indent={indent} isElementSchema={true} type={object.type} />);
       if (object.type === 'object') {
-        traverseStore(object.properties, indent + 20);
+        storeArray.push(<div style={{marginLeft: indent + 20 + 'px'}}>Properties</div>);
+        traverseStore(object.properties, indent + 20, path);
       } else if (object.type === 'array') {
-        traverseStore(object.elementSchema, indent + 20, true);
+        storeArray.push(<div style={{marginLeft: indent + 20 + 'px'}}>Element Schema</div>);
+        traverseStore(object.elementSchema, indent + 20, path.concat('elementSchema'), true);
       }
     } else {
-      object.forEach((property) => {
-        storeArray.push(<OutputStoreRow indent={indent} propertyName={property.name} propertyType={property.type} initialValue={property.initialValue} isElementSchema={false} />);
-        property.type === 'object' && traverseStore(property.properties, indent + 20);
-        property.type === 'array' && traverseStore(property.elementSchema, indent + 20, true);
+      object.forEach((property, index) => {
+        storeArray.push(<OutputStoreRow path={path.concat(index)} indent={indent} name={property.name} type={property.type} initialValue={property.initialValue} isElementSchema={false} />);
+        if (property.type === 'object') {
+          storeArray.push(<div style={{marginLeft: indent + 20 + 'px'}}>Properties</div>);
+          storeArray.push(<i style={{marginLeft: indent + 20 + 'px'}}
+            className="material-icons addStorePropertyButton pointer green">add</i>);
+          traverseStore(property.properties, indent + 20, path.concat(index));
+        } else if(property.type === 'array') {
+          storeArray.push(<div style={{marginLeft: indent + 20 + 'px'}}>Element Schema</div>);
+          traverseStore(property.elementSchema, indent + 20, path.concat([index, 'elementSchema']), true);
+        }
       });
     }
   }
-  traverseStore(outputStore, 0);
+  traverseStore(outputStore, 0, []);
   return storeArray;
 }
