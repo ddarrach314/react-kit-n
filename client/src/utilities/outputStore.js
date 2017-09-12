@@ -14,7 +14,6 @@ export const buildPropertiesPath = (path) => {
   );
 };
 
-
 export const getTargetsFromOutputStore = (outputStore) => {
   let targetsTypes = {};
   let objMapper = (targets, parent = '') => {

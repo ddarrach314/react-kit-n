@@ -53,7 +53,12 @@ const safeDelete = (obj, lookupPath) => {
     nestedObj = nestedObj[key];
   }
 
-  delete nestedObj[lastKey];
+  if (Array.isArray(nestedObj)) {
+    nestedObj.splice(lastKey, 1);
+  } else {
+    delete nestedObj[lastKey];
+  }
+
   return newObj;
 };
 
