@@ -80,7 +80,7 @@ class TreeBranch extends React.Component {
       this.setState({addPropError: true}, function() {
         setTimeout(this.hideAddPropError.bind(this), 1500);
       });
-    } else if((!this.props.inheritsConnection && !this.props.outputComponentProps)
+    } else if ((!this.props.inheritsConnection && !this.props.outputComponentProps)
         || (!this.props.inheritsConnection && !this.props.outputComponentProps.connected)
     ) {
       this.setState({addPropConnectionError: true}, function() {
@@ -109,7 +109,7 @@ class TreeBranch extends React.Component {
       this.setState({addActionError: true}, function() {
         setTimeout(this.hideAddActionError.bind(this), 1500);
       });
-    } else if((!this.props.inheritsConnection && !this.props.outputComponentProps)
+    } else if ((!this.props.inheritsConnection && !this.props.outputComponentProps)
         || (!this.props.inheritsConnection && !this.props.outputComponentProps.connected)
     ) {
       this.setState({addActionConnectionError: true}, function() {

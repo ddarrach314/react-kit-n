@@ -1,3 +1,20 @@
+import _ from 'lodash';
+
+export const buildPropertiesPath = (path) => {
+  return _.reduce(
+    path,
+    (accumulator, value, index) => {
+      accumulator += `.${value}`;
+      if (!isNaN(Number(path[index + 1]))) {
+        accumulator += '.properties';
+      }
+      return accumulator;
+    },
+    'properties'
+  );
+};
+
+
 export const getTargetsFromOutputStore = (outputStore) => {
   let targetsTypes = {};
   let objMapper = (targets, parent = '') => {

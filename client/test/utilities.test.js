@@ -1,6 +1,40 @@
 import utils from '../src/utilities';
 
 describe('makeMutableCopy', function() {
+
+  test('safeSet sets lookup path without modifying original', () => {
+    let object = {
+      key1: 'val1',
+      key2: {
+        key3: 'val2',
+      }
+    };
+
+    let newObject = utils.safeSet(object, 'val4', 'key1');
+    expect(newObject.key1).toBe('val4');
+    expect(newObject.key2).toBe(object.key2);
+
+    newObject = utils.safeSet(object, 'val5', 'key2.key3');
+    expect(newObject.key2.key3).toBe('val5');
+    expect(object.key2.key3).toBe('val2');
+  });
+
+  test('safeDelete removes lookup path without modifying original', () => {
+    let object = {
+      key1: 'val1',
+      key2: {
+        key3: 'val2',
+      }
+    };
+
+    let newObject = utils.safeDelete(object, 'key1');
+    expect(newObject.key1).toBe(undefined);
+    expect(newObject.key2).toBe(object.key2);
+    newObject = utils.safeDelete(object, 'key2.key3');
+    expect(newObject.key2.key3).toBe(undefined);
+    expect(newObject.key2.key3).not.toBe(object.key2.key3);
+  });
+
   test('Creates object that is safely mutable with respect to passed lookups',
     function() {
       let objectToCopy = {
@@ -39,6 +73,32 @@ describe('makeMutableCopy', function() {
       expect(copy.key6[0]).toBe(objectToCopy.key6[0]);
     }
   );
+});
+
+describe('Output store utils', () => {
+  test('Builds lookup path correctly', () => {
+    let pathArrays = [
+      [0],
+      [0, 1],
+      ['0', '1'],
+      [0, 'elementSchema'],
+      [0, 1, 'elementSchema', 1]
+    ];
+
+    let expectedPaths = [
+      'properties.0',
+      'properties.0.properties.1',
+      'properties.0.properties.1',
+      'properties.0.elementSchema',
+      'properties.0.properties.1.elementSchema.properties.1',
+    ];
+
+    for (let i in pathArrays) {
+      expect(
+        utils.outputStore.buildPropertiesPath(pathArrays[i])
+      ).toBe(expectedPaths[i]);
+    }
+  });
 });
 
 describe('Ancestry key utils', () => {
