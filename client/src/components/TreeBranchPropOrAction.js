@@ -35,7 +35,7 @@ class TreeBranchPropOrAction extends React.Component {
         <div>{display}</div>
         {this.state.hover 
           ? <i className="material-icons pointer red" 
-          onClick={this.handleClickDeletePropOrAction.bind(this)}>clear</i>
+            onClick={this.handleClickDeletePropOrAction.bind(this)}>clear</i>
           : <div className="deletePlaceHolder"></div>}
       </div>
     );

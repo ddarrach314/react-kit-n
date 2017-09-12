@@ -25,6 +25,38 @@ const splitOnFirstPeriod = (string) => {
   }
 };
 
+const safeSet = (obj, value, lookupPath) => {
+  let newObj = makeMutableCopy(obj, lookupPath);
+  let keys = lookupPath.split('.');
+  let pathKeys = keys.slice(0, keys.length - 1);
+  let lastKey = keys[keys.length - 1];
+
+  let nestedObj = newObj;
+
+  for (let key of pathKeys) {
+    nestedObj = nestedObj[key];
+  }
+
+  nestedObj[lastKey] = value;
+  return newObj;
+};
+
+const safeDelete = (obj, lookupPath) => {
+  let newObj = makeMutableCopy(obj, lookupPath);
+  let keys = lookupPath.split('.');
+  let pathKeys = keys.slice(0, keys.length - 1);
+  let lastKey = keys[keys.length - 1];
+
+  let nestedObj = newObj;
+
+  for (let key of pathKeys) {
+    nestedObj = nestedObj[key];
+  }
+
+  delete nestedObj[lastKey];
+  return newObj;
+};
+
 const makeMutableCopy = (obj, ...lookups) => {
   /*
     Accepts on object and lookups paths.
@@ -70,6 +102,8 @@ const makeMutableCopy = (obj, ...lookups) => {
 };
 
 const utilities = {
+  safeSet,
+  safeDelete,
   makeMutableCopy,
   applyReducersSequentially,
   outputStore: outputStoreUtilities,
