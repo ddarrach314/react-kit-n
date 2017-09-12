@@ -38,3 +38,25 @@ export const getTargetsFromOutputStore = (outputStore) => {
   objMapper(outputStore);
   return targetsTypes;
 };
+
+export const generateStoreArray = (outputStore, OutputStoreRow) => {
+  let storeArray = [];
+  let traverseStore = (object, indent, isElementSchema) => {
+    if (isElementSchema) {
+      storeArray.push(<OutputStoreRow indent={indent} isElementSchema={true} propertyType={object.type} />);
+      if (object.type === 'object') {
+        traverseStore(object.properties, indent + 20);
+      } else if (object.type === 'array') {
+        traverseStore(object.elementSchema, indent + 20, true);
+      }
+    } else {
+      object.forEach((property) => {
+        storeArray.push(<OutputStoreRow indent={indent} propertyName={property.name} propertyType={property.type} initialValue={property.initialValue} isElementSchema={false} />);
+        property.type === 'object' && traverseStore(property.properties, indent + 20);
+        property.type === 'array' && traverseStore(property.elementSchema, indent + 20, true);
+      });
+    }
+  }
+  traverseStore(outputStore, 0);
+  return storeArray;
+}

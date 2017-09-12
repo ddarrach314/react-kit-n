@@ -3,6 +3,8 @@ import _ from 'lodash';
 import {connect} from 'react-redux';
 import actions from '../actions';
 import {bindActionCreators} from 'redux';
+import utilities from '../utilities/index';
+import OutputStoreRow from './OutputStoreRow.js';
 
 class OutputStoreForm extends React.Component {
   constructor(props) {
@@ -36,35 +38,18 @@ class OutputStoreForm extends React.Component {
     }
   }
 
-  componentDidMount() {
-    var context = this;
-    var textareas = document.getElementsByTagName('textarea');
-    var count = textareas.length;
-    for (var i = 0; i < count; i++) {
-      textareas[i].onkeydown = function(e) {
-        if (e.keyCode === 9 || e.which === 9) {
-          e.preventDefault();
-          var s = this.selectionStart;
-          this.value = this.value.substring(0, this.selectionStart) + '  ' + this.value.substring(this.selectionEnd);
-          this.selectionEnd = s + 2; 
-          context.setState({storeInput: this.value}, context.processTextArea);
-        }
-      };
-    }
-  }
-
   render() {
     return (
       <div className="col-md-3 outputStoreCol">
-        <h4>Store</h4>
-        <textarea className="outputStoreFormTextArea"
-          value={this.state.storeInput}
-          onChange={this.handleChangeTextArea}
-          spellCheck="false"/>
-        <div className="outputStoreFormError">{this.props.outputStore.warning}</div>
+        <div className="outputStoreSchemaHeading">
+          <h4>Actions</h4>
+          <i className="material-icons addStorePropertyButton pointer green"
+            onClick={actions.createNewOutputAction}>add</i>
+        </div>
+        {utilities.outputStore.generateStoreArray(this.props.outputStore.properties, OutputStoreRow)}
       </div>
     );
-  }
+  }  
 }
 
 OutputStoreForm = connect(
