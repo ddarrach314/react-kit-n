@@ -49,7 +49,6 @@ export const generateStoreArray = (outputStore, OutputStoreRow) => {
         storeArray.push(<div style={{marginLeft: indent + 20 + 'px'}}>Properties</div>);
         traverseStore(object.properties, indent + 20, path);
       } else if (object.type === 'array') {
-        storeArray.push(<div style={{marginLeft: indent + 20 + 'px'}}>Element Schema</div>);
         traverseStore(object.elementSchema, indent + 20, path.concat('elementSchema'), true);
       }
     } else {
@@ -61,7 +60,6 @@ export const generateStoreArray = (outputStore, OutputStoreRow) => {
             className="material-icons addStorePropertyButton pointer green">add</i>);
           traverseStore(property.properties, indent + 20, path.concat(index));
         } else if(property.type === 'array') {
-          storeArray.push(<div style={{marginLeft: indent + 20 + 'px'}}>Element Schema</div>);
           traverseStore(property.elementSchema, indent + 20, path.concat([index, 'elementSchema']), true);
         }
       });

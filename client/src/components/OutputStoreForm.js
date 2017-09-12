@@ -4,7 +4,8 @@ import {connect} from 'react-redux';
 import actions from '../actions';
 import {bindActionCreators} from 'redux';
 import utilities from '../utilities/index';
-import OutputStoreRow from './OutputStoreRow.js';
+import OutputStoreRow from './OutputStoreRow';
+import OutputStoreEdit from './OutputStoreEdit';
 
 class OutputStoreForm extends React.Component {
   constructor(props) {
@@ -57,6 +58,7 @@ class OutputStoreForm extends React.Component {
         <div className="outputStoreFormTextArea"> 
           {utilities.outputStore.generateStoreArray(fakeData, OutputStoreRow)}
         </div>
+        <OutputStoreEdit />
       </div>
     );
   }  

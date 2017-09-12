@@ -213,6 +213,10 @@ p {
   padding: 5px 5px 5px 5px;
 }
 
+.outputStoreRow {
+  display: flex;
+}
+
 textarea:focus {
   outline: none;
 }
