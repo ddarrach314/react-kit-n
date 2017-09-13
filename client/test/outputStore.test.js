@@ -12,7 +12,8 @@ const applier = new ChainedActionApplier(actions, reducer);
 const initialState = {
   properties: [],
   warning: '',
-  lastUpdatedBy: null
+  lastUpdatedBy: null,
+  editing: null
 };
 
 describe('Store reducer function', () => {
@@ -21,12 +22,12 @@ describe('Store reducer function', () => {
   });
 
   let addPropertyActions = [
-    {name: 'setOutputStoreProperty', args:[{type: 'String'}, ['0']]},
-    {name: 'setOutputStoreProperty', args:[{type: 'Object'}, [0]]},
-    {name: 'setOutputStoreProperty', args:[{type: 'String'}, [0, 0]]},
-    {name: 'setOutputStoreProperty', args:[{type: 'Array'}, [1]]},
-    {name: 'setOutputStoreProperty', args:[{type: 'Object'}, [1, 'elementSchema']]},
-    {name: 'setOutputStoreProperty', args:[{type: 'String'}, [1, 'elementSchema', 0]]}
+    {name: 'setOutputStoreProperty', args: [{type: 'String'}, ['0']]},
+    {name: 'setOutputStoreProperty', args: [{type: 'Object'}, [0]]},
+    {name: 'setOutputStoreProperty', args: [{type: 'String'}, [0, 0]]},
+    {name: 'setOutputStoreProperty', args: [{type: 'Array'}, [1]]},
+    {name: 'setOutputStoreProperty', args: [{type: 'Object'}, [1, 'elementSchema']]},
+    {name: 'setOutputStoreProperty', args: [{type: 'String'}, [1, 'elementSchema', 0]]}
   ];
 
   test('Adds store properties correctly', () => {
@@ -36,18 +37,18 @@ describe('Store reducer function', () => {
     );
 
     expect(state6.properties[1].elementSchema.properties[0]).toEqual({type: 'String'});
-    expect(state5.properties[1].elementSchema).toEqual({type: 'Object', properties:[]});
-    expect(state4.properties[1]).toEqual({type: 'Array', elementSchema:{}});
+    expect(state5.properties[1].elementSchema).toEqual({type: 'Object', properties: []});
+    expect(state4.properties[1]).toEqual({type: 'Array', elementSchema: {}});
     expect(state3.properties[0].properties[0]).toEqual({type: 'String'});
-    expect(state2.properties[0]).toEqual({type: 'Object', properties:[]});
+    expect(state2.properties[0]).toEqual({type: 'Object', properties: []});
     expect(state1.properties[0]).toEqual({type: 'String'});
   });
 
   test('Removes store properties correctly', () => {
     let removePropertyActions = [
-      {name: 'removeOutputStoreProperty', args:[[0, 0]]},
-      {name: 'removeOutputStoreProperty', args:[[0]]},
-      {name: 'removeOutputStoreProperty', args:[[0, 'elementSchema', 0]]}
+      {name: 'removeOutputStoreProperty', args: [[0, 0]]},
+      {name: 'removeOutputStoreProperty', args: [[0]]},
+      {name: 'removeOutputStoreProperty', args: [[0, 'elementSchema', 0]]}
     ];
 
     let [state3, state2, state1] = applier.applyActions(
@@ -61,5 +62,19 @@ describe('Store reducer function', () => {
     expect(state2.properties.length).toBe(1);
     expect(state2.properties[0].elementSchema.properties.length).toBe(1);
     expect(state3.properties[0].elementSchema.properties.length).toBe(0);
+  });
+
+  test('Toggles store edits modal', () => {
+    let [state3, state2, state1] = applier.applyActions(
+      initialState,
+      ...addPropertyActions,
+      {name: 'toggleEditModal', args: [[0, 1]]},
+      {name: 'toggleEditModal'},
+      {name: 'toggleEditModal', args: [[0, 0]]}
+    );
+
+    expect(state1.editing).toEqual({});
+    expect(state2.editing).toBe(null);
+    expect(state3.editing).toEqual({type: 'String'});
   });
 });
