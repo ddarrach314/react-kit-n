@@ -8,6 +8,11 @@ export const setOutputStore = (newOutputStore, lastUpdatedBy) => (
   }
 );
 
+export const toggleEditModal = (path) => ({
+  type: types.TOGGLE_EDIT_MODAL,
+  path
+});
+
 export const setOutputStoreProperty = (property, path) => ({
   type: types.SET_OUTPUT_STORE_PROPERTY,
   property,
