@@ -20,7 +20,7 @@ class OutputStoreRow extends React.Component {
   }
 
   handleClickEdit() {
-
+    actions.toggleEditModal(this.props.path);
   }
 
   render() {

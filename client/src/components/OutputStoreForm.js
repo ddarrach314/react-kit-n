@@ -1,11 +1,14 @@
 import React from 'react';
 import _ from 'lodash';
 import {connect} from 'react-redux';
-import actions from '../actions';
 import {bindActionCreators} from 'redux';
 import utilities from '../utilities/index';
 import OutputStoreRow from './OutputStoreRow';
 import OutputStoreEdit from './OutputStoreEdit';
+import unboundActions from '../actions';
+import store from '../reduxStore';
+
+let actions = bindActionCreators(unboundActions, store.dispatch);
 
 class OutputStoreForm extends React.Component {
   constructor(props) {
@@ -39,24 +42,28 @@ class OutputStoreForm extends React.Component {
     }
   }
 
+  handleClickAdd() {
+    actions.toggleEditModal(['newProperty']);
+  }
+
   render() {
-    let fakeData = [
-      {name: 'recipeList', type: 'array', initialValue: [], elementSchema: {type: 'array', elementSchema: {type: 'string'}}},
-      {name: 'emptyListDisplay', type: 'boolean', initialValue: true},
-      {name: 'chefs', type: 'object', initialValue: {}, properties: [
-        {name: 'fNames', type: 'array', initialValue: [], elementSchema: {type: 'string'}},
-        {name: 'count', type: 'number', initialValue: 0}
-      ]}
-    ]
+    // let fakeData = [
+    //   {name: 'recipeList', type: 'array', initialValue: [], elementSchema: {type: 'array', elementSchema: {type: 'string'}}},
+    //   {name: 'emptyListDisplay', type: 'boolean', initialValue: true},
+    //   {name: 'chefs', type: 'object', initialValue: {}, properties: [
+    //     {name: 'fNames', type: 'array', initialValue: [], elementSchema: {type: 'string'}},
+    //     {name: 'count', type: 'number', initialValue: 0}
+    //   ]}
+    // ]
     return (
       <div className="col-md-3 outputStoreCol">
         <div className="outputStoreSchemaHeading">
           <h4>Store Schema</h4>
           <i className="material-icons addStorePropertyButton pointer green"
-            onClick={actions.createNewOutputAction}>add</i>
+            onClick={this.handleClickAdd.bind(this)}>add</i>
         </div>
         <div className="outputStoreFormTextArea"> 
-          {utilities.outputStore.generateStoreArray(fakeData, OutputStoreRow)}
+          {utilities.outputStore.generateStoreArray(this.props.outputStore.properties, OutputStoreRow, actions.toggleEditModal)}
         </div>
         <OutputStoreEdit />
       </div>
@@ -69,11 +76,6 @@ class OutputStoreForm extends React.Component {
 OutputStoreForm = connect(
   (state) => (
     {outputStore: state.outputStore}
-  ),
-  (dispatch) => (
-    {
-      actions: bindActionCreators(actions, dispatch)
-    }
   )
 )(OutputStoreForm);
 

@@ -28,8 +28,13 @@ class OutputStoreEdit extends React.Component {
   }
 
   handleClose() {
-
+    actions.toggleEditModal(this.props.outputStore.editing.path);
   };
+
+  handleSubmit() {
+    actions.setOutputStoreProperty(this.state, this.props.outputStore.editing.path);
+    actions.toggleEditModal(this.props.outputStore.editing.path);
+  }
 
   handleChangeName(event) {
     this.setState({name: event.target.value});
@@ -43,6 +48,23 @@ class OutputStoreEdit extends React.Component {
     this.setState({type: payload});
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.outputStore.editing) {
+      let property = nextProps.outputStore.editing.property;
+      this.setState({
+        name: property.name || '',
+        initialValue: property.initialValue || '',
+        type: property.type || ''
+      });
+    } else {
+      this.setState({
+        name: '',
+        initialValue: '',
+        type: ''
+      });
+    }
+  }
+
   render() {
     const actions = [
       <FlatButton
@@ -54,7 +76,7 @@ class OutputStoreEdit extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onClick={this.handleClose.bind(this)}
+        onClick={this.handleSubmit.bind(this)}
       />,
     ];
 

@@ -6,7 +6,10 @@ export const buildPropertiesPath = (path) => {
     path,
     (accumulator, value, index) => {
       accumulator += `.${value}`;
-      if (!isNaN(Number(path[index + 1]))) {
+      if (
+        path[index + 1] === 'newProperty' || 
+        !isNaN(Number(path[index + 1]))
+      ) {
         accumulator += '.properties';
       }
       return accumulator;
@@ -40,7 +43,7 @@ export const getTargetsFromOutputStore = (outputStore) => {
   return targetsTypes;
 };
 
-export const generateStoreArray = (outputStore, OutputStoreRow) => {
+export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal) => {
   let storeArray = [];
   let traverseStore = (object, indent, path, isElementSchema) => {
     if (isElementSchema) {
@@ -57,7 +60,10 @@ export const generateStoreArray = (outputStore, OutputStoreRow) => {
         if (property.type === 'object') {
           storeArray.push(<div style={{marginLeft: indent + 20 + 'px'}}>Properties</div>);
           storeArray.push(<i style={{marginLeft: indent + 20 + 'px'}}
-            className="material-icons addStorePropertyButton pointer green">add</i>);
+            className="material-icons addStorePropertyButton pointer green"
+            onClick={() => {
+              toggleEditModal(path.concat([index, 'newProperty']));
+            }}>add</i>);
           traverseStore(property.properties, indent + 20, path.concat(index));
         } else if(property.type === 'array') {
           traverseStore(property.elementSchema, indent + 20, path.concat([index, 'elementSchema']), true);

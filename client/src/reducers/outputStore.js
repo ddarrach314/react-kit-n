@@ -23,14 +23,14 @@ const outputStoreReducer = (state = initialState, action = {}) => {
 
   case types.SET_OUTPUT_STORE_PROPERTY: {
     if (
-      action.property.type === 'Object' &&
+      action.property.type === 'object' &&
       !('properties' in action.property)
     ) {
       action.property.properties = [];
     }
 
     if (
-      action.property.type === 'Array' &&
+      action.property.type === 'array' &&
       !('elementSchema' in action.property)
     ) {
       action.property.elementSchema = {};
@@ -62,7 +62,7 @@ const outputStoreReducer = (state = initialState, action = {}) => {
         }
       });
 
-      state = utils.safeSet(state, nestedObj[finalKey] || {}, 'editing');
+      state = utils.safeSet(state, {path, property: nestedObj[finalKey] || {}}, 'editing');
     }
 
     return state;
