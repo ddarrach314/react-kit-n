@@ -8,7 +8,7 @@ let actions = bindActionCreators(unboundActions, store.dispatch);
 class OutputStoreRow extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {hover: false}
+    this.state = {hover: false};
   }
 
   handleMouseEnter() {
@@ -17,6 +17,10 @@ class OutputStoreRow extends React.Component {
 
   handleMouseLeave() {
     this.setState({hover: false});
+  }
+
+  handleClickEdit() {
+
   }
 
   render() {
@@ -33,7 +37,7 @@ class OutputStoreRow extends React.Component {
             <div>Element Type: {this.props.type}</div>
             {this.state.hover && 
               <div>
-                <i className="material-icons pointer" >mode_edit</i>
+                <i className="material-icons pointer" onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
                 <i className="material-icons pointer red">clear</i>
               </div>
             }
@@ -47,7 +51,7 @@ class OutputStoreRow extends React.Component {
             <div>{this.props.name}: {this.props.type}</div>
             {this.state.hover && 
               <div>
-                <i className="material-icons pointer" >mode_edit</i>
+                <i className="material-icons pointer" onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
                 <i className="material-icons pointer red">clear</i>
               </div>
             }

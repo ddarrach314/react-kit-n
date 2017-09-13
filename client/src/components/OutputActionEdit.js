@@ -3,7 +3,6 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import unboundActions from '../actions';
 import store from '../reduxStore';
 import {bindActionCreators} from 'redux';
@@ -31,18 +30,6 @@ class OutputStoreEdit extends React.Component {
 
   };
 
-  handleChangeName(event) {
-    this.setState({name: event.target.value});
-  }
-
-  handleChangeInitialValue(event) {
-    this.setState({initialValue: event.target.value});
-  }
-
-  handleChangeType(event, key, payload) {
-    this.setState({type: payload});
-  }
-
   render() {
     const actions = [
       <FlatButton
@@ -67,15 +54,9 @@ class OutputStoreEdit extends React.Component {
           open={this.props.outputStore.editing === null ? false : true}
           onRequestClose={this.handleClose.bind(this)}
         >
-          <TextField floatingLabelText="Name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/>
-          <TextField floatingLabelText="Initial Value" value={this.state.initialValue} onChange={this.handleChangeInitialValue.bind(this)}/>
-          <SelectField floatingLabelText="Type" value={this.state.type} onChange={this.handleChangeType.bind(this)}>
-            <MenuItem value={'string'} primaryText="string" />
-            <MenuItem value={'number'} primaryText="number" />
-            <MenuItem value={'boolean'} primaryText="boolean" />
-            <MenuItem value={'object'} primaryText="object" />
-            <MenuItem value={'array'} primaryText="array" />
-          </SelectField>
+          <TextField floatingLabelText="Name" value={this.state.name}/>
+          <TextField floatingLabelText="Initial Value" value={this.state.initialValue}/>
+          <SelectField floatingLabelText="Type" value={this.state.type}></SelectField>
         </Dialog>
       </div>
     );
