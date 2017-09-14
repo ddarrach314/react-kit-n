@@ -42,3 +42,10 @@ export const removeOutputAction = (index) => (
     index
   }
 );
+
+export const toggleEditActionModal = (index) => (
+  {
+    type: types.TOGGLE_EDIT_ACTION_MODAL,
+    index
+  }
+)

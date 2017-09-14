@@ -1,9 +1,11 @@
 import * as types from '../actions/types';
 import _ from 'lodash';
+import utils from '../utilities';
 
 const initialState = {
   outputActions: [],
-  nextId: 1
+  nextId: 1,
+  editing: null
 };
 
 const outputActionsReducer = (state = initialState, action) => {
@@ -43,6 +45,17 @@ const outputActionsReducer = (state = initialState, action) => {
   case types.REMOVE_OUTPUT_ACTION:
     state = _.cloneDeep(state);
     state.outputActions.splice(action.index, 1);
+    return state;
+
+  case types.TOGGLE_EDIT_ACTION_MODAL:
+    if (state.editing) {
+      state = utils.safeSet(state, null, 'editing');
+
+    } else {
+      state = utils.safeSet(state, {index: action.index, action: state.outputActions[action.index] || {}}, 'editing');
+
+    }
+
     return state;
 
   }

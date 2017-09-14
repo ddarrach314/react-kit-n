@@ -8,6 +8,7 @@ import unboundActions from '../actions';
 import store from '../reduxStore';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import utilities from '../utilities/index';
 
 let actions = bindActionCreators(unboundActions, store.dispatch);
 
@@ -77,7 +78,7 @@ class OutputActionsEdit extends React.Component {
     // this.setState({name: event.target.value});
   }
 
-  handleChangeInitialValue(event) {
+  handleChangeTarget(event) {
     // this.setState({initialValue: event.target.value});
   }
 
@@ -138,18 +139,21 @@ class OutputActionsEdit extends React.Component {
           title="Edit Property"
           actions={actions}
           modal={false}
-          open={false}
-          // open={this.props.outputStore.editing === null ? false : true}
+          open={this.props.outputActions.editing === null ? false : true}
           onRequestClose={this.handleClose.bind(this)}
         >
           <TextField floatingLabelText="Name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/>
-          <TextField floatingLabelText="Initial Value" value={this.state.initialValue} onChange={this.handleChangeInitialValue.bind(this)}/>
+          <SelectField floatingLabelText="Target" value={this.state.target} onChange={this.handleChangeTarget.bind(this)}>
+            {Object.keys(this.props.targetsTypes).map((target) => (
+              <MenuItem value={target} primaryText={target} />
+            )
+            )}
+          </SelectField>
           <SelectField floatingLabelText="Type" value={this.state.type} onChange={this.handleChangeType.bind(this)}>
-            <MenuItem value={'string'} primaryText="string" />
-            <MenuItem value={'number'} primaryText="number" />
-            <MenuItem value={'boolean'} primaryText="boolean" />
-            <MenuItem value={'object'} primaryText="object" />
-            <MenuItem value={'array'} primaryText="array" />
+            {utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.state.target]).map((type) => (
+              <MenuItem value={type} primaryText={type} />
+            )
+            )}
           </SelectField>
           {this.state.invalidName && <div className="red">Please enter a name</div>}
           {this.state.invalidType && <div className="red">Please select a type</div>}
@@ -170,20 +174,3 @@ OutputActionsEdit = connect(
 )(OutputActionsEdit);
 
 export default OutputActionsEdit;
-
-// <select className="outputActionSelect" value={this.props.outputAction.target} onChange={this.handleChangeTarget.bind(this)}>
-//   <option value=''></option>
-//   {Object.keys(this.props.targetsTypes).map((target) => (
-//     <option value={target}>{target}</option>
-//   )
-//   )}
-// </select>
-
-
-// <select className="outputActionSelect" value={this.props.outputAction.type} onChange={this.handleChangeType.bind(this)}>
-//   <option value=''></option>
-//   {utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.props.outputAction.target]).map((type) => (
-//     <option value={type}>{type}</option>
-//   )
-//   )}
-// </select>
