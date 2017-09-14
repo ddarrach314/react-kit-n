@@ -50,6 +50,11 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
       storeArray.push(<OutputStoreRow path={path} indent={indent} isElementSchema={true} type={object.type} />);
       if (object.type === 'object') {
         storeArray.push(<div style={{marginLeft: indent + 20 + 'px'}}>Properties</div>);
+        storeArray.push(<i style={{marginLeft: indent + 20 + 'px'}}
+            className="material-icons addStorePropertyButton pointer green"
+            onClick={() => {
+              toggleEditModal(path.concat('newProperty'));
+            }}>add</i>);
         traverseStore(object.properties, indent + 20, path);
       } else if (object.type === 'array') {
         traverseStore(object.elementSchema, indent + 20, path.concat('elementSchema'), true);

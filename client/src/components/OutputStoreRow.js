@@ -23,6 +23,10 @@ class OutputStoreRow extends React.Component {
     actions.toggleEditModal(this.props.path);
   }
 
+  handleClickDelete() {
+    actions.removeOutputStoreProperty(this.props.path);
+  }
+
   render() {
     let divStyle = {
           marginLeft: this.props.indent + 'px'
@@ -38,7 +42,6 @@ class OutputStoreRow extends React.Component {
             {this.state.hover && 
               <div>
                 <i className="material-icons pointer" onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
-                <i className="material-icons pointer red">clear</i>
               </div>
             }
           </div>
@@ -52,7 +55,7 @@ class OutputStoreRow extends React.Component {
             {this.state.hover && 
               <div>
                 <i className="material-icons pointer" onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
-                <i className="material-icons pointer red">clear</i>
+                <i className="material-icons pointer red" onClick={this.handleClickDelete.bind(this)}>clear</i>
               </div>
             }
           </div>

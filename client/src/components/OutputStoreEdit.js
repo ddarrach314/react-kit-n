@@ -23,7 +23,10 @@ class OutputStoreEdit extends React.Component {
     this.state = {
       name: '',
       initialValue: '',
-      type: ''
+      type: '',
+      invalidName: false,
+      invalidInitialValue: false,
+      invalidType: false
     }
   }
 
@@ -32,8 +35,42 @@ class OutputStoreEdit extends React.Component {
   };
 
   handleSubmit() {
-    actions.setOutputStoreProperty(this.state, this.props.outputStore.editing.path);
-    actions.toggleEditModal(this.props.outputStore.editing.path);
+    try {
+      if (this.state.name === '') {
+        throw 'name';
+      }
+      if (this.state.type === '') {
+        throw 'type';
+      }
+
+      let initialValue = this.state.initialValue;
+      if (initialValue === '' || initialValue === 'undefined' || initialValue === undefined) {
+        initialValue = undefined;
+
+      } else if (initialValue === "''" || initialValue === '""') {
+        initialValue = '';
+
+      } else {
+        initialValue = JSON.parse(this.state.initialValue);
+
+      }
+  
+      let isElementSchema = this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'elementSchema'
+                              ? true
+                              : false;
+      let setProperty = isElementSchema ? {type: this.state.type} : {name: this.state.name, initialValue, type: this.state.type};
+      actions.setOutputStoreProperty(setProperty, this.props.outputStore.editing.path);
+      actions.toggleEditModal(this.props.outputStore.editing.path);
+
+    } catch(error) {
+      if (error === 'name') {
+        this.setState({invalidName: true});
+      } else if (error === 'type') {
+        this.setState({invalidName: false, invalidType: true});
+      } else {
+        this.setState({invalidName: false, invalidType: false, invalidInitialValue: true});
+      }
+    }
   }
 
   handleChangeName(event) {
@@ -53,19 +90,34 @@ class OutputStoreEdit extends React.Component {
       let property = nextProps.outputStore.editing.property;
       this.setState({
         name: property.name || '',
-        initialValue: property.initialValue || '',
-        type: property.type || ''
+        initialValue: JSON.stringify(property.initialValue),
+        type: property.type || '',
+        invalidName: false,
+        invalidType: false,
+        invalidInitialValue: false
       });
     } else {
       this.setState({
         name: '',
         initialValue: '',
-        type: ''
+        type: '',
+        invalidName: false,
+        invalidType: false,
+        invalidInitialValue: false
       });
     }
   }
 
   render() {
+    let isElementSchema;
+    if (this.props.outputStore.editing) {
+      isElementSchema = this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'elementSchema'
+                            ? true
+                            : false;
+    } else {
+      isElementSchema = false;
+    }
+    
     const actions = [
       <FlatButton
         label="Cancel"
@@ -77,7 +129,7 @@ class OutputStoreEdit extends React.Component {
         primary={true}
         keyboardFocused={true}
         onClick={this.handleSubmit.bind(this)}
-      />,
+      />
     ];
 
     return (
@@ -89,8 +141,11 @@ class OutputStoreEdit extends React.Component {
           open={this.props.outputStore.editing === null ? false : true}
           onRequestClose={this.handleClose.bind(this)}
         >
-          <TextField floatingLabelText="Name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/>
-          <TextField floatingLabelText="Initial Value" value={this.state.initialValue} onChange={this.handleChangeInitialValue.bind(this)}/>
+          {!isElementSchema &&
+            <div>
+              <TextField floatingLabelText="Name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/>
+              <TextField floatingLabelText="Initial Value" value={this.state.initialValue} onChange={this.handleChangeInitialValue.bind(this)}/>
+            </div>}
           <SelectField floatingLabelText="Type" value={this.state.type} onChange={this.handleChangeType.bind(this)}>
             <MenuItem value={'string'} primaryText="string" />
             <MenuItem value={'number'} primaryText="number" />
@@ -98,6 +153,9 @@ class OutputStoreEdit extends React.Component {
             <MenuItem value={'object'} primaryText="object" />
             <MenuItem value={'array'} primaryText="array" />
           </SelectField>
+          {this.state.invalidName && <div className="red">Please enter a name</div>}
+          {this.state.invalidType && <div className="red">Please select a type</div>}
+          {this.state.invalidInitialValue && <div className="red">Please enter a valid initial value or leave that field blank</div>}
         </Dialog>
       </div>
     );
