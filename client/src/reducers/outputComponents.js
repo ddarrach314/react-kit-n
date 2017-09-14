@@ -1,8 +1,7 @@
 import * as types from '../actions/types';
 import utils from '../utilities';
 import _ from 'lodash';
-
-const { makeMutableCopy } = utils;
+const { makeMutableCopy, safeSet, safeDelete } = utils;
 
 const initialState = {
   selected: '0',
@@ -11,10 +10,13 @@ const initialState = {
     0: {
       name: 'App',
       children: [],
-      nextId: 0
+      nextId: 0,
+      connected: false,
+      actions: {},
+      storeProps: [],
+      parentProps: []
     }
-  },
-  componentProps: {}
+  }
 };
 
 const outputComponentsReducer = (state = initialState, action = {}) => {
@@ -34,7 +36,11 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       newState.components[state.nextId] = {
         name: `Component${state.nextId}`,
         children: [],
-        nextId: 0
+        nextId: 0,
+        connected: false,
+        actions: {},
+        storeProps: [],
+        parentProps: []
       };
       newState.nextId += 1;
       return newState;
@@ -101,96 +107,103 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       return newState;
 
     case types.TOGGLE_COMPONENT_CONNECTION:
+      let {id} = action;
       newState = makeMutableCopy(
         state,
-        `componentProps.${action.outputPropsKey}`
+        `components.${id}.connected`
       );
 
-      let connected = (
-        state.componentProps[action.outputPropsKey] &&
-        state.componentProps[action.outputPropsKey].connected
-      );
-
-      newState.componentProps[action.outputPropsKey] = _.assign(
-        {},
-        state.componentProps[action.outputPropsKey],
-        {connected: !connected}
-      );
-
+      newState.components[id].connected = !state.components[id].connected;
       return newState;
 
     case types.BIND_ACTION_TO_COMPONENT: {
-      let {outputPropsKey, outputAction} = action;
-      newState = makeMutableCopy(
+      let {id, outputAction} = action;
+      return safeSet(
         state,
-        `componentProps.${outputPropsKey}.actions.${outputAction}`
+        outputAction,
+        `components.${id}.actions.${outputAction}`
       );
-
-      newState.componentProps[outputPropsKey] =
-        newState.componentProps[outputPropsKey] || {};
-
-      newState.componentProps[outputPropsKey].actions =
-        newState.componentProps[outputPropsKey].actions || {};
-
-      newState.componentProps[outputPropsKey].actions[outputAction] = outputAction;
-
-      return newState;
     }
 
     case types.REMOVE_ACTION_FROM_COMPONENT: {
-      let {outputPropsKey, outputAction} = action;
-      if (
-        !state.componentProps[outputPropsKey] ||
-        !state.componentProps[outputPropsKey].actions
-      ) {
-        return state;
-      }
-
-      newState = makeMutableCopy(
+      let {id, outputAction} = action;
+      return safeDelete(
         state,
-        `componentProps.${outputPropsKey}.actions.${outputAction}`
+        `components.${id}.actions.${outputAction}`
       );
-
-      delete newState.componentProps[outputPropsKey].actions[outputAction];
-      return newState;
     }
 
     case types.BIND_STORE_PROP_TO_COMPONENT: {
-      let {outputPropsKey, outputStoreProp, outputStorePropName} = action;
+      let {id, outputStoreProp, outputStorePropName} = action;
 
-      newState = makeMutableCopy (
+      let storeProps = state.components[id].storeProps;
+      let newStoreProps = storeProps
+        .filter(prop =>
+          prop.storeProp !== outputStoreProp &&
+          prop.propName !== outputStorePropName
+        )
+        .concat({
+          storeProp: outputStoreProp,
+          propName: outputStorePropName
+        });
+
+      return safeSet(
         state,
-        `componentProps.${outputPropsKey}.storeProps.${outputStoreProp}`
+        newStoreProps,
+        `components.${id}.storeProps`
       );
-
-      newState.componentProps[outputPropsKey] =
-        newState.componentProps[outputPropsKey] || {};
-
-      newState.componentProps[outputPropsKey].storeProps =
-        newState.componentProps[outputPropsKey].storeProps || {};
-
-      newState.componentProps[outputPropsKey].storeProps[outputStoreProp] =
-        outputStorePropName;
-
-      return newState;
     }
 
     case types.REMOVE_STORE_PROP_FROM_COMPONENT: {
-      let {outputPropsKey, outputStoreProp} = action;
-      if (
-        !state.componentProps[outputPropsKey] ||
-        !state.componentProps[outputPropsKey].storeProps
-      ) {
-        return state;
-      }
+      let {id, outputStoreProp} = action;
 
-      newState = makeMutableCopy(
+      let storeProps = state.components[id].storeProps;
+      let newStoreProps = storeProps
+        .filter(prop =>
+          prop.storeProp !== outputStoreProp
+        );
+
+      return safeSet(
         state,
-        `componentProps.${outputPropsKey}.storeProps.${outputStoreProp}`
+        newStoreProps,
+        `components.${id}.storeProps`
       );
+    }
 
-      delete newState.componentProps[outputPropsKey].storeProps[outputStoreProp];
-      return newState;
+    case types.BIND_PARENT_PROP_TO_COMPONENT: {
+      let {id, parentProp, childProp} = action;
+
+      let parentProps = state.components[id].parentProps;
+      let newParentProps = parentProps
+        .filter(prop =>
+          prop.parentProp !== parentProp &&
+          prop.childProp !== childProp
+        )
+        .concat(
+          { parentProp, childProp }
+        );
+
+      return safeSet(
+        state,
+        newParentProps,
+        `components.${id}.parentProps`
+      );
+    }
+
+    case types.REMOVE_PARENT_PROP_FROM_COMPONENT: {
+      let {id, parentProp} = action;
+
+      let parentProps = state.components[id].parentProps;
+      let newParentProps = parentProps
+        .filter(prop =>
+          prop.parentProp !== parentProp
+        );
+
+      return safeSet(
+        state,
+        newParentProps,
+        `components.${id}.parentProps`
+      );
     }
 
     }
