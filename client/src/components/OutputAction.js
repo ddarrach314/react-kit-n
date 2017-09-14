@@ -7,16 +7,8 @@ import utilities from '../utilities/index';
 let actions = bindActionCreators(unboundActions, store.dispatch);
 
 class OutputAction extends React.Component {
-  handleChangeTarget(event) {
-    actions.editOutputActionTarget(this.props.index, event.target.value);
-  }
+  handleClickEdit() {
 
-  handleChangeType(event) {
-    actions.editOutputActionType(this.props.index, event.target.value);
-  }
-
-  handleChangeName(event) {
-    actions.editOutputActionName(this.props.index, event.target.value);
   }
 
   handleClickRemove() {
@@ -27,29 +19,16 @@ class OutputAction extends React.Component {
     return (
       <div className="row no-gutters">
         <div className="col-3">
-          <p>Name</p>
-          <input className="outputActionName" value={this.props.outputAction.name} onChange={this.handleChangeName.bind(this)}></input>
+          {this.props.outputAction.name}
+        </div>
+        <div className="col-3">
+          {this.props.outputAction.target}
         </div>
         <div className="col-4">
-          <p>Target</p>
-          <select className="outputActionSelect" value={this.props.outputAction.target} onChange={this.handleChangeTarget.bind(this)}>
-            <option value=''></option>
-            {Object.keys(this.props.targetsTypes).map((target) => (
-              <option value={target}>{target}</option>
-            )
-            )}
-          </select>
+          {this.props.outputAction.type}
         </div>
-        <div className="col-4">
-          <p>Type</p>
-          <select className="outputActionSelect" value={this.props.outputAction.type} onChange={this.handleChangeType.bind(this)}>
-            <option value=''></option>
-            {utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.props.outputAction.target]).map((type) => (
-              <option value={type}>{type}</option>
-            )
-            )}
-          </select>
-        </div>
+        <i className="material-icons col-1 pointer" 
+          onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
         <i className="material-icons col-1 align-self-end removeOutputAction pointer red" 
           onClick={this.handleClickRemove.bind(this)}>clear</i>
       </div>
