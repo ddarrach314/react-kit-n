@@ -64,7 +64,7 @@ const createActionJs = (onion) => {
   let actions = onion.actions;
   let actionList = '';
   let actionsJs = '/* Actions file */\n\n';
-  let actionsExport = 'export const actions = {/n';
+  let actionsExport = 'export const actions = {\n';
   // pull types out of onion.actions into types array as 'ACTIONTYPE_ACTIONTARGET'
   _.forEach(actions, (action) => {
     //set target reference for actionList
@@ -79,7 +79,7 @@ const createActionJs = (onion) => {
     actionsExport += `  ${action.name},\n`;
   });
   //stitch together the header, export and action functions
-  actionsJs += makeHeader(types) + makeExport(types) + actionList + actionsExport + '}\n\n';
+  actionsJs += makeHeader(types) + makeExport(types) + actionList + actionsExport + '};\n\n';
   
   //create file actions.js in working directory
   

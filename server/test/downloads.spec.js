@@ -78,18 +78,19 @@ const onion = {
 };
 
 describe('Download Route', function() {
-  it('accepts POST requests', function(done) {
+  it('accepts GET requests', function(done) {
     request(app)
-      .post('/download')
-      .send(onion)
+      .get('/download')
+      .query({onion: JSON.stringify(onion)})
       .expect(200)
       .expect('Content-Type', 'application/zip')
       .end(done);
   });
 
-  it('rejects GET request', (done) => {
+  it('rejects POST request', (done) => {
     request(app)
-      .get('/download')
+      .post('/download')
+      .send(onion)
       .expect(404)
       .end(done);
   });

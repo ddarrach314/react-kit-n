@@ -1,12 +1,8 @@
 const archiver = require('archiver');
-const Promise = require('bluebird');
 const reducer = require('./reducersMaker.js');
 const action = require('./actionsMaker.js');
 const store = require('./storeMaker.js');
-const comp = require('./componentWorker.js');
-const path = require('path');
-const fs = require('fs');
-Promise.promisifyAll(fs);
+const comp = require('./componentMaker.js');
 const _ = require('lodash');
 
 //res header should be set to 'Content-Type':'application/zip' prior to invoking this function
