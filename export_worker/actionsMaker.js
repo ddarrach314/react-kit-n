@@ -79,7 +79,7 @@ const createActionJs = (onion) => {
     actionsExport += `  ${action.name},\n`;
   });
   //stitch together the header, export and action functions
-  actionsJs += makeHeader(types) + makeExport(types) + actionList + actionsExport + '};\n\n';
+  actionsJs += makeHeader(types) + makeExport(types) + actionList + actionsExport + '};\n';
   
   //create file actions.js in working directory
   

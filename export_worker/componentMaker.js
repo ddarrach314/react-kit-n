@@ -110,23 +110,24 @@ const createComponent = (key, onion) => {
 
   let appRenderTemplate = '  render() {\n'
     + '    return (\n'
-    + '      <div>'
+    + '      <div>\n'
     + '      <Provider store={store}>\n'
     + '        {/*Space for wrapping HTML if needed */}\n';
 
   let appRenderTemplateEnd = '        {/*Space for wrapping HTML if needed */}\n'
-    + '      </Provider>\n    );\n'
-    + '      </div>'
+    + '      </Provider>\n'
+    + '      </div>\n'
+    + '    );\n'
     + '  };\n'
     + '};';
 
   let compRenderTemplate = '  render() {\n'
     + '    return (\n'
-    + '      <div>'
+    + '      <div>\n'
     + '      {/*Space for wrapping HTML if needed */}\n';
 
   let compRenderTemplateEnd = '      {/*Space for wrapping HTML if needed */}\n'
-    + '      </div>'
+    + '      </div>\n'
     + '    );\n'
     + '  };\n'
     + '};\n\n';
