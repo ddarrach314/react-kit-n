@@ -36,7 +36,7 @@ class OutputStoreEdit extends React.Component {
 
   handleSubmit() {
     try {
-      if (this.state.name === '') {
+      if (this.state.name === '' || this.state.name.indexOf(' ') >= 0) {
         throw 'name';
       }
       if (this.state.type === '') {
@@ -51,7 +51,8 @@ class OutputStoreEdit extends React.Component {
         initialValue = '';
 
       } else {
-        initialValue = JSON.parse(this.state.initialValue);
+        initialValue = initialValue.replace(/'/g, '"');
+        initialValue = JSON.parse(initialValue);
 
       }
   
@@ -153,7 +154,7 @@ class OutputStoreEdit extends React.Component {
             <MenuItem value={'object'} primaryText="object" />
             <MenuItem value={'array'} primaryText="array" />
           </SelectField>
-          {this.state.invalidName && <div className="red">Please enter a name</div>}
+          {this.state.invalidName && <div className="red">Please enter a name with no spaces</div>}
           {this.state.invalidType && <div className="red">Please select a type</div>}
           {this.state.invalidInitialValue && <div className="red">Please enter a valid initial value or leave that field blank</div>}
         </Dialog>

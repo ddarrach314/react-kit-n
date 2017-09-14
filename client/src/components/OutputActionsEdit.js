@@ -34,7 +34,10 @@ class OutputActionsEdit extends React.Component {
   };
 
   handleSubmit() {
-    if (this.state.name === '' || this.state.name.indexOf(' ') >= 0) {
+    let names = this.props.outputActions.outputActions.map((outputAction) => (
+      outputAction.name
+    ));
+    if (this.state.name === '' || this.state.name.indexOf(' ') >= 0 || names.includes(this.state.name)) {
       this.setState({invalidName: true});
     } else {
       if (this.props.outputActions.editing.index === 'newAction') {
@@ -169,9 +172,7 @@ class OutputActionsEdit extends React.Component {
             )
             )}
           </SelectField>
-          {this.state.invalidName && <div className="red">Please enter a name</div>}
-          {this.state.invalidType && <div className="red">Please select a type</div>}
-          {this.state.invalidInitialValue && <div className="red">Please enter a valid initial value or leave that field blank</div>}
+          {this.state.invalidName && <div className="red">Please enter a unique name with no spaces</div>}
         </Dialog>
       </div>
     );
