@@ -5,8 +5,7 @@ const expect = require('chai').expect;
 const action = require('../actionsMaker.js');
 const reducer = require('../reducersMaker.js');
 const store = require('../storeMaker.js');
-//const app = require('../appMaker.js');
-const comp = require('../componentWorker.js');
+const comp = require('../componentMaker.js');
 const fs = require('fs');
 const path = require('path');
 const { sep } = require('path');
@@ -15,7 +14,8 @@ const { sep } = require('path');
 const onion = {
   store: {
     todos: [],
-    username: null
+    username: null,
+    otherUser: null
   },
   actions: {
     1: {
@@ -44,38 +44,84 @@ const onion = {
       name: 'App',
       children: [
         {
-          'childId': 2,
-          'componentId': 2
+          childId: '0',
+          componentId: '2'
         },
         {
-          'childId': 3,
-          'componentId': 3
+          childId: '1',
+          componentId: '3'
         },
         {
-          'childId': 4,
-          'componentId': 4
+          childId: '2',
+          componentId: '4'
         }
       ],
+      actions: {},
+      storeProps: [],
+      connected: false,
+      parentProps: [],
     },
 
     2: {
       name: 'exampleChild',
-      children: []
+      children: [],
+      actions: {
+        '4':'4'
+      },
+      storeProps: [
+        {
+          storeProp: 'store.username',
+          propName: 'onionUser'
+        }
+      ],
+      connected: true,
+      parentProps: [
+        {
+          parentProp: 'foo',
+          childProp: 'bar'
+        }
+      ],
     },
 
     3: {
       name: 'exampleChild2',
       children: [
         {
-          'childId': 5,
-          'componentId': 4
+          childId: '0',
+          componentId: '4'
+        },
+        {
+          childId: '1',
+          componentId: '5'
         }
-      ]
+      ],
+      actions: {
+        '1': '1',
+        '2': '2',
+        '3': '3'
+      },
+      storeProps: [
+        {
+          storeProp: 'store.todos',
+          propName: 'onionList'
+        }
+      ],
+      connected: true,
+      parentProps: [],
     },
 
     4: {
       name: 'exampleChildList',
-      children: []
+      children: [],
+      actions: {},
+      storeProps: [],
+      connected: false,
+      parentProps:[
+        {
+          parentProp: 'onionList',
+          childProp: 'listyList'
+        }
+      ],
     },
 
     5: {
@@ -86,20 +132,161 @@ const onion = {
 };
 
 describe('file creators', () => {
-  let actionOutput = 
-    `/* Actions file */\n\nconst ADD_TODO = "ADD_TODO";\nconst DELETE_TODO = "DELETE_TODO";\nconst SET_TODO = "SET_TODO";\nconst SET_USERNAME = "SET_USERNAME";\n\nexport const types = {\n  ADD_TODO,\n  DELETE_TODO,\n  SET_TODO,\n  SET_USERNAME,\n}\n\nexport const addTodo = (item) => ({\n  type: ADD_TODO,\n  item\n})\n\nexport const deleteTodo = (index) => ({\n  type: DELETE_TODO,\n  index\n})\n\nexport const setTodo = (index, value) => ({\n  type: SET_TODO,\n  index,\n  value\n})\n\nexport const setUsername = (value) => ({\n  type: SET_USERNAME,\n  value\n})\n\n`;
+  let actionOutput = '/* Actions file */\n\n'
+    + 'const ADD_TODO = "ADD_TODO";\n'
+    + 'const DELETE_TODO = "DELETE_TODO";\n'
+    + 'const SET_TODO = "SET_TODO";\n'
+    + 'const SET_USERNAME = "SET_USERNAME";\n'
+    + '\n'
+    + 'export const types = {\n'
+    + '  ADD_TODO,\n'
+    + '  DELETE_TODO,\n'
+    + '  SET_TODO,\n'
+    + '  SET_USERNAME,\n'
+    + '}\n'
+    + '\n'
+    + 'const addTodo = (item) => ({\n'
+    + '  type: ADD_TODO,\n'
+    + '  item\n'
+    + '})\n'
+    + '\n'
+    + 'const deleteTodo = (index) => ({\n'
+    + '  type: DELETE_TODO,\n'
+    + '  index\n'
+    + '})\n'
+    + '\n'
+    + 'const setTodo = (index, value) => ({\n'
+    + '  type: SET_TODO,\n'
+    + '  index,\n'
+    + '  value\n'
+    + '})\n'
+    + '\n'
+    + 'const setUsername = (value) => ({\n'
+    + '  type: SET_USERNAME,\n'
+    + '  value\n'
+    + '})\n'
+    + '\n'
+    + 'export const actions = {\n'
+    + '  addTodo,\n'
+    + '  deleteTodo,\n'
+    + '  setTodo,\n'
+    + '  setUsername,\n'
+    + '};\n';
 
-  let reducersOutput = 
-    `/* Reducers File */\n\nimport { types } from './actions'\n\nconst INITIAL_STATE = store;\n\nconst reducer = (state = INITIAL_STATE, action) => {\n  switch (action.type) {\n\n    case types.ADD_TODO:\n      let state = _.cloneDeep(state);\n      state.todos.push(action.item);\n      return state;\n    case types.DELETE_TODO:\n      let state = _.cloneDeep(state);\n      state.todos.splice(index, 1);\n      return state;\n    case types.SET_TODO:\n      let state = _.cloneDeep(state);\n      state.todos[action.index] = action.value;\n      return state;\n    case types.SET_USERNAME:\n      let state = _.cloneDeep(state);\n      state.username = action.value;\n      return state;\n    default:\n      return state;\n  };\n};\n\nexport default reducer;\n`;
+  let reducersOutput = `/* Reducers File */\n`
+    + `\n`
+    + `import { types } from './actions'\n`
+    + `\n`
+    + `const INITIAL_STATE = store;\n`
+    + `\n`
+    + `const reducer = (state = INITIAL_STATE, action) => {\n`
+    + `  switch (action.type) {\n`
+    + `\n`
+    + `    case types.ADD_TODO:\n`
+    + `      let state = _.cloneDeep(state);\n`
+    + `      state.todos.push(action.item);\n`
+    + `      return state;\n`
+    + `    case types.DELETE_TODO:\n`
+    + `      let state = _.cloneDeep(state);\n`
+    + `      state.todos.splice(index, 1);\n`
+    + `      return state;\n`
+    + `    case types.SET_TODO:\n`
+    + `      let state = _.cloneDeep(state);\n`
+    + `      state.todos[action.index] = action.value;\n`
+    + `      return state;\n`
+    + `    case types.SET_USERNAME:\n`
+    + `      let state = _.cloneDeep(state);\n`
+    + `      state.username = action.value;\n`
+    + `      return state;\n`
+    + `    default:\n`
+    + `      return state;\n`
+    + `  };\n`
+    + `};\n`
+    + `\n`
+    + `export default reducer;\n`;
 
-  let storeOutput = 
-    `/* Store File */\n\nimport { createStore } from 'redux';\nimport reducer from './reducers';\n\nconst store = createStore(reducer);\n\nexport default store;\n`;
+  let storeOutput = `/* Store File */\n`
+    + `\n`
+    + `import { createStore } from 'redux';\n`
+    + `import reducer from './reducers';\n`
+    + `\n`
+    + `const store = createStore(reducer);\n`
+    + `\n`
+    + `export default store;\n`;
   
-  
-  let appOutput = 
-    `/* App Component File */\n\nimport React from 'react';\nimport ReactDOM from 'react-dom';\nimport { Provider } from 'react-redux';\nimport store from './store';\nimport ExampleChild from './components/ExampleChild';\nimport ExampleChild2 from './components/ExampleChild2';\nimport ExampleChildList from './components/ExampleChildList';\n/* Add additional import statements as needed for your app! */\n\nclass App extends React.Component {\n\n  /* add component methods here */\n  render() {\n    return (\n      <Provider store={store}>\n        {/*Space for wrapping HTML if needed */}\n        <ExampleChild props={/*FILL_ME_IN*/}/>\n        <ExampleChild2 props={/*FILL_ME_IN*/}/>\n        <ExampleChildList props={/*FILL_ME_IN*/}/>\n        {/*Space for wrapping HTML if needed */}\n      </Provider>\n    );\n  };\n};\n\nReactDOM.render(<App />, document.getElementById('root'));\n`;
-  let exampleChildOutput = 
-    `/* ExampleChild2 Component File */\n\nimport React from 'react';\nimport { connect } from 'react-redux';\nimport store from '../store';\nimport ExampleChildList from './ExampleChildList';\n/* Add additional import statements as needed for your app! */\n\nclass ExampleChild2 extends React.Component {\n\n  /* add component methods here */\n  render() {\n    return (\n      {/*Space for wrapping HTML if needed */}\n      <ExampleChildList props={/*FILL_ME_IN*/}/>\n      {/*Space for wrapping HTML if needed */}\n    );\n  };\n};\n\nexport default ExampleChild2;\n`;
+  let appOutput = `/* App Component File */\n`
+    + `\n`
+    + `import React from 'react';\n`
+    + `import ReactDOM from 'react-dom';\n`
+    + `import { Provider } from 'react-redux';\n`
+    + `import store from './store';\n`
+    + `import ExampleChild from './components/ExampleChild';\n`
+    + `import ExampleChild2 from './components/ExampleChild2';\n`
+    + `import ExampleChildList from './components/ExampleChildList';\n`
+    + `\n`
+    + `class App extends React.Component {\n`
+    + `\n`
+    + `  /* add component methods here */\n`
+    + `  render() {\n`
+    + `    return (\n`
+    + `      <div>\n`
+    + `      <Provider store={store}>\n`
+    + `        {/*Space for wrapping HTML if needed */}\n`
+    + `        <ExampleChild\n`
+    + `          bar={this.props.foo}\n`
+    + `        />\n`
+    + `        <ExampleChild2 props={/*FILL_ME_IN*/} />\n`
+    + `        <ExampleChildList\n`
+    + `          listyList={this.props.onionList}\n`
+    + `        />\n`
+    + `        {/*Space for wrapping HTML if needed */}\n`
+    + `      </Provider>\n`
+    + `      </div>\n`
+    + `    );\n`
+    + `  };\n`
+    + `};\n`
+    + `\n`
+    + `ReactDOM.render(<App />, document.getElementById('root'));\n`;
+
+  let exampleChildOutput = `/* ExampleChild2 Component File */\n`
+    + `\n`
+    + `import React from 'react';\n`
+    + `import { connect } from 'react-redux';\n`
+    + `import store from '../store';\n`
+    + `import ExampleChildList from './ExampleChildList';\n`
+    + `import ExampleChildOfChild from './ExampleChildOfChild';\n`
+    + `import { actions } from '../actions';\n`
+    + `import { bindActionCreators } from 'redux';\n`
+    + `const _actions = bindActionCreators(actions, store.dispatch);\n`
+    + `\n`
+    + `const addTodo = _actions.addTodo;\n`
+    + `const deleteTodo = _actions.deleteTodo;\n`
+    + `const setTodo = _actions.setTodo;\n`
+    + `\n`
+    + `class ExampleChild2 extends React.Component {\n`
+    + `\n`
+    + `  /* add component methods here */\n`
+    + `  render() {\n`
+    + `    return (\n`
+    + `      <div>\n`
+    + `      {/*Space for wrapping HTML if needed */}\n`
+    + `      <ExampleChildList\n`
+    + `        listyList={this.props.onionList}\n`
+    + `      />\n`
+    + `      <ExampleChildOfChild props={/*FILL_ME_IN*/} />\n`
+    + `      {/*Space for wrapping HTML if needed */}\n`
+    + `      </div>\n`
+    + `    );\n`
+    + `  };\n`
+    + `};\n`
+    + `\n`
+    + `ExampleChild2 = connect(\n`
+    + `  (state) => ({\n`
+    + `    onionList: 'store.todos',\n`
+    + `  })\n`
+    + `)(ExampleChild2);\n`
+    + `\n`
+    + `export default ExampleChild2;\n`;
 
   let curDir = path.join(__dirname, '../');
   let testFolder = fs.mkdtempSync(`${curDir}${sep}`, );
@@ -185,7 +372,8 @@ describe('Composer', () => {
   let zipFile = testFolder + '/test.zip';
     
   before((done) => {
-    let request = httpMocks.createRequest({ body: onion });
+    let request = httpMocks.createRequest();
+    request.onion = onion;
     let download = fs.createWriteStream(zipFile, { 'autoClose': false });
     
     compose.composer(request, download);
