@@ -1,38 +1,17 @@
 import * as types from './types';
 
-export const createNewOutputAction = () => (
-  {type: types.CREATE_NEW_OUTPUT_ACTION}
-);
-
-export const editOutputActionType = (index, newType) => (
+export const createNewOutputAction = (outputAction) => (
   {
-    type: types.EDIT_OUTPUT_ACTION_TYPE,
-    index,
-    newType
+    type: types.CREATE_NEW_OUTPUT_ACTION,
+    outputAction
   }
 );
 
-export const editOutputActionName = (index, newName) => (
+export const editOutputAction = (index, outputAction) => (
   {
-    type: types.EDIT_OUTPUT_ACTION_NAME,
+    type: types.EDIT_OUTPUT_ACTION,
     index,
-    newName
-  }
-);
-
-export const editOutputActionTarget = (index, newTarget) => (
-  {
-    type: types.EDIT_OUTPUT_ACTION_TARGET,
-    index,
-    newTarget
-  }
-);
-
-export const editOutputActionValid = (index, newValid) => (
-  {
-    type: types.EDIT_OUTPUT_ACTION_TARGET,
-    index,
-    newValid
+    outputAction
   }
 );
 

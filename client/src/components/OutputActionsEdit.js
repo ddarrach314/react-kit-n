@@ -25,17 +25,35 @@ class OutputActionsEdit extends React.Component {
       name: '',
       target: '',
       type: '',
-      invalidName: false,
-      invalidTarget: false,
-      invalidType: false
+      invalidName: false
     }
   }
 
   handleClose() {
-    // actions.toggleEditModal(this.props.outputStore.editing.path);
+    actions.toggleEditActionModal(this.props.outputActions.editing.index);
   };
 
   handleSubmit() {
+    if (this.state.name === '' || this.state.name.indexOf(' ') >= 0) {
+      this.setState({invalidName: true});
+    } else {
+      if (this.props.outputActions.editing.index === 'newAction') {
+        actions.createNewOutputAction({
+          name: this.state.name,
+          target: this.state.target,
+          type: this.state.type
+        });
+
+      } else {
+        actions.editOutputAction(this.props.outputActions.editing.index, {
+          name: this.state.name,
+          target: this.state.target,
+          type: this.state.type
+        });
+
+      }
+      actions.toggleEditActionModal(this.props.outputActions.editing.index);
+    }
     // try {
     //   if (this.state.name === '') {
     //     throw 'name';
@@ -75,38 +93,34 @@ class OutputActionsEdit extends React.Component {
   }
 
   handleChangeName(event) {
-    // this.setState({name: event.target.value});
+    this.setState({name: event.target.value});
   }
 
-  handleChangeTarget(event) {
-    // this.setState({initialValue: event.target.value});
+  handleChangeTarget(event, key, payload) {
+    this.setState({target: payload});
   }
 
   handleChangeType(event, key, payload) {
-    // this.setState({type: payload});
+    this.setState({type: payload});
   }
 
   componentWillReceiveProps(nextProps) {
-    // if (nextProps.outputStore.editing) {
-    //   let property = nextProps.outputStore.editing.property;
-    //   this.setState({
-    //     name: property.name || '',
-    //     initialValue: JSON.stringify(property.initialValue),
-    //     type: property.type || '',
-    //     invalidName: false,
-    //     invalidType: false,
-    //     invalidInitialValue: false
-    //   });
-    // } else {
-    //   this.setState({
-    //     name: '',
-    //     initialValue: '',
-    //     type: '',
-    //     invalidName: false,
-    //     invalidType: false,
-    //     invalidInitialValue: false
-    //   });
-    // }
+    if (nextProps.outputActions.editing) {
+      let action = nextProps.outputActions.editing.action;
+      this.setState({
+        name: action.name || '',
+        target: action.target || '',
+        type: action.type || '',
+        invalidName: false
+      });
+    } else {
+      this.setState({
+        name: '',
+        target: '',
+        type: '',
+        invalidName: false
+      });
+    }
   }
 
   render() {

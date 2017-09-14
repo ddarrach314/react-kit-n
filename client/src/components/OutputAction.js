@@ -8,7 +8,7 @@ let actions = bindActionCreators(unboundActions, store.dispatch);
 
 class OutputAction extends React.Component {
   handleClickEdit() {
-
+    actions.toggleEditActionModal(this.props.index);
   }
 
   handleClickRemove() {
