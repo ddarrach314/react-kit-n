@@ -6,6 +6,7 @@ import store from '../reduxStore';
 import {bindActionCreators} from 'redux';
 import utilities from '../utilities/index';
 import OutputAction from './OutputAction';
+import OutputActionsEdit from './OutputActionsEdit';
 
 let actions = bindActionCreators(unboundActions, store.dispatch);
 
@@ -20,10 +21,13 @@ class OutputActionsForm extends React.Component {
         </div>
         <div className="outputActionsList">
           {this.props.outputActions.outputActions.map((outputAction, index) => (
-            <OutputAction outputAction={outputAction} targetsTypes={utilities.outputStore.getTargetsFromOutputStore(this.props.outputStore.outputStore)} index={index}/>
+            <OutputAction outputAction={outputAction} 
+              // targetsTypes={utilities.outputStore.getTargetsFromOutputStore(this.props.outputStore.outputStore)} 
+              index={index}/>
           )
           )}
         </div>
+        <OutputActionsEdit />
       </div>
     );
   }

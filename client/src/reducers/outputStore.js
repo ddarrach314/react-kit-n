@@ -45,7 +45,7 @@ const outputStoreReducer = (state = initialState, action = {}) => {
     return utils.safeDelete(state, pathString);
   }
 
-  case types.TOGGLE_EDIT_MODAL: {
+  case types.TOGGLE_EDIT_STORE_MODAL: {
     if (state.editing) {
       state = utils.safeSet(state, null, 'editing');
 

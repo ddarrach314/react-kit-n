@@ -31,7 +31,7 @@ class OutputStoreEdit extends React.Component {
   }
 
   handleClose() {
-    actions.toggleEditModal(this.props.outputStore.editing.path);
+    actions.toggleEditStoreModal(this.props.outputStore.editing.path);
   };
 
   handleSubmit() {
@@ -60,7 +60,7 @@ class OutputStoreEdit extends React.Component {
                               : false;
       let setProperty = isElementSchema ? {type: this.state.type} : {name: this.state.name, initialValue, type: this.state.type};
       actions.setOutputStoreProperty(setProperty, this.props.outputStore.editing.path);
-      actions.toggleEditModal(this.props.outputStore.editing.path);
+      actions.toggleEditStoreModal(this.props.outputStore.editing.path);
 
     } catch(error) {
       if (error === 'name') {

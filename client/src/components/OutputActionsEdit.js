@@ -22,101 +22,101 @@ class OutputActionsEdit extends React.Component {
     super(props);
     this.state = {
       name: '',
-      initialValue: '',
+      target: '',
       type: '',
       invalidName: false,
-      invalidInitialValue: false,
+      invalidTarget: false,
       invalidType: false
     }
   }
 
   handleClose() {
-    actions.toggleEditModal(this.props.outputStore.editing.path);
+    // actions.toggleEditModal(this.props.outputStore.editing.path);
   };
 
   handleSubmit() {
-    try {
-      if (this.state.name === '') {
-        throw 'name';
-      }
-      if (this.state.type === '') {
-        throw 'type';
-      }
+    // try {
+    //   if (this.state.name === '') {
+    //     throw 'name';
+    //   }
+    //   if (this.state.type === '') {
+    //     throw 'type';
+    //   }
 
-      let initialValue = this.state.initialValue;
-      if (initialValue === '' || initialValue === 'undefined' || initialValue === undefined) {
-        initialValue = undefined;
+    //   let initialValue = this.state.initialValue;
+    //   if (initialValue === '' || initialValue === 'undefined' || initialValue === undefined) {
+    //     initialValue = undefined;
 
-      } else if (initialValue === "''" || initialValue === '""') {
-        initialValue = '';
+    //   } else if (initialValue === "''" || initialValue === '""') {
+    //     initialValue = '';
 
-      } else {
-        initialValue = JSON.parse(this.state.initialValue);
+    //   } else {
+    //     initialValue = JSON.parse(this.state.initialValue);
 
-      }
+    //   }
   
-      let isElementSchema = this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'elementSchema'
-                              ? true
-                              : false;
-      let setProperty = isElementSchema ? {type: this.state.type} : {name: this.state.name, initialValue, type: this.state.type};
-      actions.setOutputStoreProperty(setProperty, this.props.outputStore.editing.path);
-      actions.toggleEditModal(this.props.outputStore.editing.path);
+    //   let isElementSchema = this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'elementSchema'
+    //                           ? true
+    //                           : false;
+    //   let setProperty = isElementSchema ? {type: this.state.type} : {name: this.state.name, initialValue, type: this.state.type};
+    //   actions.setOutputStoreProperty(setProperty, this.props.outputStore.editing.path);
+    //   actions.toggleEditModal(this.props.outputStore.editing.path);
 
-    } catch(error) {
-      if (error === 'name') {
-        this.setState({invalidName: true});
-      } else if (error === 'type') {
-        this.setState({invalidName: false, invalidType: true});
-      } else {
-        this.setState({invalidName: false, invalidType: false, invalidInitialValue: true});
-      }
-    }
+    // } catch(error) {
+    //   if (error === 'name') {
+    //     this.setState({invalidName: true});
+    //   } else if (error === 'type') {
+    //     this.setState({invalidName: false, invalidType: true});
+    //   } else {
+    //     this.setState({invalidName: false, invalidType: false, invalidInitialValue: true});
+    //   }
+    // }
   }
 
   handleChangeName(event) {
-    this.setState({name: event.target.value});
+    // this.setState({name: event.target.value});
   }
 
   handleChangeInitialValue(event) {
-    this.setState({initialValue: event.target.value});
+    // this.setState({initialValue: event.target.value});
   }
 
   handleChangeType(event, key, payload) {
-    this.setState({type: payload});
+    // this.setState({type: payload});
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.outputStore.editing) {
-      let property = nextProps.outputStore.editing.property;
-      this.setState({
-        name: property.name || '',
-        initialValue: JSON.stringify(property.initialValue),
-        type: property.type || '',
-        invalidName: false,
-        invalidType: false,
-        invalidInitialValue: false
-      });
-    } else {
-      this.setState({
-        name: '',
-        initialValue: '',
-        type: '',
-        invalidName: false,
-        invalidType: false,
-        invalidInitialValue: false
-      });
-    }
+    // if (nextProps.outputStore.editing) {
+    //   let property = nextProps.outputStore.editing.property;
+    //   this.setState({
+    //     name: property.name || '',
+    //     initialValue: JSON.stringify(property.initialValue),
+    //     type: property.type || '',
+    //     invalidName: false,
+    //     invalidType: false,
+    //     invalidInitialValue: false
+    //   });
+    // } else {
+    //   this.setState({
+    //     name: '',
+    //     initialValue: '',
+    //     type: '',
+    //     invalidName: false,
+    //     invalidType: false,
+    //     invalidInitialValue: false
+    //   });
+    // }
   }
 
   render() {
-    let isElementSchema;
-    if (this.props.outputStore.editing) {
-      isElementSchema = this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'elementSchema'
-                            ? true
-                            : false;
-    } else {
-      isElementSchema = false;
-    }
+    // let isElementSchema;
+    // if (this.props.outputStore.editing) {
+    //   isElementSchema = this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'elementSchema'
+    //                         ? true
+    //                         : false;
+    // } else {
+    //   isElementSchema = false;
+    // }
     
     const actions = [
       <FlatButton
@@ -138,14 +138,12 @@ class OutputActionsEdit extends React.Component {
           title="Edit Property"
           actions={actions}
           modal={false}
-          open={this.props.outputStore.editing === null ? false : true}
+          open={false}
+          // open={this.props.outputStore.editing === null ? false : true}
           onRequestClose={this.handleClose.bind(this)}
         >
-          {!isElementSchema &&
-            <div>
-              <TextField floatingLabelText="Name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/>
-              <TextField floatingLabelText="Initial Value" value={this.state.initialValue} onChange={this.handleChangeInitialValue.bind(this)}/>
-            </div>}
+          <TextField floatingLabelText="Name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/>
+          <TextField floatingLabelText="Initial Value" value={this.state.initialValue} onChange={this.handleChangeInitialValue.bind(this)}/>
           <SelectField floatingLabelText="Type" value={this.state.type} onChange={this.handleChangeType.bind(this)}>
             <MenuItem value={'string'} primaryText="string" />
             <MenuItem value={'number'} primaryText="number" />
