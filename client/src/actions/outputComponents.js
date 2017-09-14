@@ -32,36 +32,45 @@ export const removeChildComponent = ({parent, childIndex}) => ({
   childIndex
 });
 
-export const toggleComponentConnection = (outputPropsKey) => ({
+export const toggleComponentConnection = (id) => ({
   type: types.TOGGLE_COMPONENT_CONNECTION,
-  outputPropsKey
+  id
 });
 
-export const bindActionToComponent = (outputPropsKey, outputAction) => ({
+export const bindActionToComponent = (id, outputAction) => ({
   type: types.BIND_ACTION_TO_COMPONENT,
-  outputPropsKey,
+  id,
   outputAction
 });
 
-export const removeActionFromComponent = (outputPropsKey, outputAction) => ({
+export const removeActionFromComponent = (id, outputAction) => ({
   type: types.REMOVE_ACTION_FROM_COMPONENT,
-  outputPropsKey,
+  id,
   outputAction
 });
 
-export const bindStorePropToComponent = (
-  outputPropsKey,
-  outputStoreProp,
-  outputStorePropName
-) => ({
+export const bindStorePropToComponent = (id, outputStoreProp, outputStorePropName) => ({
   type: types.BIND_STORE_PROP_TO_COMPONENT,
-  outputPropsKey,
+  id,
   outputStoreProp,
   outputStorePropName
 });
 
-export const removeStorePropFromComponent = (outputPropsKey, outputStoreProp) => ({
+export const removeStorePropFromComponent = (id, outputStoreProp) => ({
   type: types.REMOVE_STORE_PROP_FROM_COMPONENT,
-  outputPropsKey,
+  id,
   outputStoreProp
+});
+
+export const bindParentPropToComponent = (id, parentProp, childProp) => ({
+  type: types.BIND_PARENT_PROP_TO_COMPONENT,
+  id,
+  parentProp,
+  childProp
+});
+
+export const removeParentPropFromComponent = (id, parentProp) => ({
+  type: types.REMOVE_PARENT_PROP_FROM_COMPONENT,
+  id,
+  parentProp
 });
