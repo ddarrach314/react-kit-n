@@ -161,7 +161,10 @@ class OutputStoreEdit extends React.Component {
                 underlineFocusStyle={{borderBottomColor:'#6653ff'}}
                 floatingLabelFocusStyle={{color:'#6653ff'}}/>
             </div>}
-          <SelectField floatingLabelText="Type" value={this.state.type} onChange={this.handleChangeType.bind(this)}>
+          <SelectField floatingLabelText="Type" 
+            value={this.state.type} 
+            onChange={this.handleChangeType.bind(this)}
+            selectedMenuItemStyle={{color:'#6653ff'}}>
             <MenuItem value={'string'} primaryText="string" />
             <MenuItem value={'number'} primaryText="number" />
             <MenuItem value={'boolean'} primaryText="boolean" />

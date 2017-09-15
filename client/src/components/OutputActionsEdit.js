@@ -121,7 +121,8 @@ class OutputActionsEdit extends React.Component {
               value={this.state.target} 
               onChange={this.handleChangeTarget.bind(this)}
               disabled={Object.keys(this.props.targetsTypes).length ? false : true}
-              style={{marginRight: '4em'}}>
+              style={{marginRight: '4em'}}
+              selectedMenuItemStyle={{color:'#6653ff'}}>
               {Object.keys(this.props.targetsTypes).map((target) => (
                 <MenuItem value={target} primaryText={target} />
               )
@@ -129,7 +130,8 @@ class OutputActionsEdit extends React.Component {
             </SelectField>
             <SelectField floatingLabelText="Type" 
               value={this.state.type} 
-              onChange={this.handleChangeType.bind(this)}>
+              onChange={this.handleChangeType.bind(this)}
+              selectedMenuItemStyle={{color:'#6653ff'}}>
               {utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.state.target]).map((type) => (
                 <MenuItem value={type} primaryText={type} />
               )
