@@ -7,6 +7,13 @@ import utilities from '../utilities/index';
 let actions = bindActionCreators(unboundActions, store.dispatch);
 
 class OutputAction extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hover: false
+    };
+  }
+
   handleClickEdit() {
     actions.toggleEditActionModal(this.props.index);
   }
@@ -15,22 +22,44 @@ class OutputAction extends React.Component {
     actions.removeOutputAction(this.props.index);
   }
 
+  handleMouseEnter() {
+    this.setState({hover: true});
+  }
+
+  handleMouseLeave() {
+    this.setState({hover: false});
+  }
+
   render() {
     return (
-      <div className="row no-gutters">
-        <div className="col-3">
-          {this.props.outputAction.name}
+      <div>
+        <div className="outputActionRow" 
+          onMouseEnter={this.handleMouseEnter.bind(this)} 
+          onMouseLeave={this.handleMouseLeave.bind(this)}>
+          <div className="outputActionCol">
+            <div>Name</div>
+            <div className="outputActionColValue">{this.props.outputAction.name}</div>
+          </div>
+          <div className="outputActionCol">
+            <div>Target</div>
+            <div className="outputActionColValue">{this.props.outputAction.target}</div>
+          </div>
+          <div className="outputActionCol">
+            <div>Type</div>
+            <div className="outputActionColValue">{this.props.outputAction.type}</div>
+          </div>
+          {this.state.hover ?
+            <div>
+              <i className="material-icons pointer" 
+                onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
+              <i className="material-icons removeOutputAction pointer red" 
+                onClick={this.handleClickRemove.bind(this)}>clear</i>
+            </div>
+            :
+            <div className="outputActionMouseoverPlaceholder"></div>
+          }
         </div>
-        <div className="col-3">
-          {this.props.outputAction.target}
-        </div>
-        <div className="col-4">
-          {this.props.outputAction.type}
-        </div>
-        <i className="material-icons col-1 pointer" 
-          onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
-        <i className="material-icons col-1 align-self-end removeOutputAction pointer red" 
-          onClick={this.handleClickRemove.bind(this)}>clear</i>
+        <div className="borderBottomContainer"><div className="greyBorder"></div></div>
       </div>
     );
   }

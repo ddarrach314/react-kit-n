@@ -198,7 +198,7 @@ class TreeBranch extends React.Component {
                     )}
                   </div>}
               </div>
-              <div className="outputPropsActionsBorderContainer"><div className="outputPropsActionsBorder"></div></div>
+              <div className="outputPropsActionsBorderContainer"><div className="greyBorder"></div></div>
               <div>
                 <div>Actions</div>
                 <div className="treeBranchModifyItem">
@@ -233,7 +233,7 @@ class TreeBranch extends React.Component {
                   </div>}
               </div>
             </div>
-            <div className="outputPropsActionsBorderBottomContainer"><div className="outputPropsActionsBorderBottom"></div></div>
+            <div className="borderBottomContainer"><div className="outputPropsActionsBorderBottom"></div></div>
           </div>
         }
       </div>

@@ -12,12 +12,6 @@ import utilities from '../utilities/index';
 
 let actions = bindActionCreators(unboundActions, store.dispatch);
 
-/**
- * Dialog with action buttons. The actions are passed in as an array of React objects,
- * in this example [FlatButtons](/#/components/flat-button).
- *
- * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
- */
 class OutputActionsEdit extends React.Component {
   constructor(props) {
     super(props);
@@ -57,42 +51,6 @@ class OutputActionsEdit extends React.Component {
       }
       actions.toggleEditActionModal(this.props.outputActions.editing.index);
     }
-    // try {
-    //   if (this.state.name === '') {
-    //     throw 'name';
-    //   }
-    //   if (this.state.type === '') {
-    //     throw 'type';
-    //   }
-
-    //   let initialValue = this.state.initialValue;
-    //   if (initialValue === '' || initialValue === 'undefined' || initialValue === undefined) {
-    //     initialValue = undefined;
-
-    //   } else if (initialValue === "''" || initialValue === '""') {
-    //     initialValue = '';
-
-    //   } else {
-    //     initialValue = JSON.parse(this.state.initialValue);
-
-    //   }
-  
-    //   let isElementSchema = this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'elementSchema'
-    //                           ? true
-    //                           : false;
-    //   let setProperty = isElementSchema ? {type: this.state.type} : {name: this.state.name, initialValue, type: this.state.type};
-    //   actions.setOutputStoreProperty(setProperty, this.props.outputStore.editing.path);
-    //   actions.toggleEditModal(this.props.outputStore.editing.path);
-
-    // } catch(error) {
-    //   if (error === 'name') {
-    //     this.setState({invalidName: true});
-    //   } else if (error === 'type') {
-    //     this.setState({invalidName: false, invalidType: true});
-    //   } else {
-    //     this.setState({invalidName: false, invalidType: false, invalidInitialValue: true});
-    //   }
-    // }
   }
 
   handleChangeName(event) {
@@ -127,14 +85,6 @@ class OutputActionsEdit extends React.Component {
   }
 
   render() {
-    // let isElementSchema;
-    // if (this.props.outputStore.editing) {
-    //   isElementSchema = this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'elementSchema'
-    //                         ? true
-    //                         : false;
-    // } else {
-    //   isElementSchema = false;
-    // }
     
     const actions = [
       <FlatButton
@@ -160,13 +110,18 @@ class OutputActionsEdit extends React.Component {
           onRequestClose={this.handleClose.bind(this)}
         >
           <TextField floatingLabelText="Name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/>
-          <SelectField floatingLabelText="Target" value={this.state.target} onChange={this.handleChangeTarget.bind(this)}>
+          <SelectField floatingLabelText="Target" 
+            value={this.state.target} 
+            onChange={this.handleChangeTarget.bind(this)}
+            disabled={this.props.targetsTypes.length ? false : true}>
             {Object.keys(this.props.targetsTypes).map((target) => (
               <MenuItem value={target} primaryText={target} />
             )
             )}
           </SelectField>
-          <SelectField floatingLabelText="Type" value={this.state.type} onChange={this.handleChangeType.bind(this)}>
+          <SelectField floatingLabelText="Type" 
+            value={this.state.type} 
+            onChange={this.handleChangeType.bind(this)}>
             {utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.state.target]).map((type) => (
               <MenuItem value={type} primaryText={type} />
             )
