@@ -241,6 +241,11 @@ textarea:focus {
   align-items: center;
 }
 
+.addRow {
+  display: flex;
+  justify-content: center;
+}
+
 .outputActionsList {
   height: 26em;
   overflow-y: scroll;
