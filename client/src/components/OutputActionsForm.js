@@ -20,7 +20,7 @@ class OutputActionsForm extends React.Component {
       <div className="col-md-3 outputActionsCol">
         <div className="outputActionsHeading">
           <h4>Actions</h4>
-          <i className="material-icons addActionButton pointer green"
+          <i className="material-icons addButton pointer green"
             onClick={this.handleClickAdd.bind(this)}>add</i>
         </div>
         <div className="outputActionsList">
