@@ -59,13 +59,10 @@ class OutputStoreForm extends React.Component {
       <div className="col-md-3 outputStoreCol">
         <div className="outputStoreSchemaHeading">
           <h4>Store Schema</h4>
+          <i className="material-icons addStorePropertyButton pointer green"
+            onClick={this.handleClickAdd.bind(this)}>add</i>
         </div>
         <div className="outputStoreFormTextArea"> 
-          <div className="addRow">
-            <div>Add Store Property</div>
-            <i className="material-icons addStorePropertyButton pointer green"
-              onClick={this.handleClickAdd.bind(this)}>add</i>
-          </div>
           {utilities.outputStore.generateStoreArray(this.props.outputStore.properties, OutputStoreRow, actions.toggleEditStoreModal)}
         </div>
         <OutputStoreEdit />

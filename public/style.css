@@ -217,6 +217,10 @@ p {
   display: flex;
 }
 
+.outputStoreObjectProperties {
+  display: flex;
+}
+
 textarea:focus {
   outline: none;
 }

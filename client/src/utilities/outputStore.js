@@ -39,12 +39,17 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
     if (isElementSchema) {
       storeArray.push(<OutputStoreRow path={path} indent={indent} isElementSchema={true} type={object.type} />);
       if (object.type === 'object') {
-        storeArray.push(<div style={{marginLeft: indent + 20 + 'px'}}>Properties</div>);
-        storeArray.push(<i style={{marginLeft: indent + 20 + 'px'}}
-            className="material-icons addStorePropertyButton pointer green"
-            onClick={() => {
-              toggleEditModal(path.concat('newProperty'));
-            }}>add</i>);
+        storeArray.push(
+          <div className="outputStoreObjectProperties">
+            <div style={{marginLeft: indent + 20 + 'px'}}>Properties</div>
+            <i style={{marginLeft: indent + 20 + 'px'}}
+              className="material-icons addStorePropertyButton pointer green"
+              onClick={() => {
+                toggleEditModal(path.concat('newProperty'));
+              }}>add</i>
+          </div>
+        );
+        
         traverseStore(object.properties, indent + 20, path);
       } else if (object.type === 'array') {
         traverseStore(object.elementSchema, indent + 20, path.concat('elementSchema'), true);
@@ -53,12 +58,17 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
       object.forEach((property, index) => {
         storeArray.push(<OutputStoreRow path={path.concat(index)} indent={indent} name={property.name} type={property.type} initialValue={property.initialValue} isElementSchema={false} />);
         if (property.type === 'object') {
-          storeArray.push(<div style={{marginLeft: indent + 20 + 'px'}}>Properties</div>);
-          storeArray.push(<i style={{marginLeft: indent + 20 + 'px'}}
-            className="material-icons addStorePropertyButton pointer green"
-            onClick={() => {
-              toggleEditModal(path.concat([index, 'newProperty']));
-            }}>add</i>);
+          storeArray.push(
+            <div className="outputStoreObjectProperties">
+              <div style={{marginLeft: indent + 20 + 'px'}}>Properties</div>
+              <i style={{marginLeft: indent + 20 + 'px'}}
+                className="material-icons addStorePropertyButton pointer green"
+                onClick={() => {
+                  toggleEditModal(path.concat([index, 'newProperty']));
+                }}>add</i>
+            </div>
+          );
+          
           traverseStore(property.properties, indent + 20, path.concat(index));
         } else if(property.type === 'array') {
           traverseStore(property.elementSchema, indent + 20, path.concat([index, 'elementSchema']), true);
