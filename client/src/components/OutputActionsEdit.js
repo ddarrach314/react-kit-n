@@ -37,15 +37,15 @@ class OutputActionsEdit extends React.Component {
       if (this.props.outputActions.editing.index === 'newAction') {
         actions.createNewOutputAction({
           name: this.state.name,
-          target: this.state.target,
-          type: this.state.type
+          target: this.state.target || undefined,
+          type: this.state.type || undefined
         });
 
       } else {
         actions.editOutputAction(this.props.outputActions.editing.index, {
           name: this.state.name,
-          target: this.state.target,
-          type: this.state.type
+          target: this.state.target || undefined,
+          type: this.state.type || undefined
         });
 
       }
@@ -91,12 +91,14 @@ class OutputActionsEdit extends React.Component {
         label="Cancel"
         primary={true}
         onClick={this.handleClose.bind(this)}
+        labelStyle={{color:'#6653ff'}}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
         onClick={this.handleSubmit.bind(this)}
+        labelStyle={{color:'#6653ff'}}
       />
     ];
 
@@ -109,7 +111,11 @@ class OutputActionsEdit extends React.Component {
           open={this.props.outputActions.editing === null ? false : true}
           onRequestClose={this.handleClose.bind(this)}
         >
-          <TextField floatingLabelText="Name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/>
+          <TextField floatingLabelText="Name" 
+            value={this.state.name} 
+            onChange={this.handleChangeName.bind(this)}
+            underlineFocusStyle={{borderBottomColor:'#6653ff'}}
+            floatingLabelFocusStyle={{color:'#6653ff'}}/>
           <div>
             <SelectField floatingLabelText="Target" 
               value={this.state.target} 

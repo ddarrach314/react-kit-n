@@ -36,30 +36,33 @@ class OutputStoreEdit extends React.Component {
 
   handleSubmit() {
     try {
-      if (this.state.name === '' || this.state.name.indexOf(' ') >= 0) {
-        throw 'name';
-      }
-      if (this.state.type === '') {
-        throw 'type';
-      }
-
-      let initialValue = this.state.initialValue;
-      if (initialValue === '' || initialValue === 'undefined' || initialValue === undefined) {
-        initialValue = undefined;
-
-      } else if (initialValue === "''" || initialValue === '""') {
-        initialValue = '';
-
-      } else {
-        initialValue = initialValue.replace(/'/g, '"');
-        initialValue = JSON.parse(initialValue);
-
-      }
-  
       let isElementSchema = this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'elementSchema'
                               ? true
                               : false;
-      let setProperty = isElementSchema ? {type: this.state.type} : {name: this.state.name, initialValue, type: this.state.type};
+      let initialValue = this.state.initialValue;
+      
+      if (!isElementSchema) {
+        if (this.state.name === '' || this.state.name.indexOf(' ') >= 0) {
+          throw 'name';
+        }
+        if (this.state.type === '') {
+          throw 'type';
+        }
+
+        if (initialValue === '' || initialValue === 'undefined' || initialValue === undefined) {
+          initialValue = undefined;
+
+        } else if (initialValue === "''" || initialValue === '""') {
+          initialValue = '';
+
+        } else {
+          initialValue = initialValue.replace(/'/g, '"');
+          initialValue = JSON.parse(initialValue);
+
+        }
+      }
+      
+      let setProperty = isElementSchema ? {type: this.state.type || undefined} : {name: this.state.name, initialValue, type: this.state.type};
       actions.setOutputStoreProperty(setProperty, this.props.outputStore.editing.path);
       actions.toggleEditStoreModal(this.props.outputStore.editing.path);
 
@@ -124,12 +127,14 @@ class OutputStoreEdit extends React.Component {
         label="Cancel"
         primary={true}
         onClick={this.handleClose.bind(this)}
+        labelStyle={{color:'#6653ff'}}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
         onClick={this.handleSubmit.bind(this)}
+        labelStyle={{color:'#6653ff'}}
       />
     ];
 
@@ -144,8 +149,17 @@ class OutputStoreEdit extends React.Component {
         >
           {!isElementSchema &&
             <div>
-              <TextField floatingLabelText="Name" value={this.state.name} onChange={this.handleChangeName.bind(this)} style={{marginRight: '4em'}}/>
-              <TextField floatingLabelText="Initial Value" value={this.state.initialValue} onChange={this.handleChangeInitialValue.bind(this)}/>
+              <TextField floatingLabelText="Name" 
+                value={this.state.name} 
+                onChange={this.handleChangeName.bind(this)} 
+                style={{marginRight: '4em'}}
+                underlineFocusStyle={{borderBottomColor:'#6653ff'}}
+                floatingLabelFocusStyle={{color:'#6653ff'}}/>
+              <TextField floatingLabelText="Initial Value" 
+                value={this.state.initialValue} 
+                onChange={this.handleChangeInitialValue.bind(this)}
+                underlineFocusStyle={{borderBottomColor:'#6653ff'}}
+                floatingLabelFocusStyle={{color:'#6653ff'}}/>
             </div>}
           <SelectField floatingLabelText="Type" value={this.state.type} onChange={this.handleChangeType.bind(this)}>
             <MenuItem value={'string'} primaryText="string" />

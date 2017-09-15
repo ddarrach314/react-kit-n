@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import FlatButton from 'material-ui/FlatButton';
 
 class SubmitForm extends React.Component {
   render() {
@@ -11,7 +12,14 @@ class SubmitForm extends React.Component {
           name='onion'
           value={JSON.stringify({actions, store, components})}
         />
-        <button className='pointer button btn btn-lg btn-primary btn-block'> Export Application </button>
+        <FlatButton
+          label="Export Application"
+          primary={true}
+          backgroundColor='#6653ff'
+          labelStyle={{color:'#f9f9f9'}}
+          hoverColor='#7F00FF'
+        />
+        
       </form>
     );
   }
@@ -26,3 +34,5 @@ SubmitForm = connect(
 )(SubmitForm);
 
 export default SubmitForm;
+
+// <button className='pointer button btn btn-lg btn-primary btn-block'> Export Application </button>

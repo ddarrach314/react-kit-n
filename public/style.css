@@ -215,6 +215,11 @@ p {
 
 .outputStoreRow {
   display: flex;
+  height: 25px;
+}
+
+.outputStoreRowText {
+  margin-right: 1em;
 }
 
 .outputStoreObjectProperties {
@@ -262,11 +267,11 @@ textarea:focus {
 .outputActionRow {
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .outputActionCol {
-  width: 4em;
+  width: 4.5em;
 }
 
 .outputActionColValue {

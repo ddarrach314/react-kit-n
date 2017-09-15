@@ -41,18 +41,17 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
       if (object.type === 'object') {
         storeArray.push(
           <div className="outputStoreObjectProperties">
-            <div style={{marginLeft: indent + 20 + 'px'}}>Properties</div>
-            <i style={{marginLeft: indent + 20 + 'px'}}
-              className="material-icons addStorePropertyButton pointer green"
+            <div style={{marginLeft: indent + 40 + 'px'}}><b>Properties:</b></div>
+            <i className="material-icons addButton pointer green"
               onClick={() => {
                 toggleEditModal(path.concat('newProperty'));
               }}>add</i>
           </div>
         );
         
-        traverseStore(object.properties, indent + 20, path);
+        traverseStore(object.properties, indent + 40, path);
       } else if (object.type === 'array') {
-        traverseStore(object.elementSchema, indent + 20, path.concat('elementSchema'), true);
+        traverseStore(object.elementSchema, indent + 40, path.concat('elementSchema'), true);
       }
     } else {
       object.forEach((property, index) => {
@@ -60,18 +59,17 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
         if (property.type === 'object') {
           storeArray.push(
             <div className="outputStoreObjectProperties">
-              <div style={{marginLeft: indent + 20 + 'px'}}>Properties</div>
-              <i style={{marginLeft: indent + 20 + 'px'}}
-                className="material-icons addStorePropertyButton pointer green"
+              <div style={{marginLeft: indent + 40 + 'px'}}><b>Properties:</b></div>
+              <i className="material-icons addButton pointer green"
                 onClick={() => {
                   toggleEditModal(path.concat([index, 'newProperty']));
                 }}>add</i>
             </div>
           );
           
-          traverseStore(property.properties, indent + 20, path.concat(index));
+          traverseStore(property.properties, indent + 40, path.concat(index));
         } else if(property.type === 'array') {
-          traverseStore(property.elementSchema, indent + 20, path.concat([index, 'elementSchema']), true);
+          traverseStore(property.elementSchema, indent + 40, path.concat([index, 'elementSchema']), true);
         }
       });
     }
