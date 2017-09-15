@@ -110,23 +110,26 @@ class OutputActionsEdit extends React.Component {
           onRequestClose={this.handleClose.bind(this)}
         >
           <TextField floatingLabelText="Name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/>
-          <SelectField floatingLabelText="Target" 
-            value={this.state.target} 
-            onChange={this.handleChangeTarget.bind(this)}
-            disabled={this.props.targetsTypes.length ? false : true}>
-            {Object.keys(this.props.targetsTypes).map((target) => (
-              <MenuItem value={target} primaryText={target} />
-            )
-            )}
-          </SelectField>
-          <SelectField floatingLabelText="Type" 
-            value={this.state.type} 
-            onChange={this.handleChangeType.bind(this)}>
-            {utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.state.target]).map((type) => (
-              <MenuItem value={type} primaryText={type} />
-            )
-            )}
-          </SelectField>
+          <div>
+            <SelectField floatingLabelText="Target" 
+              value={this.state.target} 
+              onChange={this.handleChangeTarget.bind(this)}
+              disabled={Object.keys(this.props.targetsTypes).length ? false : true}
+              style={{marginRight: '4em'}}>
+              {Object.keys(this.props.targetsTypes).map((target) => (
+                <MenuItem value={target} primaryText={target} />
+              )
+              )}
+            </SelectField>
+            <SelectField floatingLabelText="Type" 
+              value={this.state.type} 
+              onChange={this.handleChangeType.bind(this)}>
+              {utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.state.target]).map((type) => (
+                <MenuItem value={type} primaryText={type} />
+              )
+              )}
+            </SelectField>
+          </div>
           {this.state.invalidName && <div className="red">Please enter a unique name with no spaces</div>}
         </Dialog>
       </div>

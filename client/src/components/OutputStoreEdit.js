@@ -144,7 +144,7 @@ class OutputStoreEdit extends React.Component {
         >
           {!isElementSchema &&
             <div>
-              <TextField floatingLabelText="Name" value={this.state.name} onChange={this.handleChangeName.bind(this)}/>
+              <TextField floatingLabelText="Name" value={this.state.name} onChange={this.handleChangeName.bind(this)} style={{marginRight: '4em'}}/>
               <TextField floatingLabelText="Initial Value" value={this.state.initialValue} onChange={this.handleChangeInitialValue.bind(this)}/>
             </div>}
           <SelectField floatingLabelText="Type" value={this.state.type} onChange={this.handleChangeType.bind(this)}>
