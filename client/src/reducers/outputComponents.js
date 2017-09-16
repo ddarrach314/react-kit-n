@@ -16,7 +16,8 @@ const initialState = {
       storeProps: [],
       parentProps: []
     }
-  }
+  },
+  editing: null,
 };
 
 const outputComponentsReducer = (state = initialState, action = {}) => {
@@ -44,6 +45,12 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       };
       newState.nextId += 1;
       return newState;
+
+    case types.OPEN_EDIT_COMPONENT_MODAL:
+      return safeSet(state, {id}, 'editing');
+
+    case types.CLOSE_EDIT_COMPONENT_MODAL:
+      return safeSet(state, null, 'editing');
 
     case types.UPDATE_COMPONENT:
       newState = makeMutableCopy(state, `components.${action.id}`);

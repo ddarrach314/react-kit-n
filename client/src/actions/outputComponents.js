@@ -9,6 +9,15 @@ export const addComponent = () => ({
   type: types.ADD_COMPONENT
 });
 
+export const openEditComponentModel = (id) => ({
+  type: types.OPEN_EDIT_COMPONENT_MODAL,
+  id
+});
+
+export const closeEditComponentModel = () => ({
+  type: types.CLOSE_EDIT_COMPONENT_MODAL
+});
+
 export const updateComponent = (id, update) => ({
   type: types.UPDATE_COMPONENT,
   id: id.toString(),

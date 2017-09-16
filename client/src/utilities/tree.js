@@ -1,37 +1,44 @@
 import React from 'react';
 import _ from 'lodash';
 
-export const generateTreeArray = (outputComponents, outputComponentProps, outputStorePropsOptions, outputActions, TreeBranch) => {
+export const generateTreeArray = (
+  outputComponents,
+  outputStorePropsOptions,
+  outputActions,
+  TreeBranch
+) => {
+
   let treeArray = [];
-  let traverseOutputComponents = (indent, componentId, outputPropsKey) => {
-    let inheritsConnection = checkForInheritedConnection(outputPropsKey, outputComponentProps);
-    let connectionCanBeToggled = !inheritsConnection && !checkForConnectedDescendants(outputPropsKey, outputComponentProps);
-    let outputPropNames = outputComponentProps[outputPropsKey] && outputComponentProps[outputPropsKey].storeProps
-      ? Object.values(outputComponentProps[outputPropsKey].storeProps)
-      : [];
-    outputPropNames = outputPropNames.map((name) => (
-      name.toLowerCase()
-    ));
-    treeArray.push(<TreeBranch name={outputComponents[componentId].name} 
-      indent={indent} 
-      id={componentId} 
-      outputPropsKey={outputPropsKey}
-      outputComponentProps={outputComponentProps[outputPropsKey]}
-      inheritsConnection={inheritsConnection}
-      connectionCanBeToggled={connectionCanBeToggled}
-      outputActions={outputActions}
-      outputStorePropsOptions={outputStorePropsOptions.filter((option) => (
-        !outputComponentProps[outputPropsKey] 
-        || !outputComponentProps[outputPropsKey].storeProps
-        || !outputComponentProps[outputPropsKey].storeProps.hasOwnProperty(option)
-      )
-      )}
-      outputPropNames={outputPropNames}/>);
+
+  const traverseOutputComponents = (
+    indent,
+    componentId,
+    availableProps = new Set(),
+    inheritsConnection = false
+  ) => {
+    let component = outputComponents[componentId];
+    let hasConnectedDescendant = checkForConnectedDescendants(componentId, outputComponents);
+    let connectionCanBeToggled = !inheritsConnection && !hasConnectedDescendant;
+    let childrenInheritConnection = inheritsConnection || component.connected;
+    if (component.connected) {
+      treeArray.push(
+        <TreeBranch
+          id={componentId}
+          outputComponent={component}
+          indent={indent}
+          inheritsConnection={inheritsConnection}
+          connectionCanBeToggled={connectionCanBeToggled}
+          outputActions={outputActions}
+        />
+      ); 
+    }
+
     outputComponents[componentId].children.forEach((child) => {
-      traverseOutputComponents(indent + 20, child.componentId, `${outputPropsKey}_${child.childId}`);
+      traverseOutputComponents(indent + 20, child.componentId, childrenInheritConnection);
     });
   };
-  traverseOutputComponents(0, '0', '0');
+
+  traverseOutputComponents(0, '0');
   return treeArray;
 };
 
@@ -55,15 +62,15 @@ export const checkForInheritedConnection = (outputPropsKey, componentProps) => {
   return false;
 };
 
-export const checkForConnectedDescendants = (outputPropsKey, componentProps) => {
-  for (let key in componentProps) {
-    if (
-      outputPropsKey === key.slice(0, outputPropsKey.length) &&
-      outputPropsKey !== key &&
-      componentProps[key].connected
-    ) {
-      return true;
-    }
+export const checkForConnectedDescendants = (componentId, outputComponents) => {
+  let component = outputComponents[componentId];
+  if (component.children.length === 0) {
+    return false;
   }
-  return false;
+  return _.some(
+    component.children,
+    (child) =>
+      outputComponents[child.componentId].connected ||
+      checkForConnectedDescendants(child.componentId, outputComponents)
+  );
 };
