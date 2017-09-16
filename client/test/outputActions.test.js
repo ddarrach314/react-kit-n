@@ -21,14 +21,14 @@ describe('Actions reducer function', () => {
   });
 
   test('Adds actions correctly', () => {
-    let addPropertyActions = [
+    let addActionActions = [
       {name: 'createNewOutputAction', args: [{name: 'changeName', target: undefined, type: 'set'}]},
       {name: 'createNewOutputAction', args: [{name: 'editListItem', target: 'list.listItem', type: undefined}]}
     ];
 
     let [state2, state1] = applier.applyActions(
       initialState,
-      ...addPropertyActions
+      ...addActionActions
     );
 
     expect(state1.outputActions[0]).toEqual({id: 1, name: 'changeName', target: undefined, type: 'set'});
@@ -37,47 +37,49 @@ describe('Actions reducer function', () => {
   });
 
   test('Edits actions correctly', () => {
-    let addPropertyActions = [
+    let addActionActions = [
       {name: 'createNewOutputAction', args: [{name: 'changeName', target: undefined, type: 'set'}]}
     ];
 
     let [state1] = applier.applyActions(
       initialState,
-      ...addPropertyActions
+      ...addActionActions
     );
 
     let editActionActions = [
-      {name: 'editOutputAction', args: [0, {name: 'editListItem', target: 'list.listItem', type: undefined}]},
-      {name: 'editOutputAction', args: [0, {name: 'editListItem', target: undefined, type: undefined}]}
+      {name: 'editOutputAction', args: [0, {id: 1, name: 'editListItem', target: 'list.listItem', type: undefined}]},
+      {name: 'editOutputAction', args: [0, {id: 1, name: 'editListItem', target: undefined, type: undefined}]}
     ];
 
     let [state3, state2] = applier.applyActions(
       state1,
-      ...addPropertyActions
+      ...editActionActions
     );
 
     expect(state2.outputActions[0]).toEqual({id: 1, name: 'editListItem', target: 'list.listItem', type: undefined});
     expect(state3.outputActions[0]).toEqual({id: 1, name: 'editListItem', target: undefined, type: undefined});
   });
 
-  test('Removes store properties correctly', () => {
-    let removePropertyActions = [
-      {name: 'removeOutputStoreProperty', args: [[0, 0]]},
-      {name: 'removeOutputStoreProperty', args: [[0]]},
-      {name: 'removeOutputStoreProperty', args: [[0, 'elementSchema', 0]]}
+  test('Removes actions correctly', () => {
+    let addActionActions = [
+      {name: 'createNewOutputAction', args: [{name: 'changeName', target: undefined, type: 'set'}]}
     ];
 
-    let [state3, state2, state1] = applier.applyActions(
+    let [state1] = applier.applyActions(
       initialState,
-      ...addPropertyActions,
-      ...removePropertyActions
+      ...addActionActions
     );
 
-    expect(state1.properties[0].properties).toEqual([]);
-    expect(state1.properties.length).toBe(2);
-    expect(state2.properties.length).toBe(1);
-    expect(state2.properties[0].elementSchema.properties.length).toBe(1);
-    expect(state3.properties[0].elementSchema.properties.length).toBe(0);
+    let removeActionActions = [
+      {name: 'removeOutputAction', args: [0]}
+    ];
+
+    let [state2] = applier.applyActions(
+      state1,
+      ...removeActionActions
+    );
+
+    expect(state1.outputActions.length).toEqual(0);
   });
 
   test('Toggles store edits modal', () => {

@@ -43,6 +43,7 @@ class OutputActionsEdit extends React.Component {
 
       } else {
         actions.editOutputAction(this.props.outputActions.editing.index, {
+          id: this.props.outputActions.editing.action.id,
           name: this.state.name,
           target: this.state.target || undefined,
           type: this.state.type || undefined
