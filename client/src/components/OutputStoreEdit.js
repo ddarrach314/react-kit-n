@@ -11,12 +11,6 @@ import {connect} from 'react-redux';
 
 let actions = bindActionCreators(unboundActions, store.dispatch);
 
-/**
- * Dialog with action buttons. The actions are passed in as an array of React objects,
- * in this example [FlatButtons](/#/components/flat-button).
- *
- * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
- */
 class OutputStoreEdit extends React.Component {
   constructor(props) {
     super(props);
@@ -50,15 +44,14 @@ class OutputStoreEdit extends React.Component {
         }
 
         if (initialValue === '' || initialValue === 'undefined' || initialValue === undefined) {
-          initialValue = undefined;
-
+          initialValue = initialValue;
         } else if (initialValue === "''" || initialValue === '""') {
-          initialValue = '';
+          initialValue = '""';
 
         } else {
           initialValue = initialValue.replace(/'/g, '"');
           initialValue = JSON.parse(initialValue);
-
+          initialValue = JSON.stringify(initialValue);
         }
       }
       
@@ -95,7 +88,7 @@ class OutputStoreEdit extends React.Component {
       let property = nextProps.outputStore.editing.property;
       this.setState({
         name: property.name || '',
-        initialValue: JSON.stringify(property.initialValue),
+        initialValue: property.initialValue,
         type: property.type || '',
         invalidName: false,
         invalidType: false,
