@@ -165,11 +165,11 @@ class OutputStoreEdit extends React.Component {
             value={this.state.type} 
             onChange={this.handleChangeType.bind(this)}
             selectedMenuItemStyle={{color:'#6653ff'}}>
-            <MenuItem value={'string'} primaryText="string" />
-            <MenuItem value={'number'} primaryText="number" />
-            <MenuItem value={'boolean'} primaryText="boolean" />
-            <MenuItem value={'object'} primaryText="object" />
-            <MenuItem value={'array'} primaryText="array" />
+            <MenuItem value={'String'} primaryText="String" />
+            <MenuItem value={'Number'} primaryText="Number" />
+            <MenuItem value={'Boolean'} primaryText="Boolean" />
+            <MenuItem value={'Object'} primaryText="Object" />
+            <MenuItem value={'Array'} primaryText="Array" />
           </SelectField>
           {this.state.invalidName && <div className="red">Please enter a name with no spaces</div>}
           {this.state.invalidType && <div className="red">Please select a type</div>}
