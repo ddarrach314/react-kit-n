@@ -13,7 +13,7 @@ const outputActionsReducer = (state = initialState, action) => {
   case types.CREATE_NEW_OUTPUT_ACTION:
     let nextId = state.nextId + 1;
     state = utils.safeSet(state, nextId, 'nextId');
-    action.outputAction.id = nextId;
+    action.outputAction.id = state.nextId;
     state = utils.safeSet(state, [action.outputAction, ...state.outputActions], 'outputActions');
     return state;
         
