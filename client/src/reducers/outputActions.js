@@ -11,10 +11,10 @@ const initialState = {
 const outputActionsReducer = (state = initialState, action) => {
   switch (action.type) {
   case types.CREATE_NEW_OUTPUT_ACTION:
-    let nextId = state.nextId + 1;
-    state = utils.safeSet(state, nextId, 'nextId');
     action.outputAction.id = state.nextId;
     state = utils.safeSet(state, [action.outputAction, ...state.outputActions], 'outputActions');
+    let nextId = state.nextId + 1;
+    state = utils.safeSet(state, nextId, 'nextId');
     return state;
         
   case types.EDIT_OUTPUT_ACTION:

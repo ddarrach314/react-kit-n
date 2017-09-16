@@ -31,9 +31,9 @@ describe('Actions reducer function', () => {
       ...addPropertyActions
     );
 
-    expect(state1.outputActions[0]).toEqual({id: 2, name: 'editListItem', target: 'list.listItem', type: undefined});
-    expect(state2.outputActions[0]).toEqual({id: 1, name: 'editListItem', target: undefined, type: 'setIn'});
-    expect(state1.nextId).toEqual(3);
+    expect(state1.outputActions[0]).toEqual({id: 1, name: 'editListItem', target: 'list.listItem', type: undefined});
+    expect(state2.outputActions[0]).toEqual({id: 2, name: 'editListItem', target: undefined, type: 'setIn'});
+    expect(state2.nextId).toEqual(3);
   });
 
   test('Adds store properties correctly', () => {
