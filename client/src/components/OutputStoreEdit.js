@@ -91,6 +91,7 @@ class OutputStoreEdit extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.outputStore.editing) {
+      console.log(nextProps.outputStore.editing.path);
       let property = nextProps.outputStore.editing.property;
       this.setState({
         name: property.name || '',

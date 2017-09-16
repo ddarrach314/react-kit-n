@@ -23,14 +23,14 @@ const outputStoreReducer = (state = initialState, action = {}) => {
 
   case types.SET_OUTPUT_STORE_PROPERTY: {
     if (
-      action.property.type === 'object' &&
+      action.property.type === 'Object' &&
       !('properties' in action.property)
     ) {
       action.property.properties = [];
     }
 
     if (
-      action.property.type === 'array' &&
+      action.property.type === 'Array' &&
       !('elementSchema' in action.property)
     ) {
       action.property.elementSchema = {};
