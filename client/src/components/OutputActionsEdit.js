@@ -28,9 +28,12 @@ class OutputActionsEdit extends React.Component {
   };
 
   handleSubmit() {
-    let names = this.props.outputActions.outputActions.map((outputAction) => (
-      outputAction.name
-    ));
+    let names = this.props.outputActions.outputActions.map((outputAction, index) => {
+      if (index !== this.props.outputActions.editing.index) {
+        return outputAction.name
+      }
+    }
+    );
     if (this.state.name === '' || this.state.name.indexOf(' ') >= 0 || names.includes(this.state.name)) {
       this.setState({invalidName: true});
     } else {
@@ -115,6 +118,15 @@ class OutputActionsEdit extends React.Component {
           open={this.props.outputActions.editing === null ? false : true}
           onRequestClose={this.handleClose.bind(this)}
           className="outputStoreActionEditFormRow"
+          contentStyle={
+            {
+              width: '468px',
+              position: 'fixed',
+              left: '50%',
+              top: '5%',
+              marginLeft: '-234px',
+            }
+          }
         >
           <TextField floatingLabelText="Name" 
             value={this.state.name} 
