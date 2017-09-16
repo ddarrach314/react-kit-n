@@ -21,7 +21,7 @@ const initialState = {
 
 const outputComponentsReducer = (state = initialState, action = {}) => {
   let newState;
-
+ 
   try {
     switch (action.type) {
     case types.SELECT_COMPONENT:

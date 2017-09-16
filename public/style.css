@@ -124,16 +124,16 @@ p {
   margin-bottom: .25em;
 }
 
-.outputPropsActionsBorder {
+.greyBorder {
   border-top: thin solid #bbb;
-  width: 80%;
+  width: 87%;
 }
 
-.outputPropsActionsBorderBottomContainer {
+.borderBottomContainer {
   display: flex;
   justify-content: center;
-  margin-top: 1em;
-  margin-bottom: .5em;
+  margin-top: .5em;
+  margin-bottom: .25em;
 }
 
 .outputPropsActionsBorderBottom {
@@ -198,20 +198,32 @@ p {
   /*padding-right: 30px;*/
 }
 
+.outputStoreSchemaHeading {
+  display: flex;
+}
+
 .outputStoreFormTextArea {
   overflow: scroll;
   width: 100%;
   height: 26em;
-  resize: none;
   border-left: medium solid #6653ff;
   border-bottom: medium solid #6653ff;
   border-top: none;
   border-right: none;
-  /*border-radius: 8px;*/
-  color: #268bd2;
-  background-color: #f8f5ec;
   padding: 5px 5px 5px 5px;
-  font-family: 'Consolas';
+}
+
+.outputStoreRow {
+  display: flex;
+  height: 25px;
+}
+
+.outputStoreRowText {
+  margin-right: 1em;
+}
+
+.outputStoreObjectProperties {
+  display: flex;
 }
 
 textarea:focus {
@@ -228,7 +240,7 @@ textarea:focus {
 
 }
 
-.addActionButton {
+.addButton {
   margin-left: 10px;
   margin-bottom: 6px;
 }
@@ -236,6 +248,11 @@ textarea:focus {
 .outputActionsHeading {
   display: flex;
   align-items: center;
+}
+
+.addRow {
+  display: flex;
+  justify-content: center;
 }
 
 .outputActionsList {
@@ -247,9 +264,20 @@ textarea:focus {
   padding: 5px 5px 5px 5px;
 }
 
-.outputActionName {
-  width: 100%;
-  height: 30px;
+.outputActionRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.outputActionCol {
+  width: 4.5em;
+}
+
+.outputActionColValue {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .outputActionSelect {
@@ -259,6 +287,10 @@ textarea:focus {
 
 .removeOutputAction {
   height: 30px;
+}
+
+.outputActionMouseoverPlaceholder {
+  width: 48px;
 }
 
 .btn {

@@ -7,51 +7,59 @@ import utilities from '../utilities/index';
 let actions = bindActionCreators(unboundActions, store.dispatch);
 
 class OutputAction extends React.Component {
-  handleChangeTarget(event) {
-    actions.editOutputActionTarget(this.props.index, event.target.value);
+  constructor(props) {
+    super(props);
+    this.state = {
+      hover: false
+    };
   }
 
-  handleChangeType(event) {
-    actions.editOutputActionType(this.props.index, event.target.value);
-  }
-
-  handleChangeName(event) {
-    actions.editOutputActionName(this.props.index, event.target.value);
+  handleClickEdit() {
+    actions.toggleEditActionModal(this.props.index);
   }
 
   handleClickRemove() {
     actions.removeOutputAction(this.props.index);
   }
 
+  handleMouseEnter() {
+    this.setState({hover: true});
+  }
+
+  handleMouseLeave() {
+    this.setState({hover: false});
+  }
+
   render() {
     return (
-      <div className="row no-gutters">
-        <div className="col-3">
-          <p>Name</p>
-          <input className="outputActionName" value={this.props.outputAction.name} onChange={this.handleChangeName.bind(this)}></input>
+      <div>
+        <div className="outputActionRow" 
+          onMouseEnter={this.handleMouseEnter.bind(this)} 
+          onMouseLeave={this.handleMouseLeave.bind(this)}>
+          <div className="outputActionCol">
+            <div>Name</div>
+            <div className="outputActionColValue">{this.props.outputAction.name}</div>
+          </div>
+          <div className="outputActionCol">
+            <div>Target</div>
+            <div className="outputActionColValue">{this.props.outputAction.target}</div>
+          </div>
+          <div className="outputActionCol">
+            <div>Type</div>
+            <div className="outputActionColValue">{this.props.outputAction.type}</div>
+          </div>
+          {this.state.hover ?
+            <div>
+              <i className="material-icons pointer" 
+                onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
+              <i className="material-icons removeOutputAction pointer red" 
+                onClick={this.handleClickRemove.bind(this)}>clear</i>
+            </div>
+            :
+            <div className="outputActionMouseoverPlaceholder"></div>
+          }
         </div>
-        <div className="col-4">
-          <p>Target</p>
-          <select className="outputActionSelect" value={this.props.outputAction.target} onChange={this.handleChangeTarget.bind(this)}>
-            <option value=''></option>
-            {Object.keys(this.props.targetsTypes).map((target) => (
-              <option value={target}>{target}</option>
-            )
-            )}
-          </select>
-        </div>
-        <div className="col-4">
-          <p>Type</p>
-          <select className="outputActionSelect" value={this.props.outputAction.type} onChange={this.handleChangeType.bind(this)}>
-            <option value=''></option>
-            {utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.props.outputAction.target]).map((type) => (
-              <option value={type}>{type}</option>
-            )
-            )}
-          </select>
-        </div>
-        <i className="material-icons col-1 align-self-end removeOutputAction pointer red" 
-          onClick={this.handleClickRemove.bind(this)}>clear</i>
+        <div className="borderBottomContainer"><div className="greyBorder"></div></div>
       </div>
     );
   }

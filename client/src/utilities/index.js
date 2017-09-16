@@ -36,8 +36,11 @@ const safeSet = (obj, value, lookupPath) => {
   for (let key of pathKeys) {
     nestedObj = nestedObj[key];
   }
-
-  nestedObj[lastKey] = value;
+  if (lastKey === 'newProperty') {
+    nestedObj.unshift(value);
+  } else {
+    nestedObj[lastKey] = value;
+  }
   return newObj;
 };
 

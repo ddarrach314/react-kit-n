@@ -11,15 +11,15 @@ const reducer = combineReducers({
   outputComponents: outputComponentsReducer
 });
 
-const loadReducer = (state, action) => {
-  if (action.type === LOAD) {
-    return action.payload;
-  } else {
-    return state;
-  }
-};
+// const loadReducer = (state, action) => {
+//   if (action.type === LOAD) {
+//     return action.payload;
+//   } else {
+//     return state;
+//   }
+// };
 
 export default utils.applyReducersSequentially(
-  reducer,
-  loadReducer
+  reducer
+  // loadReducer
 );
