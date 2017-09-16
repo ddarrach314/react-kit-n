@@ -42,7 +42,14 @@ const createReducersJs = (onion) => {
   let store = onion.store;
   let actions = onion.actions;
 
-  let reducersJs = '/* Reducers File */\n\nimport { types } from \'./actions\'\n\nconst INITIAL_STATE = store;\n\nconst reducer = (state = INITIAL_STATE, action) => {\n  switch (action.type) {\n';
+  let reducersJs = '/* Reducers File */\n'
+    + '\n'
+    + 'import { types } from \'./actions\'\n'
+    + '\n'
+    + `const INITIAL_STATE = ${JSON.stringify(onion.store, null, 2)};\n`
+    + '\n'
+    + 'const reducer = (state = INITIAL_STATE, action) => {\n'
+    + '  switch (action.type) {\n';
   _.forEach(actions, (action) => {
     /*for each action in the onion we pass the action, key, and target to caseMaker, 
     which will return the populated custom string for that case */

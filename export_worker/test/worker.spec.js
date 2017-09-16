@@ -14,8 +14,8 @@ const { sep } = require('path');
 const onion = {
   store: {
     todos: [],
-    username: null,
-    otherUser: null
+    username: '',
+    otherUser: ''
   },
   actions: {
     1: {
@@ -177,7 +177,11 @@ describe('file creators', () => {
     + `\n`
     + `import { types } from './actions'\n`
     + `\n`
-    + `const INITIAL_STATE = store;\n`
+    + `const INITIAL_STATE = {\n`
+    + `  "todos": [],\n`
+    + `  "username": "",\n`
+    + `  "otherUser": ""\n`
+    + `};\n`
     + `\n`
     + `const reducer = (state = INITIAL_STATE, action) => {\n`
     + `  switch (action.type) {\n`
@@ -220,6 +224,7 @@ describe('file creators', () => {
     + `import ReactDOM from 'react-dom';\n`
     + `import { Provider } from 'react-redux';\n`
     + `import store from './store';\n`
+    + `import PropTypes from 'prop-types';\n`
     + `import ExampleChild from './components/ExampleChild';\n`
     + `import ExampleChild2 from './components/ExampleChild2';\n`
     + `import ExampleChildList from './components/ExampleChildList';\n`
@@ -253,6 +258,7 @@ describe('file creators', () => {
     + `import React from 'react';\n`
     + `import { connect } from 'react-redux';\n`
     + `import store from '../store';\n`
+    + `import PropTypes from 'prop-types';\n`
     + `import ExampleChildList from './ExampleChildList';\n`
     + `import ExampleChildOfChild from './ExampleChildOfChild';\n`
     + `import { actions } from '../actions';\n`
@@ -286,6 +292,10 @@ describe('file creators', () => {
     + `  })\n`
     + `)(ExampleChild2);\n`
     + `\n`
+    + `ExampleChild2.propTypes = {\n`
+    + `  onionList: PropTypes.array.isRequired,\n`
+    + `};\n`
+    + `\n`
     + `export default ExampleChild2;\n`;
 
   let curDir = path.join(__dirname, '../');
@@ -314,7 +324,7 @@ describe('file creators', () => {
     fs.rmdir(testFolder, done);
   });
 
-  it(`created an Action.js file in ${testFolder} directory`, (done) => {
+  it('created an Action.js file', (done) => {
       expect(fs.existsSync(actionJs)).to.be.true;
       done();
   });
@@ -324,7 +334,7 @@ describe('file creators', () => {
     done();
   });
 
-  it(`creates a reducer.js file in ${testFolder}`, (done) => {
+  it('creates a reducer.js file', (done) => {
     expect(fs.existsSync(reducersJs)).to.be.true;
     done();
   });
@@ -334,7 +344,7 @@ describe('file creators', () => {
     done();
   });
 
-  it(`creates a store.js file in ${testFolder}`, (done) => {
+  it('creates a store.js file', (done) => {
     expect(fs.existsSync(storeJs)).to.be.true;
     done();
   });
@@ -344,7 +354,7 @@ describe('file creators', () => {
     done();
   });
 
-  it(`creates a app.jsx file in ${testFolder}`, (done) => {
+  it('creates a app.jsx file', (done) => {
     expect(fs.existsSync(appJsx)).to.be.true;
     done();
   });
@@ -354,7 +364,7 @@ describe('file creators', () => {
     done();
   });
 
-  it(`creates an exampleChild2.jsx file in ${testFolder}`, (done) => {
+  it('creates an exampleChild2.jsx file', (done) => {
     expect(fs.existsSync(exampleCh2Jsx)).to.be.true;
     done();
   });
@@ -368,8 +378,10 @@ describe('file creators', () => {
 describe('Composer', () => {
   //setup test mocks and needed utils
   let curDir = path.join(__dirname, '../');
-  let testFolder = fs.mkdtempSync(`${curDir}${sep}`, );
-  let zipFile = testFolder + '/test.zip';
+  let testFolder = fs.mkdtempSync(path.join(curDir, sep));
+  let zipFile = path.join(testFolder, 'test.zip');
+  console.log('zipFile', zipFile);
+
     
   before((done) => {
     let request = httpMocks.createRequest();
@@ -386,8 +398,9 @@ describe('Composer', () => {
   });
 
   // after((done) => {
-  //   let zip = fs.openSync(zipFile, 'r+');
-  //   fs.closeSync(zip);
+  //   // let zip = fs.openSync(zipFile, 'r+');
+  //   // fs.closeSync(zip);
+  //   fs.unwatchFile(zipFile);
   //   fs.unlinkSync(zipFile);
   //   fs.rmdirSync(testFolder);  
   //   done();  

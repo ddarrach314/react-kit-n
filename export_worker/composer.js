@@ -3,6 +3,7 @@ const reducer = require('./reducersMaker.js');
 const action = require('./actionsMaker.js');
 const store = require('./storeMaker.js');
 const comp = require('./componentMaker.js');
+const temp = require('./templateMaker.js');
 const _ = require('lodash');
 
 //res header should be set to 'Content-Type':'application/zip' prior to invoking this function
@@ -12,6 +13,8 @@ const composer = (req, res) => {
   //easy ref vars
   const mainDir = '/client/src/';
   const compDir = mainDir + 'components/';
+  const styleDir = mainDir + 'styles/';
+  const pubDir = '/public'
   //setup the zip file  and output
   let zipKit = archiver('zip'); //,{zlib: { level: 9 }}
 
@@ -35,6 +38,24 @@ const composer = (req, res) => {
   zipKit.pipe(res);
 
   //append/create files in the zipKit stream
+  zipKit.append(temp.package(), {
+    name: 'package.json'
+  });
+
+  zipKit.append(temp.webpackConfig(), {
+    name: 'webpack.config.js'
+  });
+
+  zipKit.append(temp.styleCss(), {
+    name: 'syleModule.css',
+    prefix: styleDir
+  });
+
+  zipKit.append(temp.indexHtml(), {
+    name: 'index.html',
+    prefix: pubDir
+  });
+
   zipKit.append(action.createActionJs(onion), {
     name: 'actions.js',
     prefix: mainDir
@@ -63,3 +84,9 @@ const composer = (req, res) => {
 };
 
 module.exports.composer = composer;
+
+/* additional files to include by default
+  1. package.json
+  2. README.md --usage guide
+  3. 
+*/

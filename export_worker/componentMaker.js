@@ -68,14 +68,30 @@ const renderChild = (key, childName, propsStatement) => {
   }
 };
 
-const storeConnect = (compName, component) => {
+const storeConnect = (compName, component, onion) => {
   if (component.connected) {
+    let typer = (storeProp) => {
+      if(typeof storeProp === 'object') {
+        if (Array.isArray(storeProp)){
+          return 'array';
+        }
+        if (storeProp === null) {
+          return 'null';
+        }
+        return 'object';
+      } else {
+        return typeof storeProp;
+      }
+    }
     let connect = `${compName} = connect(\n`
       + '  (state) => ({\n';
+    let propTypes = `${compName}.propTypes = {\n`
     _.forEach(component.storeProps, (prop) => {
       connect += `    ${prop.propName}: '${prop.storeProp}',\n`;
+      propTypes += `  ${prop.propName}: `
+        + `PropTypes.${typer(_.get(onion, prop.storeProp))}.isRequired,\n`;
     });
-    return connect + `  })\n)(${compName});`;
+    return connect + `  })\n)(${compName});\n\n` + propTypes + '};';
   } else {
     return '';
   }
@@ -102,11 +118,13 @@ const createComponent = (key, onion) => {
   let appHead = 'import React from \'react\';\n'
     + 'import ReactDOM from \'react-dom\';\n'
     + 'import { Provider } from \'react-redux\';\n'
-    + 'import store from \'./store\';\n';
+    + 'import store from \'./store\';\n'
+    + 'import PropTypes from \'prop-types\';\n';
 
   let compHead = 'import React from \'react\';\n'
-    +'import { connect } from \'react-redux\';\n'
-    +'import store from \'../store\';\n';  
+    + 'import { connect } from \'react-redux\';\n'
+    + 'import store from \'../store\';\n'
+    + 'import PropTypes from \'prop-types\';\n';  
 
   let appRenderTemplate = '  render() {\n'
     + '    return (\n'
@@ -154,7 +172,7 @@ const createComponent = (key, onion) => {
       + methodStatement()
       + appRenderTemplate
       + appRenderTemplateEnd
-      + storeConnect(compName, component)
+      + storeConnect(compName, component, onion)
       + exportStatement(key, compName);
   } else {
     return jsxTemplate
@@ -164,7 +182,7 @@ const createComponent = (key, onion) => {
       + methodStatement()
       + compRenderTemplate
       + compRenderTemplateEnd
-      + storeConnect(compName, component)
+      + storeConnect(compName, component, onion)
       + exportStatement(key, compName);
   }
 };
