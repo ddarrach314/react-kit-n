@@ -150,22 +150,37 @@ class OutputStoreEdit extends React.Component {
           modal={false}
           open={this.props.outputStore.editing === null ? false : true}
           onRequestClose={this.handleClose.bind(this)}
+          contentStyle={
+            {
+              width: '468px',
+              position: 'fixed',
+              left: '50%',
+              top: '5%',
+              marginLeft: '-234px',
+            }
+          }
           className="outputStoreActionEditFormRow"
         >
-          {!isElementSchema &&
-            <div>
+          <div>
+            {!isElementSchema &&
               <TextField floatingLabelText="Name" 
                 value={this.state.name} 
                 onChange={this.handleChangeName.bind(this)} 
                 style={{marginRight: '4em'}}
                 underlineFocusStyle={{borderBottomColor:'#6653ff'}}
                 floatingLabelFocusStyle={{color:'#6653ff'}}/>
-              <TextField floatingLabelText="Initial Value" 
-                value={this.state.initialValue} 
-                onChange={this.handleChangeInitialValue.bind(this)}
-                underlineFocusStyle={{borderBottomColor:'#6653ff'}}
-                floatingLabelFocusStyle={{color:'#6653ff'}}/>
-            </div>}
+            }
+            {!isElementSchema
+              && this.props.outputStore.editing 
+              && this.props.outputStore.editing.path.length === 1
+              &&  
+                <TextField floatingLabelText="Initial Value" 
+                  value={this.state.initialValue} 
+                  onChange={this.handleChangeInitialValue.bind(this)}
+                  underlineFocusStyle={{borderBottomColor:'#6653ff'}}
+                  floatingLabelFocusStyle={{color:'#6653ff'}}/>
+            }
+          </div>
           <SelectField floatingLabelText="Type" 
             value={this.state.type} 
             onChange={this.handleChangeType.bind(this)}
