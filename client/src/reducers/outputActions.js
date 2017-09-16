@@ -8,7 +8,7 @@ const initialState = {
   editing: null
 };
 
-const outputActionsReducer = (state = initialState, action) => {
+const outputActionsReducer = (state = initialState, action = {}) => {
   switch (action.type) {
   case types.CREATE_NEW_OUTPUT_ACTION:
     action.outputAction.id = state.nextId;

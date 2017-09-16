@@ -20,34 +20,44 @@ describe('Actions reducer function', () => {
     expect(reducer()).toEqual(initialState);
   });
 
-  let addPropertyActions = [
-    {name: 'createNewOutputAction', args: [{name: 'editListItem', target: 'list.listItem', type: undefined}]},
-    {name: 'createNewOutputAction', args: [{name: 'editListItem', target: undefined, type: 'setIn'}]}
-  ];
-
   test('Adds actions correctly', () => {
+    let addPropertyActions = [
+      {name: 'createNewOutputAction', args: [{name: 'changeName', target: undefined, type: 'set'}]},
+      {name: 'createNewOutputAction', args: [{name: 'editListItem', target: 'list.listItem', type: undefined}]}
+    ];
+
     let [state2, state1] = applier.applyActions(
       initialState,
       ...addPropertyActions
     );
 
-    expect(state1.outputActions[0]).toEqual({id: 1, name: 'editListItem', target: 'list.listItem', type: undefined});
-    expect(state2.outputActions[0]).toEqual({id: 2, name: 'editListItem', target: undefined, type: 'setIn'});
+    expect(state1.outputActions[0]).toEqual({id: 1, name: 'changeName', target: undefined, type: 'set'});
+    expect(state2.outputActions[0]).toEqual({id: 2, name: 'editListItem', target: 'list.listItem', type: undefined});
     expect(state2.nextId).toEqual(3);
   });
 
-  test('Adds store properties correctly', () => {
-    let [state6, state5, state4, state3, state2, state1] = applier.applyActions(
+  test('Edits actions correctly', () => {
+    let addPropertyActions = [
+      {name: 'createNewOutputAction', args: [{name: 'changeName', target: undefined, type: 'set'}]}
+    ];
+
+    let [state1] = applier.applyActions(
       initialState,
       ...addPropertyActions
     );
 
-    expect(state6.properties[1].elementSchema.properties[0]).toEqual({type: 'String'});
-    expect(state5.properties[1].elementSchema).toEqual({type: 'Object', properties: []});
-    expect(state4.properties[1]).toEqual({type: 'Array', elementSchema: {}});
-    expect(state3.properties[0].properties[0]).toEqual({type: 'String'});
-    expect(state2.properties[0]).toEqual({type: 'Object', properties: []});
-    expect(state1.properties[0]).toEqual({type: 'String'});
+    let editActionActions = [
+      {name: 'editOutputAction', args: [0, {name: 'editListItem', target: 'list.listItem', type: undefined}]},
+      {name: 'editOutputAction', args: [0, {name: 'editListItem', target: undefined, type: undefined}]}
+    ];
+
+    let [state3, state2] = applier.applyActions(
+      state1,
+      ...addPropertyActions
+    );
+
+    expect(state2.outputActions[0]).toEqual({id: 1, name: 'editListItem', target: 'list.listItem', type: undefined});
+    expect(state3.outputActions[0]).toEqual({id: 1, name: 'editListItem', target: undefined, type: undefined});
   });
 
   test('Removes store properties correctly', () => {
