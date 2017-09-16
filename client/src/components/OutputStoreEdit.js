@@ -91,6 +91,7 @@ class OutputStoreEdit extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.outputStore.editing) {
+      console.log(nextProps.outputStore.editing.path);
       let property = nextProps.outputStore.editing.property;
       this.setState({
         name: property.name || '',
@@ -141,11 +142,15 @@ class OutputStoreEdit extends React.Component {
     return (
       <div>
         <Dialog
-          title="Edit Property"
+          title={this.props.outputStore.editing &&
+              this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'newProperty' 
+              ? "Add Property" 
+              : "Edit Property"}
           actions={actions}
           modal={false}
           open={this.props.outputStore.editing === null ? false : true}
           onRequestClose={this.handleClose.bind(this)}
+          className="outputStoreActionEditFormRow"
         >
           {!isElementSchema &&
             <div>
@@ -165,11 +170,11 @@ class OutputStoreEdit extends React.Component {
             value={this.state.type} 
             onChange={this.handleChangeType.bind(this)}
             selectedMenuItemStyle={{color:'#6653ff'}}>
-            <MenuItem value={'string'} primaryText="string" />
-            <MenuItem value={'number'} primaryText="number" />
-            <MenuItem value={'boolean'} primaryText="boolean" />
-            <MenuItem value={'object'} primaryText="object" />
-            <MenuItem value={'array'} primaryText="array" />
+            <MenuItem value={'String'} primaryText="String" />
+            <MenuItem value={'Number'} primaryText="Number" />
+            <MenuItem value={'Boolean'} primaryText="Boolean" />
+            <MenuItem value={'Object'} primaryText="Object" />
+            <MenuItem value={'Array'} primaryText="Array" />
           </SelectField>
           {this.state.invalidName && <div className="red">Please enter a name with no spaces</div>}
           {this.state.invalidType && <div className="red">Please select a type</div>}

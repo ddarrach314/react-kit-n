@@ -1,6 +1,6 @@
 const targetTypesActionCategories = {
-  'object': ['setIn', 'delete'],
-  'array': ['setIn', 'delete', 'add']
+  'Object': ['setIn', 'delete'],
+  'Array': ['setIn', 'delete', 'add']
 };
 
 export const getActionCategoriesForTargetType = (targetType) => {
