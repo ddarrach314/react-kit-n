@@ -79,20 +79,33 @@ describe('Actions reducer function', () => {
       ...removeActionActions
     );
 
-    expect(state1.outputActions.length).toEqual(0);
+    expect(state2.outputActions.length).toEqual(0);
   });
 
-  test('Toggles store edits modal', () => {
-    let [state3, state2, state1] = applier.applyActions(
+  test('Toggles actions edits modal', () => {
+    let addActionActions = [
+      {name: 'createNewOutputAction', args: [{name: 'changeName', target: undefined, type: 'set'}]}
+    ];
+
+    let [state1] = applier.applyActions(
       initialState,
-      ...addPropertyActions,
-      {name: 'toggleEditModal', args: [[0, 1]]},
-      {name: 'toggleEditModal'},
-      {name: 'toggleEditModal', args: [[0, 0]]}
+      ...addActionActions
     );
 
-    expect(state1.editing).toEqual({});
-    expect(state2.editing).toBe(null);
-    expect(state3.editing).toEqual({type: 'String'});
+    let toggleEditActionModalActions = [
+      {name: 'toggleEditActionModal', args: [0]},
+      {name: 'toggleEditActionModal', args: [0]},
+      {name: 'toggleEditActionModal', args: ['newAction']}
+    ];
+
+    let [state4, state3, state2] = applier.applyActions(
+      state1,
+      ...toggleEditActionModalActions
+    );
+
+    expect(state2.editing.action).toEqual({id: 1, name: 'changeName', target: undefined, type: 'set'});
+    expect(state2.editing.index).toEqual(0);
+    expect(state3.editing).toEqual(null);
+    expect(state4.editing).toEqual({action: {}, index: 'newAction'});
   });
 });
