@@ -106,11 +106,15 @@ class OutputActionsEdit extends React.Component {
     return (
       <div>
         <Dialog
-          title="Edit Property"
+          title={this.props.outputActions.editing &&
+              this.props.outputActions.editing.index === 'newAction' 
+              ? "Add Action" 
+              : "Edit Action"}
           actions={actions}
           modal={false}
           open={this.props.outputActions.editing === null ? false : true}
           onRequestClose={this.handleClose.bind(this)}
+          className="outputStoreActionEditFormRow"
         >
           <TextField floatingLabelText="Name" 
             value={this.state.name} 

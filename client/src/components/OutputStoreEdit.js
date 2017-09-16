@@ -141,11 +141,15 @@ class OutputStoreEdit extends React.Component {
     return (
       <div>
         <Dialog
-          title="Edit Property"
+          title={this.props.outputStore.editing &&
+              this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'newProperty' 
+              ? "Add Property" 
+              : "Edit Property"}
           actions={actions}
           modal={false}
           open={this.props.outputStore.editing === null ? false : true}
           onRequestClose={this.handleClose.bind(this)}
+          className="outputStoreActionEditFormRow"
         >
           {!isElementSchema &&
             <div>

@@ -236,6 +236,10 @@ textarea:focus {
   line-height: 100%;
 }
 
+.outputStoreActionEditFormRow {
+  display: flex;
+}
+
 .outputActionsCol {
 
 }
