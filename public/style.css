@@ -293,6 +293,10 @@ textarea:focus {
   height: 30px;
 }
 
+.outputActionEditDelete {
+  margin-right: 3px;
+}
+
 .outputActionMouseoverPlaceholder {
   width: 48px;
 }

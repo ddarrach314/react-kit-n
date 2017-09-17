@@ -99,6 +99,49 @@ describe('Output store utils', () => {
       ).toBe(expectedPaths[i]);
     }
   });
+
+  test('Converts Properties Into Object', () => {
+    let outputStoreProperties = [
+      {name: 'displayList', initialValue: 'true', type: 'Boolean'},
+      {name: 'displayLogo', initialValue: '', type: 'Boolean'},
+      {name: 'listCount', initialValue: '3', type: 'Number'},
+      {name: 'listName', initialValue: '"Cats"', type: 'String'},
+      {name: 'listName2', initialValue: '""', type: 'String'},
+      {name: 'listName3', initialValue: '', type: 'String'},
+      {name: 'list', initialValue: '["Garfield", "Fido", "Bob"]', type: 'Array', elementSchema: {type: 'String'}},
+      {name: 'list2', initialValue: '', type: 'Array', elementSchema: {type: 'String'}},
+      {name: 'petOwners', initialValue: '{}', type: 'Object', properties: [
+        {name: 'pets', type: 'Object', properties: [
+          {name: 'animal', type: 'String'},
+          {name: 'food', type: 'String'}
+        ]},
+        {name: 'age', type: 'Number'}
+      ]},
+      {name: 'petOwners2', initialValue: '', type: 'Object', properties: [
+        {name: 'pets', type: 'Object', properties: [
+          {name: 'animal', type: 'String'},
+          {name: 'food', type: 'String'}
+        ]},
+        {name: 'age', type: 'Number'}
+      ]}
+    ];
+
+    let convertedObj = utils.outputStore.convertPropertiesIntoObject(outputStoreProperties);
+
+    expect(convertedObj.displayList).toEqual(true);
+    expect(convertedObj.displayLogo).toEqual(null);
+    expect(convertedObj.listCount).toEqual(3);
+    expect(convertedObj.listName).toEqual('Cats');
+    expect(convertedObj.listName2).toEqual('');
+    expect(convertedObj.listName3).toEqual('');
+    expect(convertedObj.list).toEqual(["Garfield", "Fido", "Bob"]);
+    expect(convertedObj.list2).toEqual([]);
+    expect(convertedObj.petOwners).toEqual({});
+    expect(convertedObj.petOwners2).toEqual({
+      pets: {animal: '', food: ''},
+      age: null
+    });
+  });
 });
 
 describe('Ancestry key utils', () => {

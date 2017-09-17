@@ -77,3 +77,60 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
   traverseStore(outputStore, 0, []);
   return storeArray;
 }
+
+export const convertPropertiesIntoObject = (properties) => {
+  let initialState = {};
+
+  let traverseObject = (objProperties, objToSetIn) => {
+    objProperties.forEach((objProperty) => {
+      if (objProperty.type === 'String') {
+        objToSetIn[objProperty.name] = '';
+
+      } else if (objProperty.type === 'Array') {
+        objToSetIn[objProperty.name] = [];
+
+      } else if (objProperty.type === 'Object') {
+        objToSetIn[objProperty.name] = {};
+        traverseObject(objProperty.properties, objToSetIn[objProperty.name]);
+
+      } else {
+        objToSetIn[objProperty.name] = null;
+
+      }
+    });
+  }
+
+  properties.forEach((property) => {
+    if (property.initialValue === '') {
+      if (property.type === 'String') {
+        initialState[property.name] = '';
+
+      } else if (property.type === 'Array') {
+        initialState[property.name] = [];
+
+      } else if (property.type === 'Object') {
+        let objInitialValue = {};
+        traverseObject(property.properties, objInitialValue);
+        initialState[property.name] = objInitialValue;
+
+      } else {
+        initialState[property.name] = null;
+
+      }
+
+
+    } else if (property.initialValue === 'undefined') {
+      initialState[property.name] = undefined;
+
+
+    } else {
+      initialState[property.name] = JSON.parse(property.initialValue);
+
+    }
+  });
+
+  return initialState;
+}
+
+
+
