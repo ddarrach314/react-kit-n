@@ -386,25 +386,20 @@ describe('Composer', () => {
   before((done) => {
     let request = httpMocks.createRequest();
     request.onion = onion;
-    let download = fs.createWriteStream(zipFile, { 'autoClose': false });
-    
+    let download = fs.createWriteStream(zipFile);
     compose.composer(request, download);
     
     download.on('unpipe', () => {
-      download.end();
       done();
     });
 
   });
 
-  // after((done) => {
-  //   // let zip = fs.openSync(zipFile, 'r+');
-  //   // fs.closeSync(zip);
-  //   fs.unwatchFile(zipFile);
-  //   fs.unlinkSync(zipFile);
-  //   fs.rmdirSync(testFolder);  
-  //   done();  
-  // });
+  after((done) => {
+    fs.unlinkSync(zipFile);
+    fs.rmdirSync(testFolder);  
+    done();  
+  });
 
   it('creates a zip file', () => {
     expect(fs.existsSync(zipFile)).to.be.true;
