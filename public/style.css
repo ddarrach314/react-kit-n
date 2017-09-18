@@ -221,6 +221,7 @@ p {
 
 .outputStoreRowText {
   margin-right: 1em;
+  display: flex;
 }
 
 .editPlaceHolder: {

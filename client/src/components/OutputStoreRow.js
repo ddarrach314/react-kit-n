@@ -38,7 +38,7 @@ class OutputStoreRow extends React.Component {
             className="outputStoreRow" 
             onMouseEnter={this.handleMouseEnter.bind(this)} 
             onMouseLeave={this.handleMouseLeave.bind(this)}>
-            <div className="outputStoreRowText"><b>Element Type:</b> {this.props.type}</div>
+            <div className="outputStoreRowText"><div style={{textDecoration: 'underline'}}>Element Type:</div>&nbsp;<div>{this.props.type}</div></div>
             {this.state.hover ? 
               <div>
                 <i className="material-icons pointer" onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
