@@ -122,11 +122,16 @@ class OutputActionsEdit extends React.Component {
           className="outputStoreActionEditFormRow"
           contentStyle={
             {
-              width: '468px',
+              width: '400px',
               position: 'fixed',
               left: '50%',
               top: '5%',
-              marginLeft: '-234px',
+              marginLeft: '-200px'
+            }
+          }
+          bodyStyle={
+            {
+              overflow: 'scroll'
             }
           }
         >

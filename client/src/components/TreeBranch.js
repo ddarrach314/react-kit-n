@@ -133,7 +133,7 @@ class TreeBranch extends React.Component {
     let divStyle = {
       marginLeft: this.props.indent + 'px'
     };
-    let underline = this.props.inheritsConnection ? ' blueUnderline' : '';
+    let underline = this.props.inheritsConnection ? ' purpleUnderline' : '';
     let outputActions = {};
     let outputActionOptions = this.props.outputComponentProps 
       && this.props.outputComponentProps.actions 
@@ -152,10 +152,10 @@ class TreeBranch extends React.Component {
           <div className={`treeBranchName${underline}`}
             onDragOver={this.handleDragOver.bind(this)} 
             onDrop={this.handleDrop.bind(this)}>{this.props.name}</div>
-          {this.props.outputComponentProps && this.props.outputComponentProps.connected && <i className="material-icons pointer reactBlue" onClick={this.handleClickConnect.bind(this)}>link</i>}
+          {this.props.outputComponentProps && this.props.outputComponentProps.connected && <i className="material-icons pointer purple" onClick={this.handleClickConnect.bind(this)}>link</i>}
           {(this.state.hover || this.state.expanded) && (!this.props.outputComponentProps || !this.props.outputComponentProps.connected) && <i className="material-icons pointer" onClick={this.handleClickConnect.bind(this)}>link</i>}
-          {this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickHide.bind(this)}>keyboard_arrow_up</i>}
-          {this.state.hover && !this.state.expanded && <i className="material-icons pointer" onClick={this.handleClickExpand.bind(this)}>keyboard_arrow_down</i>}
+          {this.state.expanded && <i className="material-icons pointer purple" onClick={this.handleClickHide.bind(this)}>keyboard_arrow_up</i>}
+          {this.state.hover && !this.state.expanded && <i className="material-icons pointer purple" onClick={this.handleClickExpand.bind(this)}>keyboard_arrow_down</i>}
           {this.state.connectStoreError && <div className="red">Only connect 1 tree level</div>}
         </div>
         {this.state.expanded && 
@@ -180,7 +180,7 @@ class TreeBranch extends React.Component {
                       )
                       )}
                   </select>
-                  <i className="material-icons pointer green"
+                  <i className="material-icons pointer purple"
                     onClick={this.handleClickAddProp.bind(this)}>add</i>
                 </div>
                 {this.state.addPropError && <div className="red">Please select a prop path and unique prop name</div>}
@@ -214,7 +214,7 @@ class TreeBranch extends React.Component {
                       )
                       )}
                   </select>
-                  <i className="material-icons pointer green"
+                  <i className="material-icons pointer purple"
                     onClick={this.handleClickAddAction.bind(this)}>add</i>
                 </div>
                 {this.state.addActionError && <div className="red">Please select an action</div>}

@@ -41,7 +41,7 @@ class OutputStoreRow extends React.Component {
             <div className="outputStoreRowText"><div style={{textDecoration: 'underline'}}>Element Type:</div>&nbsp;<div>{this.props.type}</div></div>
             {this.state.hover ? 
               <div>
-                <i className="material-icons pointer" onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
+                <i className="material-icons pointer purple" onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
               </div>
               :
               <div className="editPlaceHolder"></div>
@@ -57,8 +57,8 @@ class OutputStoreRow extends React.Component {
             <div className="outputStoreRowText">{this.props.name} ({this.props.type})</div>
             {this.state.hover ? 
               <div>
-                <i className="material-icons pointer" onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
-                <i className="material-icons pointer red" onClick={this.handleClickDelete.bind(this)}>clear</i>
+                <i className="material-icons pointer purple" onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
+                <i className="material-icons pointer purple" onClick={this.handleClickDelete.bind(this)}>clear</i>
               </div>
               :
               <div className="editDeletePlaceHolder"></div>

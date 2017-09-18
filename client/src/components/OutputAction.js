@@ -47,9 +47,9 @@ class OutputAction extends React.Component {
         <TableRowColumn style={{paddingLeft: '0', paddingRight: '0', textAlign: 'center'}}>{this.props.outputAction.type}</TableRowColumn>
         {this.state.hover ?
           <TableRowColumn style={{paddingLeft: '0', paddingRight: '0'}}>
-            <i className="material-icons pointer outputActionEditDelete" 
+            <i className="material-icons pointer outputActionEditDelete purple" 
               onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
-            <i className="material-icons pointer red" 
+            <i className="material-icons pointer purple" 
               onClick={this.handleClickRemove.bind(this)}>clear</i>
           </TableRowColumn>
           :
