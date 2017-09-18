@@ -150,11 +150,13 @@ class OutputActionsEdit extends React.Component {
             <SelectField floatingLabelText="Type" 
               value={this.state.type} 
               onChange={this.handleChangeType.bind(this)}
+              disabled={this.state.target ? false : true}
               selectedMenuItemStyle={{color:'#6653ff'}}>
-              {utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.state.target]).map((type) => (
-                <MenuItem value={type} primaryText={type} />
-              )
-              )}
+              {this.state.target &&
+                utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.state.target]).map((type) => (
+                  <MenuItem value={type} primaryText={type} />
+                ))
+              }
             </SelectField>
           </div>
           {this.state.invalidName && <div className="red">Please enter a unique name with no spaces</div>}
