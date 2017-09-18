@@ -38,6 +38,7 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
   let traverseStore = (object, indent, path, isElementSchema) => {
     if (isElementSchema) {
       storeArray.push(<OutputStoreRow path={path} indent={indent} isElementSchema={true} type={object.type} />);
+
       if (object.type === 'Object') {
         storeArray.push(
           <div className="outputStoreObjectProperties">
@@ -50,12 +51,16 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
         );
         
         traverseStore(object.properties, indent + 40, path);
+
       } else if (object.type === 'Array') {
         traverseStore(object.elementSchema, indent + 40, path.concat('elementSchema'), true);
+
       }
+
     } else {
       object.forEach((property, index) => {
         storeArray.push(<OutputStoreRow path={path.concat(index)} indent={indent} name={property.name} type={property.type} initialValue={property.initialValue} isElementSchema={false} />);
+
         if (property.type === 'Object') {
           storeArray.push(
             <div className="outputStoreObjectProperties">
@@ -68,13 +73,17 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
           );
           
           traverseStore(property.properties, indent + 40, path.concat(index));
+
         } else if(property.type === 'Array') {
           traverseStore(property.elementSchema, indent + 40, path.concat([index, 'elementSchema']), true);
+
         }
       });
     }
   }
+
   traverseStore(outputStore, 0, []);
+
   return storeArray;
 }
 

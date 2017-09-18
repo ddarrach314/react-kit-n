@@ -216,13 +216,26 @@ p {
 .outputStoreRow {
   display: flex;
   height: 25px;
+  white-space: nowrap;
 }
 
 .outputStoreRowText {
   margin-right: 1em;
 }
 
+.editPlaceHolder: {
+  min-width: 24px;
+}
+
+.editDeletePlaceHolder {
+  min-width: 48px;
+}
+
 .outputStoreObjectProperties {
+  display: flex;
+}
+
+.outputStoreObjectProperty {
   display: flex;
 }
 

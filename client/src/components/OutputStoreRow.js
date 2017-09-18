@@ -39,10 +39,12 @@ class OutputStoreRow extends React.Component {
             onMouseEnter={this.handleMouseEnter.bind(this)} 
             onMouseLeave={this.handleMouseLeave.bind(this)}>
             <div className="outputStoreRowText"><b>Element Type:</b> {this.props.type}</div>
-            {this.state.hover && 
+            {this.state.hover ? 
               <div>
                 <i className="material-icons pointer" onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
               </div>
+              :
+              <div className="editPlaceHolder"></div>
             }
           </div>
         )
@@ -51,12 +53,15 @@ class OutputStoreRow extends React.Component {
             className="outputStoreRow"
             onMouseEnter={this.handleMouseEnter.bind(this)} 
             onMouseLeave={this.handleMouseLeave.bind(this)}>
+            <i className="material-icons">subdirectory_arrow_right</i>
             <div className="outputStoreRowText">{this.props.name} ({this.props.type})</div>
-            {this.state.hover && 
+            {this.state.hover ? 
               <div>
                 <i className="material-icons pointer" onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
                 <i className="material-icons pointer red" onClick={this.handleClickDelete.bind(this)}>clear</i>
               </div>
+              :
+              <div className="editDeletePlaceHolder"></div>
             }
           </div>
         )
