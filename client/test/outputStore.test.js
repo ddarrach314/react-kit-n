@@ -39,7 +39,7 @@ describe('Store reducer function', () => {
     expect(state6.properties[1].elementSchema.properties[0]).toEqual({type: 'String'});
     expect(state5.properties[1].elementSchema).toEqual({type: 'Object', properties: []});
     expect(state4.properties[0]).toEqual({type: 'Array', elementSchema: {}});
-    expect(state3.properties[0].properties[0]).toEqual({"elementSchema": {}, "type": "Array"});
+    expect(state3.properties[0].properties[0]).toEqual({'elementSchema': {}, 'type': 'Array'});
     expect(state2.properties[0]).toEqual({type: 'Object', properties: []});
     expect(state1.properties[0]).toEqual({type: 'String'});
   });
@@ -73,7 +73,7 @@ describe('Store reducer function', () => {
       {name: 'toggleEditStoreModal', args: [[1, 'elementSchema', 0]]}
     );
 
-    expect(state1.editing).toEqual({"path": ["newProperty"], "property": {}});
+    expect(state1.editing).toEqual({'path': ['newProperty'], 'property': {}});
     expect(state2.editing).toBe(null);
     expect(state3.editing.property).toEqual({type: 'String'});
   });

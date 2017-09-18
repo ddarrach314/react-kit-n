@@ -13,7 +13,7 @@ export const openEditComponentModel = (id, availableProps) => ({
   type: types.OPEN_EDIT_COMPONENT_MODAL,
   id,
   availableProps
-});;
+});
 
 export const editComponentUpdate = (update) => ({
   type: types.EDIT_COMPONENT_UPDATE,
@@ -22,7 +22,7 @@ export const editComponentUpdate = (update) => ({
 
 export const saveComponentUpdate = () => ({
   type: types.SAVE_COMPONENT_UPDATE
-})
+});
 
 export const closeEditComponentModel = () => ({
   type: types.CLOSE_EDIT_COMPONENT_MODAL

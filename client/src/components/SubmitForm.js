@@ -16,7 +16,7 @@ class SubmitForm extends React.Component {
           label="Export Application"
           primary={true}
           backgroundColor='#6653ff'
-          labelStyle={{color:'#f9f9f9'}}
+          labelStyle={{color: '#f9f9f9'}}
           hoverColor='#7F00FF'
         />
         

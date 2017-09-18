@@ -26,15 +26,15 @@ class Modal extends React.Component {
 
     this.state = {
       actions,
-      parentProps: [{childProp:'', parentProp: ''}, ...parentProps],
+      parentProps: [{childProp: '', parentProp: ''}, ...parentProps],
       storeProps: [{propName: '', storeProp: ''}, ...storeProps]
-    }
+    };
 
     this.updateActions = this.updateActions.bind(this);
     this.updateProp = this.updateProp.bind(this);
   }
 
-  updateProp(index, update, type='parentProps') {
+  updateProp(index, update, type = 'parentProps') {
     this.setState(state => {
       let oldProp = state[type][index];
       let newProp = _.assign({}. oldProp, update);
@@ -42,7 +42,7 @@ class Modal extends React.Component {
     });
   }
 
-  updateActions(e,k,payload) {
+  updateActions(e, k, payload) {
     this.setState(state => {
       let actionIds = payload;
       let currentActions = state.actions;
@@ -70,7 +70,7 @@ class Modal extends React.Component {
               <div className='col-6' style={{paddingRight: '10px'}}>
                 <TextField
                   floatingLabelText="Prop Name"
-                  floatingLabelStyle={{marginTop: "-18px"}}
+                  floatingLabelStyle={{marginTop: '-18px'}}
                   fullWidth={true}
                   style={{height: '54px'}}
                   inputStyle={{marginTop: '0px'}}
@@ -79,7 +79,7 @@ class Modal extends React.Component {
               <div className='col-6'>
                 <SelectField
                   floatingLabelText="Store Target"
-                  floatingLabelStyle={{marginTop: "-18px"}}
+                  floatingLabelStyle={{marginTop: '-18px'}}
                   style={{height: '54px'}}
                   fullWidth={true}
                 />
@@ -92,7 +92,7 @@ class Modal extends React.Component {
   }
 
   getInheritedPropsForm() {
-    return <div></div>
+    return <div></div>;
   }
 
   render() {
@@ -146,13 +146,13 @@ class Modal extends React.Component {
                 multiple={true}
                 hintText={
                   (_.size(actions) === 0) ?
-                  "Select a name" :
-                  ""
+                    'Select a name' :
+                    ''
                 }
                 values={Object.keys(actions)}
                 onChange={this.updateActions}
                 selectionRenderer={(values) => {
-                  return actionNames.join(', ')
+                  return actionNames.join(', ');
                 }}
               >
                 {menuItems}
@@ -161,8 +161,8 @@ class Modal extends React.Component {
 
             {
               component.connected ?
-              this.getConnectedPropsForm() :
-              this.getInheritedPropsForm()
+                this.getConnectedPropsForm() :
+                this.getInheritedPropsForm()
             }
           </div>
 

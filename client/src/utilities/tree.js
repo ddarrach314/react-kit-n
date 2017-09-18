@@ -14,7 +14,7 @@ export const _getChildAvailableProps = (component, availableProps) => {
         map(prop => prop.propName)
     );
   }
-}
+};
 
 export const generateTreeArray = (
   outputComponents,
@@ -59,7 +59,6 @@ export const generateTreeArray = (
   };
 
   traverseOutputComponents(0, '0');
-  console.log(treeArray);
   return treeArray;
 };
 

@@ -29,17 +29,17 @@ class OutputStoreRow extends React.Component {
 
   render() {
     let divStyle = {
-          marginLeft: this.props.indent + 'px'
-        };
-    
-    return this.props.isElementSchema 
+      marginLeft: this.props.indent + 'px'
+    };
+
+    return this.props.isElementSchema
       ? (
-          <div style={divStyle} 
-            className="outputStoreRow" 
-            onMouseEnter={this.handleMouseEnter.bind(this)} 
+          <div style={divStyle}
+            className="outputStoreRow"
+            onMouseEnter={this.handleMouseEnter.bind(this)}
             onMouseLeave={this.handleMouseLeave.bind(this)}>
             <div className="outputStoreRowText"><div style={{textDecoration: 'underline'}}>Element Type:</div>&nbsp;<div>{this.props.type}</div></div>
-            {this.state.hover ? 
+            {this.state.hover ?
               <div>
                 <i className="material-icons pointer purple" onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
               </div>
@@ -49,13 +49,13 @@ class OutputStoreRow extends React.Component {
           </div>
         )
       : (
-          <div style={divStyle} 
+          <div style={divStyle}
             className="outputStoreRow"
-            onMouseEnter={this.handleMouseEnter.bind(this)} 
+            onMouseEnter={this.handleMouseEnter.bind(this)}
             onMouseLeave={this.handleMouseLeave.bind(this)}>
             <i className="material-icons">subdirectory_arrow_right</i>
             <div className="outputStoreRowText">{this.props.name} ({this.props.type})</div>
-            {this.state.hover ? 
+            {this.state.hover ?
               <div>
                 <i className="material-icons pointer purple" onClick={this.handleClickEdit.bind(this)}>mode_edit</i>
                 <i className="material-icons pointer purple" onClick={this.handleClickDelete.bind(this)}>clear</i>
