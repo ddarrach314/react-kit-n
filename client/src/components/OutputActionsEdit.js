@@ -10,8 +10,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import utilities from '../utilities/index';
 
-// PAGE SHRINK NEEDS ATTENTION
-
 let actions = bindActionCreators(unboundActions, store.dispatch);
 
 class OutputActionsEdit extends React.Component {

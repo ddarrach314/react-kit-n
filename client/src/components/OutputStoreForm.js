@@ -56,7 +56,7 @@ class OutputStoreForm extends React.Component {
     //   ]}
     // ]
     return (
-      <div className="col-md-3 outputStoreCol">
+      <div className="col-lg-3 outputStoreCol">
         <div className="outputStoreSchemaHeading">
           <h4>Store Schema</h4>
           <i className="material-icons addButton pointer purple"

@@ -25,7 +25,7 @@ class OutputActionsForm extends React.Component {
 
   render() {
     return (
-      <div className="col-md-3 outputActionsCol">
+      <div className="col-lg-3 outputActionsCol">
         <div className="outputActionsHeading">
           <h4>Actions</h4>
           <i className="material-icons addButton pointer purple"

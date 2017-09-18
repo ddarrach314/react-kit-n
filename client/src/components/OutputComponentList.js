@@ -19,7 +19,7 @@ class OutputComponentList extends React.Component {
 
   render() {
     return (
-      <div className="col-md-4 outputComponentsCol">
+      <div className="col-lg-4 outputComponentsCol">
         <div className="outputComponentsHeading">
           <h4>Components</h4>
           <i className="material-icons addButton pointer purple"

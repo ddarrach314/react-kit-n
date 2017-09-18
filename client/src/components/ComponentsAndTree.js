@@ -7,7 +7,7 @@ import Tree from './Tree';
 class ComponentsAndTree extends React.Component {
   render() {
     return (
-      <div className="col-md-6 componentsAndTreeCol">
+      <div className="col-lg-6 componentsAndTreeCol">
         <div className="row no-gutters">
           <OutputComponentList outputComponents={this.props.outputComponents.components}/>
           <Tree outputStore={this.props.outputStore.outputStore} 
