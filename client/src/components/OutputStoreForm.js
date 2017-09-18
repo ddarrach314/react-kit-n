@@ -47,16 +47,8 @@ class OutputStoreForm extends React.Component {
   }
 
   render() {
-    // let fakeData = [
-    //   {name: 'recipeList', type: 'array', initialValue: [], elementSchema: {type: 'array', elementSchema: {type: 'string'}}},
-    //   {name: 'emptyListDisplay', type: 'boolean', initialValue: true},
-    //   {name: 'chefs', type: 'object', initialValue: {}, properties: [
-    //     {name: 'fNames', type: 'array', initialValue: [], elementSchema: {type: 'string'}},
-    //     {name: 'count', type: 'number', initialValue: 0}
-    //   ]}
-    // ]
     return (
-      <div className="col-lg-3 outputStoreCol">
+      <div className="col-lg-3">
         <div className="outputStoreSchemaHeading">
           <h4>Store Schema</h4>
           <i className="material-icons addButton pointer purple"

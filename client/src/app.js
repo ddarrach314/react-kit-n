@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import reducer from './reducers';
 import store from './reduxStore';
+import OutputComponentList from './components/OutputComponentList';
+import Tree from './components/Tree';
 import OutputStoreForm from './components/OutputStoreForm';
 import OutputActionsForm from './components/OutputActionsForm';
-import ComponentsAndTree from './components/ComponentsAndTree';
 import SubmitForm from './components/SubmitForm';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -31,7 +32,8 @@ const ConnectedApp = () => {
             </h1>
           </nav>
           <div className="row no-gutters pageContent">
-            <ComponentsAndTree />
+            <OutputComponentList />
+            <Tree />
             <OutputStoreForm />
             <OutputActionsForm />
           </div>

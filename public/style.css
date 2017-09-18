@@ -39,10 +39,6 @@ p {
   padding: 20px 3vw 0 3vw;
 }
 
-.outputComponentsCol {
-  /*padding-right: 30px;*/
-}
-
 .outputComponentsHeading {
   display: flex;
   align-items: center;
@@ -91,10 +87,6 @@ p {
 .pointer {
   cursor: pointer;
   user-select: none;
-}
-
-.componentsAndTreeCol {
-  /*margin-right: 15px;*/
 }
 
 .tree {
@@ -197,11 +189,6 @@ p {
   color: #6653ff;
 }
 
-.outputStoreCol {
-  /*margin-left: -35px;*/
-  /*padding-right: 30px;*/
-}
-
 .outputStoreSchemaHeading {
   display: flex;
 }
@@ -256,10 +243,6 @@ textarea:focus {
 
 .outputStoreActionEditFormRow {
   display: flex;
-}
-
-.outputActionsCol {
-
 }
 
 .addButton {
