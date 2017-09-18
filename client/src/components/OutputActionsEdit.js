@@ -120,11 +120,16 @@ class OutputActionsEdit extends React.Component {
           className="outputStoreActionEditFormRow"
           contentStyle={
             {
-              width: '468px',
+              width: '400px',
               position: 'fixed',
               left: '50%',
               top: '5%',
-              marginLeft: '-234px',
+              marginLeft: '-200px'
+            }
+          }
+          bodyStyle={
+            {
+              overflow: 'scroll'
             }
           }
         >
@@ -148,11 +153,13 @@ class OutputActionsEdit extends React.Component {
             <SelectField floatingLabelText="Type" 
               value={this.state.type} 
               onChange={this.handleChangeType.bind(this)}
+              disabled={this.state.target ? false : true}
               selectedMenuItemStyle={{color:'#6653ff'}}>
-              {utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.state.target]).map((type) => (
-                <MenuItem value={type} primaryText={type} />
-              )
-              )}
+              {this.state.target &&
+                utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.state.target]).map((type) => (
+                  <MenuItem value={type} primaryText={type} />
+                ))
+              }
             </SelectField>
           </div>
           {this.state.invalidName && <div className="red">Please enter a unique name with no spaces</div>}

@@ -5,7 +5,7 @@ import TreeBranch from './TreeBranch';
 class Tree extends React.Component {
   render() {
     return (
-      <div className="col-md-8 treeCol">
+      <div className="col-lg-8 treeCol">
         <h4>App Tree</h4>
         <div className="tree">
           {// utilities.tree.generateTreeArray(

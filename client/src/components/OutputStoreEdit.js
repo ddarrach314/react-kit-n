@@ -145,11 +145,16 @@ class OutputStoreEdit extends React.Component {
           onRequestClose={this.handleClose.bind(this)}
           contentStyle={
             {
-              width: '468px',
+              width: '400px',
               position: 'fixed',
               left: '50%',
               top: '5%',
-              marginLeft: '-234px',
+              marginLeft: '-200px',
+            }
+          }
+          bodyStyle={
+            {
+              overflow: 'scroll'
             }
           }
           className="outputStoreActionEditFormRow"
