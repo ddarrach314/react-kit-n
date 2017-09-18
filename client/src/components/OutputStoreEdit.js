@@ -34,7 +34,7 @@ class OutputStoreEdit extends React.Component {
         ? true
         : false;
       let initialValue = this.state.initialValue;
-      
+
       if (!isElementSchema) {
         if (this.state.name === '' || this.state.name.indexOf(' ') >= 0) {
           throw 'name';
@@ -44,16 +44,9 @@ class OutputStoreEdit extends React.Component {
         }
 
         if (initialValue === '' || initialValue === 'undefined' || initialValue === undefined) {
-<<<<<<< HEAD
           initialValue = initialValue;
         } else if (initialValue === "''" || initialValue === '""') {
           initialValue = '""';
-=======
-          initialValue = undefined;
-
-        } else if (initialValue === '\'\'' || initialValue === '""') {
-          initialValue = '';
->>>>>>> (feat) build component edit menu pt 2
 
         } else {
           initialValue = initialValue.replace(/'/g, '"');
@@ -61,7 +54,7 @@ class OutputStoreEdit extends React.Component {
           initialValue = JSON.stringify(initialValue);
         }
       }
-      
+
       let setProperty = isElementSchema ? {type: this.state.type || undefined} : {name: this.state.name, initialValue, type: this.state.type};
       actions.setOutputStoreProperty(setProperty, this.props.outputStore.editing.path);
       actions.toggleEditStoreModal(this.props.outputStore.editing.path);
@@ -122,7 +115,7 @@ class OutputStoreEdit extends React.Component {
     } else {
       isElementSchema = false;
     }
-    
+
     const actions = [
       <FlatButton
         label="Cancel"
@@ -143,8 +136,8 @@ class OutputStoreEdit extends React.Component {
       <div>
         <Dialog
           title={this.props.outputStore.editing &&
-              this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'newProperty' 
-            ? 'Add Property' 
+              this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'newProperty'
+            ? 'Add Property'
             : 'Edit Property'}
           actions={actions}
           modal={false}
@@ -168,37 +161,26 @@ class OutputStoreEdit extends React.Component {
         >
           <div>
             {!isElementSchema &&
-              <TextField floatingLabelText="Name" 
-                value={this.state.name} 
-                onChange={this.handleChangeName.bind(this)} 
+              <TextField floatingLabelText="Name"
+                value={this.state.name}
+                onChange={this.handleChangeName.bind(this)}
                 style={{marginRight: '4em'}}
-<<<<<<< HEAD
                 underlineFocusStyle={{borderBottomColor:'#6653ff'}}
                 floatingLabelFocusStyle={{color:'#6653ff'}}/>
             }
             {!isElementSchema
-              && this.props.outputStore.editing 
+              && this.props.outputStore.editing
               && this.props.outputStore.editing.path.length === 1
-              &&  
-                <TextField floatingLabelText="Initial Value" 
-                  value={this.state.initialValue} 
+              &&
+                <TextField floatingLabelText="Initial Value"
+                  value={this.state.initialValue}
                   onChange={this.handleChangeInitialValue.bind(this)}
                   underlineFocusStyle={{borderBottomColor:'#6653ff'}}
                   floatingLabelFocusStyle={{color:'#6653ff'}}/>
             }
           </div>
-=======
-                underlineFocusStyle={{borderBottomColor: '#6653ff'}}
-                floatingLabelFocusStyle={{color: '#6653ff'}}/>
-              <TextField floatingLabelText="Initial Value" 
-                value={this.state.initialValue} 
-                onChange={this.handleChangeInitialValue.bind(this)}
-                underlineFocusStyle={{borderBottomColor: '#6653ff'}}
-                floatingLabelFocusStyle={{color: '#6653ff'}}/>
-            </div>}
->>>>>>> (feat) build component edit menu pt 2
-          <SelectField floatingLabelText="Type" 
-            value={this.state.type} 
+          <SelectField floatingLabelText="Type"
+            value={this.state.type}
             onChange={this.handleChangeType.bind(this)}
             selectedMenuItemStyle={{color: '#6653ff'}}>
             <MenuItem value={'String'} primaryText="String" />

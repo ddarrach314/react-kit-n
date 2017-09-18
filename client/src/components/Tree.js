@@ -32,6 +32,13 @@ class Modal extends React.Component {
 
     this.updateActions = this.updateActions.bind(this);
     this.updateProp = this.updateProp.bind(this);
+    this.addStoreProp = this.addStoreProp.bind(this);
+  }
+
+  addStoreProp() {
+    this.setState((state) => ({
+      storeProps: [{propName: '', storeProp: ''}, ...state.storeProps]
+    }));
   }
 
   updateProp(index, update, type = 'parentProps') {
@@ -61,38 +68,57 @@ class Modal extends React.Component {
   getConnectedPropsForm() {
     return (
       <div className='col-lg-6'>
-        <h5>
-          Props From Store
-        </h5>
-        {
-          this.state.storeProps.map((prop, i) => (
-            <div className='row' key={i}>
-              <div className='col-6' style={{paddingRight: '10px'}}>
-                <TextField
-                  floatingLabelText="Prop Name"
-                  floatingLabelStyle={{marginTop: '-18px'}}
-                  fullWidth={true}
-                  style={{height: '54px'}}
-                  inputStyle={{marginTop: '0px'}}
-                />
-              </div>
-              <div className='col-6'>
-                <SelectField
-                  floatingLabelText="Store Target"
-                  floatingLabelStyle={{marginTop: '-18px'}}
-                  style={{height: '54px'}}
-                  fullWidth={true}
-                />
-              </div>
+        <div style={{display: 'flex'}}>
+          <h5>
+            Props From Store
+          </h5>
+          <i
+            className="material-icons addButton pointer green"
+            onClick={this.addStoreProp}
+          >
+            add
+          </i>
+        </div>
+
+        <div style={{display: 'flex'}}>
+          <div className='xColumn' >
+
+          </div>
+          <div className='propsColumn'>
+            <div className='row'>
+            {
+              this.state.storeProps.map((prop, i) => (
+                <div>
+                  <div className='col-6'>
+                    <TextField
+                      floatingLabelText="Prop Name"
+                      floatingLabelStyle={{marginTop: '-18px'}}
+                      fullWidth={true}
+                      style={{height: '54px'}}
+                      inputStyle={{marginTop: '0px'}}
+                    />
+                  </div>
+                  <div className='col-6'>
+                    <SelectField
+                      floatingLabelText="Store Target"
+                      floatingLabelStyle={{marginTop: '-18px'}}
+                      style={{height: '54px', marginTop: '0px;'}}
+                      inputStyle={{marginTop: '0px'}}
+                      fullWidth={true}
+                    />
+                  </div>
+                </div>
+              ))
+            }
             </div>
-          ))
-        }
+          </div>
+        </div>
       </div>
     );
   }
 
   getInheritedPropsForm() {
-    return <div></div>;
+    return null;
   }
 
   render() {
