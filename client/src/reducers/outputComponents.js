@@ -22,17 +22,19 @@ const initialState = {
 
 const outputComponentsReducer = (state = initialState, action = {}) => {
   let newState;
- 
+
   try {
     switch (action.type) {
-    case types.SELECT_COMPONENT:
+
+    case types.SELECT_COMPONENT: {
       if (action.id in state.components) {
         return _.assign({}, state, {selected: action.id});
       } else {
         throw 'The component id you passed does not exist in state.components.';
       }
+    }
 
-    case types.ADD_COMPONENT:
+    case types.ADD_COMPONENT: {
       newState = makeMutableCopy(state, 'components.0', 'nextId');
       newState.components[state.nextId] = {
         name: `Component${state.nextId}`,
@@ -45,12 +47,28 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       };
       newState.nextId += 1;
       return newState;
+    }
 
-    case types.OPEN_EDIT_COMPONENT_MODAL:
-      return safeSet(state, {id}, 'editing');
+    case types.OPEN_EDIT_COMPONENT_MODAL: {
+      let id = action.id;
+      let component = state.components[id];
+      let availableProps = action.availableProps;
+      return safeSet(state, {id, component, availableProps}, 'editing');
+    }
 
-    case types.CLOSE_EDIT_COMPONENT_MODAL:
+    case types.EDIT_COMPONENT_UPDATE: {
+      let updatedComponent = Object.assign(
+        {},
+        state.editing.component,
+        action.update
+      );
+
+      return safeSet(state, updatedComponent, 'editing.component');
+    }
+
+    case types.CLOSE_EDIT_COMPONENT_MODAL: {
       return safeSet(state, null, 'editing');
+    }
 
     case types.UPDATE_COMPONENT:
       newState = makeMutableCopy(state, `components.${action.id}`);

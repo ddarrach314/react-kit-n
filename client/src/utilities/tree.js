@@ -1,44 +1,65 @@
 import React from 'react';
 import _ from 'lodash';
 
+export const _getChildAvailableProps = (component, availableProps) => {
+  if (availableProps !== undefined) {
+    return new Set(
+      component.parentProps
+        .filter(prop => availableProps.has(prop.parentProp))
+        .map(prop => prop.childProps)
+    );
+  } else if (component.connected) {
+    return new Set(
+      component.storeProps.
+        map(prop => prop.propName)
+    );
+  }
+}
+
 export const generateTreeArray = (
   outputComponents,
-  outputStorePropsOptions,
   outputActions,
   TreeBranch
 ) => {
-
   let treeArray = [];
 
   const traverseOutputComponents = (
     indent,
     componentId,
-    availableProps = new Set(),
+    availableProps,
     inheritsConnection = false
   ) => {
     let component = outputComponents[componentId];
     let hasConnectedDescendant = checkForConnectedDescendants(componentId, outputComponents);
     let connectionCanBeToggled = !inheritsConnection && !hasConnectedDescendant;
     let childrenInheritConnection = inheritsConnection || component.connected;
-    if (component.connected) {
-      treeArray.push(
-        <TreeBranch
-          id={componentId}
-          outputComponent={component}
-          indent={indent}
-          inheritsConnection={inheritsConnection}
-          connectionCanBeToggled={connectionCanBeToggled}
-          outputActions={outputActions}
-        />
-      ); 
-    }
+
+    treeArray.push(
+      <TreeBranch
+        id={componentId}
+        outputComponent={component}
+        indent={indent}
+        inheritsConnection={inheritsConnection}
+        connectionCanBeToggled={connectionCanBeToggled}
+        outputActions={outputActions}
+        availableProps={availableProps}
+      />
+    );
+
+    let childAvailableProps = _getChildAvailableProps(component, availableProps);
 
     outputComponents[componentId].children.forEach((child) => {
-      traverseOutputComponents(indent + 20, child.componentId, childrenInheritConnection);
+      traverseOutputComponents(
+        indent + 20,
+        child.componentId,
+        childAvailableProps,
+        childrenInheritConnection
+      );
     });
   };
 
   traverseOutputComponents(0, '0');
+  console.log(treeArray);
   return treeArray;
 };
 

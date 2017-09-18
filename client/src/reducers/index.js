@@ -13,6 +13,7 @@ const reducer = combineReducers({
 
 const loadReducer = (state, action) => {
   if (action.type === LOAD) {
+    console.log(action.payload);
     return Object.assign({}, state, action.payload);
   } else {
     return state;
@@ -20,6 +21,6 @@ const loadReducer = (state, action) => {
 };
 
 export default utils.applyReducersSequentially(
-  reducer
-  // loadReducer
+  reducer,
+  loadReducer
 );

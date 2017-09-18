@@ -34,7 +34,7 @@ class TreeBranch extends React.Component {
   }
 
   handleClickEdit() {
-    actions.openEditComponentModel(this.id);
+    actions.openEditComponentModel(this.props.id, this.props.availableProps);
   }
 
   handleClickExpand() {
@@ -136,9 +136,7 @@ class TreeBranch extends React.Component {
       //.filter(
       // action => (action.id in this.props.outputComponent.actions)
       //)
-      .map(
-        action => action.name
-      );
+      .map( action => action.name );
 
     return (
       <div>
@@ -194,9 +192,7 @@ class TreeBranch extends React.Component {
             animated={false}
           >
             <div
-              style={{
-                padding: '8px 12px'
-              }}
+              style={{ padding: '8px 12px' }}
             >
               {this.getProps()}
               {this.getActions()}
