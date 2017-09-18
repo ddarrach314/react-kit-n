@@ -7,7 +7,7 @@ export const buildPropertiesPath = (path) => {
     (accumulator, value, index) => {
       accumulator += `.${value}`;
       if (
-        path[index + 1] === 'newProperty' || 
+        path[index + 1] === 'newProperty' ||
         !isNaN(Number(path[index + 1]))
       ) {
         accumulator += '.properties';
@@ -20,13 +20,13 @@ export const buildPropertiesPath = (path) => {
 
 export const getTargetsFromOutputStore = (properties) => {
   let targetsTypes = {};
- 
+
   let targetGenerator = (properties, path) => {
     properties.forEach((property) => {
       targetsTypes[`${path}${property.name}`] = property.type;
       property.type === 'Object' && targetGenerator(property.properties, `${path}${property.name}.`);
-    }); 
-  }
+    });
+  };
 
   targetGenerator(properties, '');
 
@@ -49,7 +49,7 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
               }}>add</i>
           </div>
         );
-        
+
         traverseStore(object.properties, indent + 40, path);
 
       } else if (object.type === 'Array') {
@@ -71,7 +71,7 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
                 }}>add</i>
             </div>
           );
-          
+
           traverseStore(property.properties, indent + 40, path.concat(index));
 
         } else if(property.type === 'Array') {
@@ -85,7 +85,7 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
   traverseStore(outputStore, 0, []);
 
   return storeArray;
-}
+};
 
 export const convertPropertiesIntoObject = (properties) => {
   let initialState = {};
@@ -107,7 +107,7 @@ export const convertPropertiesIntoObject = (properties) => {
 
       }
     });
-  }
+  };
 
   properties.forEach((property) => {
     if (property.initialValue === '') {
@@ -139,7 +139,4 @@ export const convertPropertiesIntoObject = (properties) => {
   });
 
   return initialState;
-}
-
-
-
+};

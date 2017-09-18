@@ -41,7 +41,7 @@ class OutputAction extends React.Component {
   render() {
     return (
       <TableRow onMouseEnter={this.handleMouseEnter.bind(this)} 
-          onMouseLeave={this.handleMouseLeave.bind(this)}>
+        onMouseLeave={this.handleMouseLeave.bind(this)}>
         <TableRowColumn style={{paddingLeft: '0', paddingRight: '0', textAlign: 'center'}}>{this.props.outputAction.name}</TableRowColumn>
         <TableRowColumn style={{paddingLeft: '0', paddingRight: '0', textAlign: 'center'}}>{this.props.outputAction.target}</TableRowColumn>
         <TableRowColumn style={{paddingLeft: '0', paddingRight: '0', textAlign: 'center'}}>{this.props.outputAction.type}</TableRowColumn>

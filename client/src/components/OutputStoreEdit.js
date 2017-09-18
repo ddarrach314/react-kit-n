@@ -21,20 +21,20 @@ class OutputStoreEdit extends React.Component {
       invalidName: false,
       invalidInitialValue: false,
       invalidType: false
-    }
+    };
   }
 
   handleClose() {
     actions.toggleEditStoreModal(this.props.outputStore.editing.path);
-  };
+  }
 
   handleSubmit() {
     try {
       let isElementSchema = this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'elementSchema'
-                              ? true
-                              : false;
+        ? true
+        : false;
       let initialValue = this.state.initialValue;
-      
+
       if (!isElementSchema) {
         if (this.state.name === '' || this.state.name.indexOf(' ') >= 0) {
           throw 'name';
@@ -45,7 +45,7 @@ class OutputStoreEdit extends React.Component {
 
         if (initialValue === '' || initialValue === 'undefined' || initialValue === undefined) {
           initialValue = initialValue;
-        } else if (initialValue === "''" || initialValue === '""') {
+        } else if (initialValue === '\'\'' || initialValue === '""') {
           initialValue = '""';
 
         } else {
@@ -54,12 +54,12 @@ class OutputStoreEdit extends React.Component {
           initialValue = JSON.stringify(initialValue);
         }
       }
-      
+
       let setProperty = isElementSchema ? {type: this.state.type || undefined} : {name: this.state.name, initialValue, type: this.state.type};
       actions.setOutputStoreProperty(setProperty, this.props.outputStore.editing.path);
       actions.toggleEditStoreModal(this.props.outputStore.editing.path);
 
-    } catch(error) {
+    } catch (error) {
       if (error === 'name') {
         this.setState({invalidName: true});
       } else if (error === 'type') {
@@ -110,25 +110,25 @@ class OutputStoreEdit extends React.Component {
     let isElementSchema;
     if (this.props.outputStore.editing) {
       isElementSchema = this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'elementSchema'
-                            ? true
-                            : false;
+        ? true
+        : false;
     } else {
       isElementSchema = false;
     }
-    
+
     const actions = [
       <FlatButton
         label="Cancel"
         primary={true}
         onClick={this.handleClose.bind(this)}
-        labelStyle={{color:'#6653ff'}}
+        labelStyle={{color: '#6653ff'}}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
         onClick={this.handleSubmit.bind(this)}
-        labelStyle={{color:'#6653ff'}}
+        labelStyle={{color: '#6653ff'}}
       />
     ];
 
@@ -136,9 +136,9 @@ class OutputStoreEdit extends React.Component {
       <div>
         <Dialog
           title={this.props.outputStore.editing &&
-              this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'newProperty' 
-              ? "Add Property" 
-              : "Edit Property"}
+              this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'newProperty'
+            ? 'Add Property'
+            : 'Edit Property'}
           actions={actions}
           modal={false}
           open={this.props.outputStore.editing === null ? false : true}
@@ -161,28 +161,28 @@ class OutputStoreEdit extends React.Component {
         >
           <div>
             {!isElementSchema &&
-              <TextField floatingLabelText="Name" 
-                value={this.state.name} 
-                onChange={this.handleChangeName.bind(this)} 
+              <TextField floatingLabelText="Name"
+                value={this.state.name}
+                onChange={this.handleChangeName.bind(this)}
                 style={{marginRight: '4em'}}
-                underlineFocusStyle={{borderBottomColor:'#6653ff'}}
-                floatingLabelFocusStyle={{color:'#6653ff'}}/>
+                underlineFocusStyle={{borderBottomColor: '#6653ff'}}
+                floatingLabelFocusStyle={{color: '#6653ff'}}/>
             }
             {!isElementSchema
-              && this.props.outputStore.editing 
+              && this.props.outputStore.editing
               && this.props.outputStore.editing.path.length === 1
-              &&  
-                <TextField floatingLabelText="Initial Value" 
-                  value={this.state.initialValue} 
+              &&
+                <TextField floatingLabelText="Initial Value"
+                  value={this.state.initialValue}
                   onChange={this.handleChangeInitialValue.bind(this)}
-                  underlineFocusStyle={{borderBottomColor:'#6653ff'}}
-                  floatingLabelFocusStyle={{color:'#6653ff'}}/>
+                  underlineFocusStyle={{borderBottomColor: '#6653ff'}}
+                  floatingLabelFocusStyle={{color: '#6653ff'}}/>
             }
           </div>
-          <SelectField floatingLabelText="Type" 
-            value={this.state.type} 
+          <SelectField floatingLabelText="Type"
+            value={this.state.type}
             onChange={this.handleChangeType.bind(this)}
-            selectedMenuItemStyle={{color:'#6653ff'}}>
+            selectedMenuItemStyle={{color: '#6653ff'}}>
             <MenuItem value={'String'} primaryText="String" />
             <MenuItem value={'Number'} primaryText="Number" />
             <MenuItem value={'Boolean'} primaryText="Boolean" />

@@ -20,17 +20,17 @@ class OutputActionsEdit extends React.Component {
       target: '',
       type: '',
       invalidName: false
-    }
+    };
   }
 
   handleClose() {
     actions.toggleEditActionModal(this.props.outputActions.editing.index);
-  };
+  }
 
   handleSubmit() {
     let names = this.props.outputActions.outputActions.map((outputAction, index) => {
       if (index !== this.props.outputActions.editing.index) {
-        return outputAction.name
+        return outputAction.name;
       }
     }
     );
@@ -89,20 +89,20 @@ class OutputActionsEdit extends React.Component {
   }
 
   render() {
-    
+
     const actions = [
       <FlatButton
         label="Cancel"
         primary={true}
         onClick={this.handleClose.bind(this)}
-        labelStyle={{color:'#6653ff'}}
+        labelStyle={{color: '#6653ff'}}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
         onClick={this.handleSubmit.bind(this)}
-        labelStyle={{color:'#6653ff'}}
+        labelStyle={{color: '#6653ff'}}
       />
     ];
 
@@ -110,9 +110,9 @@ class OutputActionsEdit extends React.Component {
       <div>
         <Dialog
           title={this.props.outputActions.editing &&
-              this.props.outputActions.editing.index === 'newAction' 
-              ? "Add Action" 
-              : "Edit Action"}
+              this.props.outputActions.editing.index === 'newAction'
+            ? 'Add Action'
+            : 'Edit Action'}
           actions={actions}
           modal={false}
           open={this.props.outputActions.editing === null ? false : true}
@@ -133,25 +133,25 @@ class OutputActionsEdit extends React.Component {
             }
           }
         >
-          <TextField floatingLabelText="Name" 
-            value={this.state.name} 
+          <TextField floatingLabelText="Name"
+            value={this.state.name}
             onChange={this.handleChangeName.bind(this)}
-            underlineFocusStyle={{borderBottomColor:'#6653ff'}}
-            floatingLabelFocusStyle={{color:'#6653ff'}}/>
+            underlineFocusStyle={{borderBottomColor: '#6653ff'}}
+            floatingLabelFocusStyle={{color: '#6653ff'}}/>
           <div>
-            <SelectField floatingLabelText="Target" 
-              value={this.state.target} 
+            <SelectField floatingLabelText="Target"
+              value={this.state.target}
               onChange={this.handleChangeTarget.bind(this)}
               disabled={Object.keys(this.props.targetsTypes).length ? false : true}
               style={{marginRight: '4em'}}
-              selectedMenuItemStyle={{color:'#6653ff'}}>
+              selectedMenuItemStyle={{color: '#6653ff'}}>
               {Object.keys(this.props.targetsTypes).map((target) => (
                 <MenuItem value={target} primaryText={target} />
               )
               )}
             </SelectField>
-            <SelectField floatingLabelText="Type" 
-              value={this.state.type} 
+            <SelectField floatingLabelText="Type"
+              value={this.state.type}
               onChange={this.handleChangeType.bind(this)}
               disabled={this.state.target ? false : true}
               selectedMenuItemStyle={{color:'#6653ff'}}>

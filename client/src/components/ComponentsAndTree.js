@@ -9,11 +9,15 @@ class ComponentsAndTree extends React.Component {
     return (
       <div className="col-lg-6 componentsAndTreeCol">
         <div className="row no-gutters">
-          <OutputComponentList outputComponents={this.props.outputComponents.components}/>
-          <Tree outputStore={this.props.outputStore.outputStore} 
-            outputActions={this.props.outputActions.outputActions} 
+
+          <OutputComponentList outputComponents={this.props.outputComponents.components} />
+
+          <Tree
+            outputStore={this.props.outputStore.outputStore}
+            outputActions={this.props.outputActions.outputActions}
             outputComponents={this.props.outputComponents.components}
-            outputComponentProps={this.props.outputComponents.componentProps}/>
+            editing={this.props.outputComponents.editing}
+          />
         </div>
       </div>
     );
@@ -21,13 +25,11 @@ class ComponentsAndTree extends React.Component {
 }
 
 ComponentsAndTree = connect(
-  (state) => (
-    {
-      outputComponents: state.outputComponents,
-      outputStore: state.outputStore,
-      outputActions: state.outputActions
-    }
-  )
+  (state) => ({
+    outputComponents: state.outputComponents,
+    outputStore: state.outputStore,
+    outputActions: state.outputActions
+  })
 )(ComponentsAndTree);
 
 export default ComponentsAndTree;
