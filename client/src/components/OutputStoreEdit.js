@@ -45,7 +45,7 @@ class OutputStoreEdit extends React.Component {
 
         if (initialValue === '' || initialValue === 'undefined' || initialValue === undefined) {
           initialValue = initialValue;
-        } else if (initialValue === "''" || initialValue === '""') {
+        } else if (initialValue === '\'\'' || initialValue === '""') {
           initialValue = '""';
 
         } else {
@@ -165,8 +165,8 @@ class OutputStoreEdit extends React.Component {
                 value={this.state.name}
                 onChange={this.handleChangeName.bind(this)}
                 style={{marginRight: '4em'}}
-                underlineFocusStyle={{borderBottomColor:'#6653ff'}}
-                floatingLabelFocusStyle={{color:'#6653ff'}}/>
+                underlineFocusStyle={{borderBottomColor: '#6653ff'}}
+                floatingLabelFocusStyle={{color: '#6653ff'}}/>
             }
             {!isElementSchema
               && this.props.outputStore.editing
@@ -175,8 +175,8 @@ class OutputStoreEdit extends React.Component {
                 <TextField floatingLabelText="Initial Value"
                   value={this.state.initialValue}
                   onChange={this.handleChangeInitialValue.bind(this)}
-                  underlineFocusStyle={{borderBottomColor:'#6653ff'}}
-                  floatingLabelFocusStyle={{color:'#6653ff'}}/>
+                  underlineFocusStyle={{borderBottomColor: '#6653ff'}}
+                  floatingLabelFocusStyle={{color: '#6653ff'}}/>
             }
           </div>
           <SelectField floatingLabelText="Type"

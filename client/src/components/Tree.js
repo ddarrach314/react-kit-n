@@ -86,30 +86,30 @@ class Modal extends React.Component {
           </div>
           <div className='propsColumn'>
             <div className='row'>
-            {
-              this.state.storeProps.map((prop, i) => (
-                <div>
-                  <div className='col-6'>
-                    <TextField
-                      floatingLabelText="Prop Name"
-                      floatingLabelStyle={{marginTop: '-18px'}}
-                      fullWidth={true}
-                      style={{height: '54px'}}
-                      inputStyle={{marginTop: '0px'}}
-                    />
-                  </div>
-                  <div className='col-6'>
-                    <SelectField
-                      floatingLabelText="Store Target"
-                      floatingLabelStyle={{marginTop: '-18px'}}
-                      style={{height: '54px', marginTop: '0px;'}}
-                      inputStyle={{marginTop: '0px'}}
-                      fullWidth={true}
-                    />
-                  </div>
-                </div>
-              ))
-            }
+              {
+                this.state.storeProps.map((prop, i) => (
+                  <span>
+                    <div className='col-6'>
+                      <TextField
+                        floatingLabelText="Prop Name"
+                        floatingLabelStyle={{marginTop: '-18px'}}
+                        fullWidth={true}
+                        style={{height: '54px'}}
+                        inputStyle={{marginTop: '0px'}}
+                      />
+                    </div>
+                    <div className='col-6'>
+                      <SelectField
+                        floatingLabelText="Store Target"
+                        floatingLabelStyle={{marginTop: '-18px'}}
+                        style={{height: '54px', marginTop: '0px;'}}
+                        inputStyle={{marginTop: '0px'}}
+                        fullWidth={true}
+                      />
+                    </div>
+                  </span>
+                ))
+              }
             </div>
           </div>
         </div>

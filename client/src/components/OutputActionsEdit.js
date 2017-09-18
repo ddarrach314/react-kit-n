@@ -30,7 +30,7 @@ class OutputActionsEdit extends React.Component {
   handleSubmit() {
     let names = this.props.outputActions.outputActions.map((outputAction, index) => {
       if (index !== this.props.outputActions.editing.index) {
-        return outputAction.name
+        return outputAction.name;
       }
     }
     );

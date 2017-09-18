@@ -85,7 +85,7 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
   traverseStore(outputStore, 0, []);
 
   return storeArray;
-}
+};
 
 export const convertPropertiesIntoObject = (properties) => {
   let initialState = {};
@@ -107,7 +107,7 @@ export const convertPropertiesIntoObject = (properties) => {
 
       }
     });
-  }
+  };
 
   properties.forEach((property) => {
     if (property.initialValue === '') {
@@ -139,4 +139,4 @@ export const convertPropertiesIntoObject = (properties) => {
   });
 
   return initialState;
-}
+};

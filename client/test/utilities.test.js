@@ -134,7 +134,7 @@ describe('Output store utils', () => {
     expect(convertedObj.listName).toEqual('Cats');
     expect(convertedObj.listName2).toEqual('');
     expect(convertedObj.listName3).toEqual('');
-    expect(convertedObj.list).toEqual(["Garfield", "Fido", "Bob"]);
+    expect(convertedObj.list).toEqual(['Garfield', 'Fido', 'Bob']);
     expect(convertedObj.list2).toEqual([]);
     expect(convertedObj.petOwners).toEqual({});
     expect(convertedObj.petOwners2).toEqual({
