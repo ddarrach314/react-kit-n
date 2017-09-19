@@ -215,7 +215,7 @@ class Tree extends React.Component {
           />
         }
 
-        <div className="tree">
+        <div className={`tree${this.props.leftBorder}`}>
           {
             utilities.tree.generateTreeArray(
               this.props.outputComponents.components,

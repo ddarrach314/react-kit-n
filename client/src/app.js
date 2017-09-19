@@ -48,6 +48,18 @@ class ConnectedApp extends React.Component {
   }
 
   render() {
+    let leftBorderTree = this.state.displayOutputComponentsList ? ' leftBorder' : ' noLeftBorder';
+    let leftBorderStore = !this.state.displayOutputComponentsList && !this.state.displayTree ?
+                            ' noLeftBorder'
+                            :
+                            ' leftBorder';
+    let leftBorderActions = !this.state.displayOutputComponentsList 
+                              && !this.state.displayTree 
+                              && !this.state.displayOutputStoreForm ?
+                                ' noLeftBorder'
+                                :
+                                ' leftBorder';
+
     return (
       <Provider store={store}>
         <MuiThemeProvider>
@@ -94,11 +106,11 @@ class ConnectedApp extends React.Component {
               {this.state.displayOutputComponentsList && 
                 <OutputComponentList key={1} colWidth={`col-lg-${12 / this.state.displays} pageSection`} />}
               {this.state.displayTree && 
-                <Tree key={2} colWidth={`col-lg-${12 / this.state.displays} pageSection`} />}
+                <Tree key={2} colWidth={`col-lg-${12 / this.state.displays} pageSection`} leftBorder={leftBorderTree} />}
               {this.state.displayOutputStoreForm && 
-                <OutputStoreForm key={3} colWidth={`col-lg-${12 / this.state.displays} pageSection`} />}
+                <OutputStoreForm key={3} colWidth={`col-lg-${12 / this.state.displays} pageSection`} leftBorder={leftBorderStore} />}
               {this.state.displayOutputActionsForm && 
-                <OutputActionsForm key={4} colWidth={`col-lg-${12 / this.state.displays} pageSection`} />}
+                <OutputActionsForm key={4} colWidth={`col-lg-${12 / this.state.displays} pageSection`} leftBorder={leftBorderActions} />}
             </CSSTransitionGroup>
             
             <SubmitForm />

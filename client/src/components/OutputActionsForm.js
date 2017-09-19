@@ -31,7 +31,7 @@ class OutputActionsForm extends React.Component {
           <i className="material-icons addButton pointer purple"
             onClick={this.handleClickAdd.bind(this)}>add</i>
         </div>
-        <div className="outputActionsList">
+        <div className={`outputActionsList${this.props.leftBorder}`}>
           <Table fixedHeader={true} height='21.6em' style={{backgroundColor: '#f9f9f9'}}>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow>
