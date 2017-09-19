@@ -60,6 +60,11 @@ class ConnectedApp extends React.Component {
                                 :
                                 ' leftBorder';
 
+    let componentsUnderline = this.state.displayOutputComponentsList ? ' whiteUnderline': '';
+    let treeUnderline = this.state.displayTree ? ' whiteUnderline': '';
+    let storeUnderline = this.state.displayOutputStoreForm ? ' whiteUnderline': '';
+    let actionsUnderline = this.state.displayOutputActionsForm ? ' whiteUnderline': '';
+
     return (
       <Provider store={store}>
         <MuiThemeProvider>
@@ -80,19 +85,19 @@ class ConnectedApp extends React.Component {
               <div className="collapse navbar-collapse">
                 <ul className="navbar-nav mr-auto">
                   <li className="nav-item">
-                    <div className="nav-link purple pointer"
+                    <div className={`nav-link white pointer${componentsUnderline}`}
                       onClick={this.handleClickComponents.bind(this)}>Components</div>
                   </li>
                   <li className="nav-item">
-                    <div className="nav-link purple pointer"
+                    <div className={`nav-link white pointer${treeUnderline}`}
                       onClick={this.handleClickTree.bind(this)}>App Tree</div>
                   </li>
                   <li className="nav-item">
-                    <div className="nav-link purple pointer"
+                    <div className={`nav-link white pointer${storeUnderline}`}
                       onClick={this.handleClickStore.bind(this)}>Store Schema</div>
                   </li>
                   <li className="nav-item">
-                    <div className="nav-link purple pointer"
+                    <div className={`nav-link white pointer${actionsUnderline}`}
                       onClick={this.handleClickActions.bind(this)}>Actions</div>
                   </li>
                 </ul>

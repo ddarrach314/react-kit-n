@@ -12,12 +12,14 @@ html, body {
 
 .navbar {
   padding: 0 3vw 0 3vw;
-  background-color: #222;
+  background-color: #6653ff;
   box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: space-between;
 }
 
 .navbar-toggleable-md .navbar-collapse {
-  width: 30em;
+  width: 26em;
 }
 
 .navbar-nav {
@@ -35,13 +37,18 @@ p {
 }
 
 .navbar-brand {
-  color: #6653ff;
+  color: #f9f9f9;
   font-size: 125%;
   margin: 0 1em 0 0;
 }
 
 .navbar-brand:hover {
-  color: #6653ff;
+  color: #f9f9f9;
+}
+
+.nav-link {
+  height: 53px;
+  padding: .9em 1em;
 }
 
 .pageContent {
@@ -216,6 +223,11 @@ p {
   text-decoration-color: #6653ff;
 }
 
+.whiteUnderline {
+  border-bottom: 2px solid #f9f9f9;
+  background-color: #7565fb;
+}
+
 .reactBlue {
   color: #00d8ff;
 }
@@ -230,6 +242,10 @@ p {
 
 .purple {
   color: #6653ff;
+}
+
+.white {
+  color: #f9f9f9
 }
 
 .outputStoreSchemaHeading {
