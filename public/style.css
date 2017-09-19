@@ -80,6 +80,7 @@ p {
 .outputComponentsHeading {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .addComponentButton {
@@ -148,6 +149,11 @@ p {
   border-bottom: 2px solid #696969;
   overflow: scroll;
   padding: 5px 5px 5px 5px;
+}
+
+.appTreeHeading {
+  display: flex;
+  justify-content: center;
 }
 
 @media (max-width: 991px) {
@@ -258,6 +264,7 @@ p {
 
 .outputStoreSchemaHeading {
   display: flex;
+  justify-content: center;
 }
 
 .outputStoreFormTextArea {
@@ -327,6 +334,7 @@ textarea:focus {
 .outputActionsHeading {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .addRow {
