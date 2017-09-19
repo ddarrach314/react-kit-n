@@ -20,6 +20,7 @@ class OutputActionsEdit extends React.Component {
       target: '',
       type: '',
       invalidName: false,
+      missingTarget: false,
       missingType: false
     };
   }
@@ -37,6 +38,13 @@ class OutputActionsEdit extends React.Component {
     );
     if (this.state.name === '' || this.state.name.indexOf(' ') >= 0 || names.includes(this.state.name)) {
       this.setState({invalidName: true});
+
+    } else if (this.state.target === 'no target' && this.state.type !== 'no type') {
+      this.setState({missingTarget: true, missingType: false});
+
+    } else if (this.state.target !== 'no target' && this.state.type === 'no type') {
+      this.setState({missingTarget: false, missingType: true});
+
     } else {
       if (this.props.outputActions.editing.index === 'newAction') {
         actions.createNewOutputAction({
@@ -77,14 +85,18 @@ class OutputActionsEdit extends React.Component {
         name: action.name || '',
         target: action.target || 'no target',
         type: action.type || 'no type',
-        invalidName: false
+        invalidName: false,
+        missingTarget: false,
+        missingType: false
       });
     } else {
       this.setState({
         name: '',
         target: '',
         type: '',
-        invalidName: false
+        invalidName: false,
+        missingTarget: false,
+        missingType: false
       });
     }
   }
@@ -145,7 +157,8 @@ class OutputActionsEdit extends React.Component {
               value={this.state.target}
               onChange={this.handleChangeTarget.bind(this)}
               style={{marginRight: '4em'}}
-              selectedMenuItemStyle={{color: '#6653ff'}}>
+              selectedMenuItemStyle={{color: '#6653ff'}}
+              errorText={this.state.missingTarget && 'Please select both a target and type or select neither'} >
               <MenuItem value={'no target'} primaryText='no target' />
               {Object.keys(this.props.targetsTypes).map((target) => (
                 <MenuItem value={target} primaryText={target} />
@@ -155,7 +168,8 @@ class OutputActionsEdit extends React.Component {
             <SelectField floatingLabelText="Type"
               value={this.state.type}
               onChange={this.handleChangeType.bind(this)}
-              selectedMenuItemStyle={{color:'#6653ff'}}>
+              selectedMenuItemStyle={{color:'#6653ff'}}
+              errorText={this.state.missingType && 'Please select both a target and type or select neither'} >
               <MenuItem value={'no type'} primaryText='no type' />
               {this.state.target &&
                 utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.state.target]).map((type) => (
