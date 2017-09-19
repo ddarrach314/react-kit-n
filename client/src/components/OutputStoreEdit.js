@@ -166,7 +166,8 @@ class OutputStoreEdit extends React.Component {
                 onChange={this.handleChangeName.bind(this)}
                 style={{marginRight: '4em'}}
                 underlineFocusStyle={{borderBottomColor: '#6653ff'}}
-                floatingLabelFocusStyle={{color: '#6653ff'}}/>
+                floatingLabelFocusStyle={{color: '#6653ff'}}
+                errorText={this.state.invalidName && 'Please enter a name with no spaces'}/>
             }
             {!isElementSchema
               && this.props.outputStore.editing
@@ -176,22 +177,21 @@ class OutputStoreEdit extends React.Component {
                   value={this.state.initialValue}
                   onChange={this.handleChangeInitialValue.bind(this)}
                   underlineFocusStyle={{borderBottomColor: '#6653ff'}}
-                  floatingLabelFocusStyle={{color: '#6653ff'}}/>
+                  floatingLabelFocusStyle={{color: '#6653ff'}}
+                  errorText={this.state.invalidInitialValue && 'Please enter a valid initial value or leave that field blank'}/>
             }
           </div>
           <SelectField floatingLabelText="Type"
             value={this.state.type}
             onChange={this.handleChangeType.bind(this)}
-            selectedMenuItemStyle={{color: '#6653ff'}}>
+            selectedMenuItemStyle={{color: '#6653ff'}}
+            errorText={this.state.invalidType && 'Please select a type'}>
             <MenuItem value={'String'} primaryText="String" />
             <MenuItem value={'Number'} primaryText="Number" />
             <MenuItem value={'Boolean'} primaryText="Boolean" />
             <MenuItem value={'Object'} primaryText="Object" />
             <MenuItem value={'Array'} primaryText="Array" />
           </SelectField>
-          {this.state.invalidName && <div className="red">Please enter a name with no spaces</div>}
-          {this.state.invalidType && <div className="red">Please select a type</div>}
-          {this.state.invalidInitialValue && <div className="red">Please enter a valid initial value or leave that field blank</div>}
         </Dialog>
       </div>
     );
