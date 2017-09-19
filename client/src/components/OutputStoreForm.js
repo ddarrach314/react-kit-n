@@ -48,7 +48,7 @@ class OutputStoreForm extends React.Component {
 
   render() {
     return (
-      <div className="col-lg-3">
+      <div className={this.props.colWidth}>
         <div className="outputStoreSchemaHeading">
           <h4>Store Schema</h4>
           <i className="material-icons addButton pointer purple"

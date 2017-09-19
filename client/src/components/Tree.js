@@ -204,7 +204,7 @@ class Modal extends React.Component {
 class Tree extends React.Component {
   render() {
     return (
-      <div className="col-lg-4">
+      <div className={this.props.colWidth}>
         <h4>App Tree</h4>
         {
           this.props.outputComponents.editing &&

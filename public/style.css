@@ -16,6 +16,19 @@ html, body {
   box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
+.navbar-toggleable-md .navbar-collapse {
+  width: 35em;
+}
+
+.navbar-nav {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.nav-link {
+  font-size: 125%;
+}
+
 a {
   color: #6653ff;
 }
@@ -37,6 +50,11 @@ p {
 
 .pageContent {
   padding: 20px 3vw 0 3vw;
+}
+
+.pageSection {
+  transition: max-width 1s;
+  transition-timing-function: ease;
 }
 
 .outputComponentsHeading {
