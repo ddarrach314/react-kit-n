@@ -23,6 +23,7 @@ export const generateTreeArray = (
 ) => {
   let treeArray = [];
 
+  let key = 0
   const traverseOutputComponents = (
     indent,
     componentId,
@@ -36,18 +37,24 @@ export const generateTreeArray = (
 
     treeArray.push(
       <TreeBranch
+        key={key}
         id={componentId}
         outputComponent={component}
         indent={indent}
         inheritsConnection={inheritsConnection}
         connectionCanBeToggled={connectionCanBeToggled}
         outputActions={outputActions}
-        availableProps={availableProps}
+        availableProps={
+          availableProps ?
+          _.keyBy(Array.from(availableProps.values())) : //turn set to object
+          undefined
+        }
       />
     );
 
-    let childAvailableProps = _getChildAvailableProps(component, availableProps);
+    key++;
 
+    let childAvailableProps = _getChildAvailableProps(component, availableProps);
     outputComponents[componentId].children.forEach((child) => {
       traverseOutputComponents(
         indent + 20,

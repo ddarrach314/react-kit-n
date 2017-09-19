@@ -56,14 +56,14 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       return safeSet(state, {id, component, availableProps}, 'editing');
     }
 
-    case types.EDIT_COMPONENT_UPDATE: {
-      let updatedComponent = Object.assign(
+    case types.SUBMIT_COMPONENT_UPDATE: {
+      let componentId = state.editing.id;
+      let newComponent = Object.assign(
         {},
-        state.editing.component,
+        state.components[componentId],
         action.update
       );
-
-      return safeSet(state, updatedComponent, 'editing.component');
+      return safeSet(state, newComponent, `components.${componentId}`)
     }
 
     case types.CLOSE_EDIT_COMPONENT_MODAL: {
