@@ -338,7 +338,6 @@ textarea:focus {
   height: 28em;
   overflow-y: scroll;
   border-bottom: 2px solid #696969;
-  padding: 5px 5px 5px 5px;
 }
 
 @media (max-width: 991px) {
