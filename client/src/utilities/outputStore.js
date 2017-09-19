@@ -35,7 +35,7 @@ export const getTargetsFromOutputStore = (properties) => {
 
 export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal) => {
   let storeArray = [];
-  let traverseStore = (object, indent, path, isElementSchema) => {
+  let traverseStore = (object, indent, path, targetName, isElementSchema) => {
     if (isElementSchema) {
       storeArray.push(<OutputStoreRow path={path} indent={indent} isElementSchema={true} type={object.type} />);
 
@@ -50,16 +50,18 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
           </div>
         );
 
-        traverseStore(object.properties, indent + 40, path);
+        traverseStore(object.properties, indent + 40, path, null);
 
       } else if (object.type === 'Array') {
-        traverseStore(object.elementSchema, indent + 40, path.concat('elementSchema'), true);
+        traverseStore(object.elementSchema, indent + 40, path.concat('elementSchema'), null, true);
 
       }
 
     } else {
       object.forEach((property, index) => {
-        storeArray.push(<OutputStoreRow path={path.concat(index)} indent={indent} name={property.name} type={property.type} initialValue={property.initialValue} isElementSchema={false} />);
+        targetName = targetName === null ? null : `${targetName}${property.name}`;
+
+        storeArray.push(<OutputStoreRow path={path.concat(index)} indent={indent} name={property.name} targetName={targetName} type={property.type} initialValue={property.initialValue} isElementSchema={false} />);
 
         if (property.type === 'Object') {
           storeArray.push(
@@ -72,17 +74,19 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
             </div>
           );
 
-          traverseStore(property.properties, indent + 40, path.concat(index));
+          targetName = targetName === null ? null : `${targetName}.`;
+
+          traverseStore(property.properties, indent + 40, path.concat(index), targetName);
 
         } else if(property.type === 'Array') {
-          traverseStore(property.elementSchema, indent + 40, path.concat([index, 'elementSchema']), true);
+          traverseStore(property.elementSchema, indent + 40, path.concat([index, 'elementSchema']), null, true);
 
         }
       });
     }
   }
 
-  traverseStore(outputStore, 0, []);
+  traverseStore(outputStore, 0, [], '');
 
   return storeArray;
 };

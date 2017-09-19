@@ -33,6 +33,17 @@ const outputActionsReducer = (state = initialState, action = {}) => {
 
     return state;
 
+  case types.UPDATE_ACTIONS_FOR_REMOVED_TARGET:
+    state.outputActions.forEach((outputAction, index) => {
+      if (outputAction.target === action.target) {
+        state = utils.safeSet(state, undefined, `outputActions.${index}.target`);
+        state = utils.safeSet(state, undefined, `outputActions.${index}.type`);
+      }
+
+    });
+
+    return state;
+
   }
   return state;
 };

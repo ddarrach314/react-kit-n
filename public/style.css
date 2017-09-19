@@ -51,6 +51,14 @@ p {
   padding: .9em 1em;
 }
 
+.navbar-toggler {
+  top: 9px;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+}
+
 .pageContent {
   padding: 75px 3vw 0 3vw;
 }
@@ -72,6 +80,7 @@ p {
 .outputComponentsHeading {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .addComponentButton {
@@ -140,6 +149,11 @@ p {
   border-bottom: 2px solid #696969;
   overflow: scroll;
   padding: 5px 5px 5px 5px;
+}
+
+.appTreeHeading {
+  display: flex;
+  justify-content: center;
 }
 
 @media (max-width: 991px) {
@@ -250,6 +264,7 @@ p {
 
 .outputStoreSchemaHeading {
   display: flex;
+  justify-content: center;
 }
 
 .outputStoreFormTextArea {
@@ -319,6 +334,7 @@ textarea:focus {
 .outputActionsHeading {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .addRow {
@@ -330,7 +346,6 @@ textarea:focus {
   height: 28em;
   overflow-y: scroll;
   border-bottom: 2px solid #696969;
-  padding: 5px 5px 5px 5px;
 }
 
 @media (max-width: 991px) {

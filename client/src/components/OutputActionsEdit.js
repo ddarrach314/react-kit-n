@@ -19,7 +19,9 @@ class OutputActionsEdit extends React.Component {
       name: '',
       target: '',
       type: '',
-      invalidName: false
+      invalidName: false,
+      missingTarget: false,
+      missingType: false
     };
   }
 
@@ -36,20 +38,27 @@ class OutputActionsEdit extends React.Component {
     );
     if (this.state.name === '' || this.state.name.indexOf(' ') >= 0 || names.includes(this.state.name)) {
       this.setState({invalidName: true});
+
+    } else if (this.state.target === 'no target' && this.state.type !== 'no type') {
+      this.setState({missingTarget: true, missingType: false});
+
+    } else if (this.state.target !== 'no target' && this.state.type === 'no type') {
+      this.setState({missingTarget: false, missingType: true});
+
     } else {
       if (this.props.outputActions.editing.index === 'newAction') {
         actions.createNewOutputAction({
           name: this.state.name,
-          target: this.state.target || undefined,
-          type: this.state.type || undefined
+          target: this.state.target === 'no target' ? undefined : this.state.target,
+          type: this.state.type === 'no type' ? undefined : this.state.type
         });
 
       } else {
         actions.editOutputAction(this.props.outputActions.editing.index, {
           id: this.props.outputActions.editing.action.id,
           name: this.state.name,
-          target: this.state.target || undefined,
-          type: this.state.type || undefined
+          target: this.state.target === 'no target' ? undefined : this.state.target,
+          type: this.state.type === 'no type' ? undefined : this.state.type
         });
 
       }
@@ -74,16 +83,20 @@ class OutputActionsEdit extends React.Component {
       let action = nextProps.outputActions.editing.action;
       this.setState({
         name: action.name || '',
-        target: action.target || '',
-        type: action.type || '',
-        invalidName: false
+        target: action.target || 'no target',
+        type: action.type || 'no type',
+        invalidName: false,
+        missingTarget: false,
+        missingType: false
       });
     } else {
       this.setState({
         name: '',
         target: '',
         type: '',
-        invalidName: false
+        invalidName: false,
+        missingTarget: false,
+        missingType: false
       });
     }
   }
@@ -137,14 +150,16 @@ class OutputActionsEdit extends React.Component {
             value={this.state.name}
             onChange={this.handleChangeName.bind(this)}
             underlineFocusStyle={{borderBottomColor: '#6653ff'}}
-            floatingLabelFocusStyle={{color: '#6653ff'}}/>
+            floatingLabelFocusStyle={{color: '#6653ff'}}
+            errorText={this.state.invalidName && 'Please enter a unique name with no spaces'}/>
           <div>
             <SelectField floatingLabelText="Target"
               value={this.state.target}
               onChange={this.handleChangeTarget.bind(this)}
-              disabled={Object.keys(this.props.targetsTypes).length ? false : true}
               style={{marginRight: '4em'}}
-              selectedMenuItemStyle={{color: '#6653ff'}}>
+              selectedMenuItemStyle={{color: '#6653ff'}}
+              errorText={this.state.missingTarget && 'Please select both a target and type or select neither'} >
+              <MenuItem value={'no target'} primaryText='no target' />
               {Object.keys(this.props.targetsTypes).map((target) => (
                 <MenuItem value={target} primaryText={target} />
               )
@@ -153,8 +168,9 @@ class OutputActionsEdit extends React.Component {
             <SelectField floatingLabelText="Type"
               value={this.state.type}
               onChange={this.handleChangeType.bind(this)}
-              disabled={this.state.target ? false : true}
-              selectedMenuItemStyle={{color:'#6653ff'}}>
+              selectedMenuItemStyle={{color:'#6653ff'}}
+              errorText={this.state.missingType && 'Please select both a target and type or select neither'} >
+              <MenuItem value={'no type'} primaryText='no type' />
               {this.state.target &&
                 utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.state.target]).map((type) => (
                   <MenuItem value={type} primaryText={type} />
@@ -162,7 +178,6 @@ class OutputActionsEdit extends React.Component {
               }
             </SelectField>
           </div>
-          {this.state.invalidName && <div className="red">Please enter a unique name with no spaces</div>}
         </Dialog>
       </div>
     );

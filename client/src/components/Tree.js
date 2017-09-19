@@ -205,7 +205,7 @@ class Tree extends React.Component {
   render() {
     return (
       <div className={this.props.colWidth}>
-        <h4>App Tree</h4>
+        <h4 className="appTreeHeading" >App Tree</h4>
         {
           this.props.outputComponents.editing &&
           <Modal
