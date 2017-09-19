@@ -52,7 +52,7 @@ class ConnectedApp extends React.Component {
       <Provider store={store}>
         <MuiThemeProvider>
           <div className="container">
-            <nav className="navbar navbar-toggleable-md navbar-custom">
+            <nav className="navbar navbar-toggleable-md navbar-custom fixed-top">
               <button className="navbar-toggler navbar-toggler-right collapsed purple"
                 type="button"
                 data-toggle="collapse"
