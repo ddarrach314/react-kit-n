@@ -70,19 +70,19 @@ class ConnectedApp extends React.Component {
         <MuiThemeProvider>
           <div className="container">
             <nav className="navbar navbar-toggleable-md navbar-custom fixed-top">
-              <button className="navbar-toggler navbar-toggler-right collapsed purple"
+              <button className="navbar-toggler navbar-toggler-right collapsed"
                 type="button"
                 data-toggle="collapse"
                 data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent"
                 aria-expanded="false"
                 aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
+                <i className="material-icons white pointer">menu</i>
               </button>
               <h1 className="navbar-brand">
                 <a href="" className="navbar-brand">Redux-Kit-N</a>
               </h1>
-              <div className="collapse navbar-collapse">
+              <div className="collapse navbar-collapse white" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
                   <li className="nav-item">
                     <div className={`nav-link white pointer${componentsUnderline}`}

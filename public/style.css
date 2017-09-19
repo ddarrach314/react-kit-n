@@ -51,6 +51,14 @@ p {
   padding: .9em 1em;
 }
 
+.navbar-toggler {
+  top: 9px;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+}
+
 .pageContent {
   padding: 75px 3vw 0 3vw;
 }
