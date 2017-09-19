@@ -9,6 +9,7 @@ import OutputStoreForm from './components/OutputStoreForm';
 import OutputActionsForm from './components/OutputActionsForm';
 import SubmitForm from './components/SubmitForm';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { CSSTransitionGroup } from 'react-transition-group'
 
 class ConnectedApp extends React.Component {
   constructor(props) {
@@ -85,16 +86,21 @@ class ConnectedApp extends React.Component {
                 </ul>
               </div>
             </nav>
-            <div className="row no-gutters pageContent">
+            
+            <CSSTransitionGroup className="row no-gutters pageContent"
+                transitionName="pageSection"
+                transitionEnterTimeout={500}
+                transitionLeave={false}>
               {this.state.displayOutputComponentsList && 
-                <OutputComponentList colWidth={`col-lg-${12 / this.state.displays} pageSection`} />}
+                <OutputComponentList key={1} colWidth={`col-lg-${12 / this.state.displays} pageSection`} />}
               {this.state.displayTree && 
-                <Tree colWidth={`col-lg-${12 / this.state.displays} pageSection`} />}
+                <Tree key={2} colWidth={`col-lg-${12 / this.state.displays} pageSection`} />}
               {this.state.displayOutputStoreForm && 
-                <OutputStoreForm colWidth={`col-lg-${12 / this.state.displays} pageSection`} />}
+                <OutputStoreForm key={3} colWidth={`col-lg-${12 / this.state.displays} pageSection`} />}
               {this.state.displayOutputActionsForm && 
-                <OutputActionsForm colWidth={`col-lg-${12 / this.state.displays} pageSection`} />}
-            </div>
+                <OutputActionsForm key={4} colWidth={`col-lg-${12 / this.state.displays} pageSection`} />}
+            </CSSTransitionGroup>
+            
             <SubmitForm />
           </div>
         </MuiThemeProvider>

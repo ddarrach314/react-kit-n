@@ -53,8 +53,17 @@ p {
 }
 
 .pageSection {
-  transition: max-width 1s;
-  transition-timing-function: ease;
+  transition: max-width .25s;
+  transition-timing-function: ease-out;
+}
+
+.pageSection-enter {
+  opacity: 0.01;
+}
+
+.pageSection-enter.pageSection-enter-active {
+  opacity: 1;
+  transition: opacity 250ms ease-out;
 }
 
 .outputComponentsHeading {
