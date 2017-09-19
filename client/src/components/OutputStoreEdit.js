@@ -36,7 +36,7 @@ class OutputStoreEdit extends React.Component {
       let initialValue = this.state.initialValue;
 
       if (!isElementSchema) {
-        if (this.state.name === '' || this.state.name.indexOf(' ') >= 0) {
+        if (this.state.name === '' || this.state.name.indexOf(' ') >= 0 || this.state.name.indexOf('.') >= 0) {
           throw 'name';
         }
         if (this.state.type === '') {
@@ -167,7 +167,7 @@ class OutputStoreEdit extends React.Component {
                 style={{marginRight: '4em'}}
                 underlineFocusStyle={{borderBottomColor: '#6653ff'}}
                 floatingLabelFocusStyle={{color: '#6653ff'}}
-                errorText={this.state.invalidName && 'Please enter a name with no spaces'}/>
+                errorText={this.state.invalidName && 'Please enter a name with no spaces or periods'}/>
             }
             {!isElementSchema
               && this.props.outputStore.editing
