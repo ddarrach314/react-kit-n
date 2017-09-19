@@ -8,6 +8,7 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 
 import store from '../reduxStore';
+import {connect} from 'react-redux';
 import utilities from '../utilities/index';
 import TreeBranch from './TreeBranch';
 import unboundActions from '../actions';
@@ -203,22 +204,22 @@ class Modal extends React.Component {
 class Tree extends React.Component {
   render() {
     return (
-      <div className="col-lg-8 treeCol">
+      <div className={this.props.colWidth}>
         <h4>App Tree</h4>
         {
-          this.props.editing &&
+          this.props.outputComponents.editing &&
           <Modal
-            outputActions={this.props.outputActions}
-            outputStore={this.props.outputStore}
-            editing={this.props.editing}
+            outputActions={this.props.outputActions.outputActions}
+            outputStore={this.props.outputStore.outputStore}
+            editing={this.props.outputComponents.editing}
           />
         }
 
-        <div className="tree">
+        <div className={`tree${this.props.leftBorder}`}>
           {
             utilities.tree.generateTreeArray(
-              this.props.outputComponents,
-              this.props.outputActions,
+              this.props.outputComponents.components,
+              this.props.outputActions.outputActions,
               TreeBranch
             )
           }
@@ -227,5 +228,13 @@ class Tree extends React.Component {
     );
   }
 }
+
+Tree = connect(
+  (state) => ({
+    outputComponents: state.outputComponents,
+    outputStore: state.outputStore,
+    outputActions: state.outputActions
+  })
+)(Tree);
 
 export default Tree;

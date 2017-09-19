@@ -25,13 +25,13 @@ class OutputActionsForm extends React.Component {
 
   render() {
     return (
-      <div className="col-lg-3 outputActionsCol">
+      <div className={this.props.colWidth}>
         <div className="outputActionsHeading">
           <h4>Actions</h4>
           <i className="material-icons addButton pointer purple"
             onClick={this.handleClickAdd.bind(this)}>add</i>
         </div>
-        <div className="outputActionsList">
+        <div className={`outputActionsList${this.props.leftBorder}`}>
           <Table fixedHeader={true} height='21.6em' style={{backgroundColor: '#f9f9f9'}}>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow>

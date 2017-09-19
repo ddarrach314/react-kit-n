@@ -47,22 +47,14 @@ class OutputStoreForm extends React.Component {
   }
 
   render() {
-    // let fakeData = [
-    //   {name: 'recipeList', type: 'array', initialValue: [], elementSchema: {type: 'array', elementSchema: {type: 'string'}}},
-    //   {name: 'emptyListDisplay', type: 'boolean', initialValue: true},
-    //   {name: 'chefs', type: 'object', initialValue: {}, properties: [
-    //     {name: 'fNames', type: 'array', initialValue: [], elementSchema: {type: 'string'}},
-    //     {name: 'count', type: 'number', initialValue: 0}
-    //   ]}
-    // ]
     return (
-      <div className="col-lg-3 outputStoreCol">
+      <div className={this.props.colWidth}>
         <div className="outputStoreSchemaHeading">
           <h4>Store Schema</h4>
           <i className="material-icons addButton pointer purple"
             onClick={this.handleClickAdd.bind(this)}>add</i>
         </div>
-        <div className="outputStoreFormTextArea"> 
+        <div className={`outputStoreFormTextArea${this.props.leftBorder}`}> 
           {utilities.outputStore.generateStoreArray(this.props.outputStore.properties, OutputStoreRow, actions.toggleEditStoreModal)}
         </div>
         <OutputStoreEdit />

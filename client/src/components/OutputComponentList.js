@@ -1,6 +1,7 @@
 import React from 'react';
 import OutputComponentListItem from './OutputComponentListItem';
 import _ from 'lodash';
+import {connect} from 'react-redux';
 import store from '../reduxStore';
 import unboundActions from '../actions';
 import {bindActionCreators} from 'redux';
@@ -19,15 +20,15 @@ class OutputComponentList extends React.Component {
 
   render() {
     return (
-      <div className="col-lg-4 outputComponentsCol">
+      <div className={this.props.colWidth}>
         <div className="outputComponentsHeading">
           <h4>Components</h4>
           <i className="material-icons addButton pointer purple"
             onClick={this.handleClickAdd}>add</i>
         </div>
         <div className="outputComponents">
-          {_.map(this.props.outputComponents, (outputComponent, id) => (
-            <OutputComponentListItem outputComponents={this.props.outputComponents} outputComponent={outputComponent} id={id} />
+          {_.map(this.props.outputComponents.components, (outputComponent, id) => (
+            <OutputComponentListItem outputComponents={this.props.outputComponents.components} outputComponent={outputComponent} id={id} />
           )
           )}
         </div>
@@ -35,5 +36,9 @@ class OutputComponentList extends React.Component {
     );
   }
 }
+
+OutputComponentList = connect(
+  (state) => ({outputComponents: state.outputComponents})
+)(OutputComponentList);
 
 export default OutputComponentList;

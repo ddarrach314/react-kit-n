@@ -12,8 +12,19 @@ html, body {
 
 .navbar {
   padding: 0 3vw 0 3vw;
-  background-color: #222;
+  background-color: #6653ff;
   box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar-toggleable-md .navbar-collapse {
+  width: 26em;
+}
+
+.navbar-nav {
+  width: 100%;
+  justify-content: space-between;
 }
 
 a {
@@ -26,21 +37,36 @@ p {
 }
 
 .navbar-brand {
-  color: #6653ff;
+  color: #f9f9f9;
   font-size: 125%;
   margin: 0 1em 0 0;
 }
 
 .navbar-brand:hover {
-  color: #6653ff;
+  color: #f9f9f9;
+}
+
+.nav-link {
+  height: 53px;
+  padding: .9em 1em;
 }
 
 .pageContent {
-  padding: 20px 3vw 0 3vw;
+  padding: 75px 3vw 0 3vw;
 }
 
-.outputComponentsCol {
-  /*padding-right: 30px;*/
+.pageSection {
+  transition: max-width .25s;
+  transition-timing-function: ease-out;
+}
+
+.pageSection-enter {
+  opacity: 0.01;
+}
+
+.pageSection-enter.pageSection-enter-active {
+  opacity: 1;
+  transition: opacity 250ms ease-out;
 }
 
 .outputComponentsHeading {
@@ -56,10 +82,25 @@ p {
 .outputComponents {
   width: 100%;
   height: 28em;
-  border-right: 2px solid #696969;
   border-bottom: 2px solid #696969;
   overflow: scroll;
   padding: 5px 5px 5px 5px;
+}
+
+.noLeftBorder {
+  border-left: none;
+}
+
+.leftBorder {
+  border-left: 2px solid #696969;
+}
+
+@media (max-width: 991px) {
+  .outputComponents {
+    border: 2px solid #696969;
+    border-radius: 4px;
+    margin-bottom: 2em;
+  }
 }
 
 .outputComponentListItem {
@@ -93,19 +134,20 @@ p {
   user-select: none;
 }
 
-.componentsAndTreeCol {
-  /*margin-right: 15px;*/
-}
-
 .tree {
   width: 100%;
   height: 28em;
-  /*border: medium solid #6653ff;*/
-  /*border-radius: 8px;*/
-  /*border-right: medium solid #6653ff;*/
   border-bottom: 2px solid #696969;
   overflow: scroll;
   padding: 5px 5px 5px 5px;
+}
+
+@media (max-width: 991px) {
+  .tree {
+    border: 2px solid #696969;
+    border-radius: 4px;
+    margin-bottom: 2em;
+  }
 }
 
 .treeBranchNameRow {
@@ -181,6 +223,11 @@ p {
   text-decoration-color: #6653ff;
 }
 
+.whiteUnderline {
+  border-bottom: 2px solid #f9f9f9;
+  background-color: #7565fb;
+}
+
 .reactBlue {
   color: #00d8ff;
 }
@@ -197,9 +244,8 @@ p {
   color: #6653ff;
 }
 
-.outputStoreCol {
-  /*margin-left: -35px;*/
-  /*padding-right: 30px;*/
+.white {
+  color: #f9f9f9
 }
 
 .outputStoreSchemaHeading {
@@ -210,11 +256,18 @@ p {
   overflow: scroll;
   width: 100%;
   height: 28em;
-  border-left: 2px solid #696969;
   border-bottom: 2px solid #696969;
   border-top: none;
   border-right: none;
   padding: 5px 5px 5px 5px;
+}
+
+@media (max-width: 991px) {
+  .outputStoreFormTextArea {
+    border: 2px solid #696969;
+    border-radius: 4px;
+    margin-bottom: 2em;
+  }
 }
 
 .outputStoreRow {
@@ -258,10 +311,6 @@ textarea:focus {
   display: flex;
 }
 
-.outputActionsCol {
-
-}
-
 .addButton {
   margin-left: 10px;
   margin-bottom: 6px;
@@ -280,10 +329,15 @@ textarea:focus {
 .outputActionsList {
   height: 28em;
   overflow-y: scroll;
-  border-left: 2px solid #696969;
   border-bottom: 2px solid #696969;
-  /*border-radius: 8px;*/
   padding: 5px 5px 5px 5px;
+}
+
+@media (max-width: 991px) {
+  .outputActionsList {
+    border: 2px solid #696969;
+    border-radius: 4px;
+  }
 }
 
 .outputActionRow {
@@ -333,6 +387,12 @@ textarea:focus {
   margin-top: 27px;
   display: flex;
   justify-content: center;
+}
+
+@media (max-width: 991px) {
+  .submitForm {
+    margin-bottom: 27px;
+  }
 }
 
 
