@@ -78,13 +78,18 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
 
           traverseStore(property.properties, indent + 40, path.concat(index), targetName);
 
+<<<<<<< HEAD
         } else if(property.type === 'Array') {
           traverseStore(property.elementSchema, indent + 40, path.concat([index, 'elementSchema']), null, true);
+=======
+        } else if (property.type === 'Array') {
+          traverseStore(property.elementSchema, indent + 40, path.concat([index, 'elementSchema']), true);
+>>>>>>> Update component modal working for components that inherit connection
 
         }
       });
     }
-  }
+  };
 
   traverseStore(outputStore, 0, [], '');
 

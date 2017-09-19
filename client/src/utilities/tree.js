@@ -23,7 +23,7 @@ export const generateTreeArray = (
 ) => {
   let treeArray = [];
 
-  let key = 0
+  let key = 0;
   const traverseOutputComponents = (
     indent,
     componentId,
@@ -46,8 +46,8 @@ export const generateTreeArray = (
         outputActions={outputActions}
         availableProps={
           availableProps ?
-          _.keyBy(Array.from(availableProps.values())) : //turn set to object
-          undefined
+            _.keyBy(Array.from(availableProps.values())) : //turn set to object
+            undefined
         }
       />
     );

@@ -63,7 +63,7 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
         state.components[componentId],
         action.update
       );
-      return safeSet(state, newComponent, `components.${componentId}`)
+      return safeSet(state, newComponent, `components.${componentId}`);
     }
 
     case types.CLOSE_EDIT_COMPONENT_MODAL: {

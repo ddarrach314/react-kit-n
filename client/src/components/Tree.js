@@ -26,18 +26,18 @@ const formInputProps = {
 const propKeysByType = {
   parentProps: {nameKey: 'childProp', sourceKey: 'parentProp'},
   storeProps: {nameKey: 'propName', sourceKey: 'storeProp'}
-}
+};
 
 const cleanFormProps = (props) => {
   return props.filter(prop => {
     for (let key in prop) {
       if (prop[key] !== '') {
-        return true
+        return true;
       }
     }
     return false;
   });
-}
+};
 
 class Modal extends React.Component {
   constructor(props) {
@@ -134,7 +134,7 @@ class Modal extends React.Component {
       let newProp = _.assign({}, oldProp, update);
       return utils.safeSet(state, newProp, `${type}.${index}`);
     });
-  };
+  }
 
   updateActions(e, k, payload) {
     this.setState(state => {
@@ -152,12 +152,12 @@ class Modal extends React.Component {
     });
   }
 
-  getPropsForm(type = "parentProps") {
+  getPropsForm(type = 'parentProps') {
     let headerText = type === 'parentProps' ?
       'Props From Parent' :
       'Props From Store';
 
-    let sourceLabel = type === "parentProps" ?
+    let sourceLabel = type === 'parentProps' ?
       'Parent Prop Name' :
       'Store Path';
 
@@ -175,7 +175,7 @@ class Modal extends React.Component {
           <h5> {headerText} </h5>
           <i
             className="material-icons addButton pointer purple"
-            onClick={()=>{this.addProp(type)}}
+            onClick={()=>{ this.addProp(type); }}
           >
             add
           </i>
@@ -198,7 +198,7 @@ class Modal extends React.Component {
                   <i
                     className="material-icons pointer red"
                     onClick={() => {
-                      this.deleteProp(i, type)
+                      this.deleteProp(i, type);
                     }}
                   >
                     clear
@@ -219,7 +219,7 @@ class Modal extends React.Component {
                       value={this.state[type][i][nameKey]}
                       { ...formInputProps }
                       onChange={(event) => {
-                        this.updatePropName(event.target.value, i, type)
+                        this.updatePropName(event.target.value, i, type);
                       }}
                     />
                   </div>
@@ -230,7 +230,7 @@ class Modal extends React.Component {
                       { ...formInputProps }
                       value={this.state[type][i][sourceKey]}
                       onChange={(e, k, payload) => {
-                        this.updatePropSource(payload, i, type)
+                        this.updatePropSource(payload, i, type);
                       }}
                     >
                       { this.allProps.map((prop, j) => (
@@ -243,7 +243,7 @@ class Modal extends React.Component {
                           primaryText={prop}
                           selectionRenderer={(val)=>{
                             console.log(val);
-                            return val
+                            return val;
                           }}
                         />
                       ))}

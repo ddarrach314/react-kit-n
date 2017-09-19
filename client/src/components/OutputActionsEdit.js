@@ -168,9 +168,14 @@ class OutputActionsEdit extends React.Component {
             <SelectField floatingLabelText="Type"
               value={this.state.type}
               onChange={this.handleChangeType.bind(this)}
+<<<<<<< HEAD
               selectedMenuItemStyle={{color:'#6653ff'}}
               errorText={this.state.missingType && 'Please select both a target and type or select neither'} >
               <MenuItem value={'no type'} primaryText='no type' />
+=======
+              disabled={this.state.target ? false : true}
+              selectedMenuItemStyle={{color: '#6653ff'}}>
+>>>>>>> Update component modal working for components that inherit connection
               {this.state.target &&
                 utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.state.target]).map((type) => (
                   <MenuItem value={type} primaryText={type} />
