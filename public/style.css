@@ -85,6 +85,14 @@ p {
   padding: 5px 5px 5px 5px;
 }
 
+@media (max-width: 991px) {
+  .outputComponents {
+    border: 2px solid #696969;
+    border-radius: 4px;
+    margin-bottom: 2em;
+  }
+}
+
 .outputComponentListItem {
   display: flex;
   height: 25px;
@@ -125,6 +133,14 @@ p {
   border-bottom: 2px solid #696969;
   overflow: scroll;
   padding: 5px 5px 5px 5px;
+}
+
+@media (max-width: 991px) {
+  .tree {
+    border: 2px solid #696969;
+    border-radius: 4px;
+    margin-bottom: 2em;
+  }
 }
 
 .treeBranchNameRow {
@@ -231,6 +247,14 @@ p {
   padding: 5px 5px 5px 5px;
 }
 
+@media (max-width: 991px) {
+  .outputStoreFormTextArea {
+    border: 2px solid #696969;
+    border-radius: 4px;
+    margin-bottom: 2em;
+  }
+}
+
 .outputStoreRow {
   display: flex;
   height: 25px;
@@ -296,6 +320,13 @@ textarea:focus {
   padding: 5px 5px 5px 5px;
 }
 
+@media (max-width: 991px) {
+  .outputActionsList {
+    border: 2px solid #696969;
+    border-radius: 4px;
+  }
+}
+
 .outputActionRow {
   display: flex;
   align-items: flex-start;
@@ -343,6 +374,12 @@ textarea:focus {
   margin-top: 27px;
   display: flex;
   justify-content: center;
+}
+
+@media (max-width: 991px) {
+  .submitForm {
+    margin-bottom: 27px;
+  }
 }
 
 
