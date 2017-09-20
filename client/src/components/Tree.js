@@ -95,8 +95,6 @@ class Modal extends React.Component {
         _.map(state.parentProps, prop => prop.parentProp)
       );
     }
-
-    console.log(this.allProps, this.usedProps);
   }
 
   addProp(type = 'parentProps') {
@@ -171,8 +169,6 @@ class Modal extends React.Component {
       'parentProp' :
       'storeProp';
 
-    console.log(this.allProps);
-    console.log(_.isEmpty(this.allProps));
     return (
       <div className='col-lg-6'>
         <div style={{display: 'flex'}}>
