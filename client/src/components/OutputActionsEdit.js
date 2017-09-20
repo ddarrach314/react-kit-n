@@ -171,7 +171,7 @@ class OutputActionsEdit extends React.Component {
               selectedMenuItemStyle={{color: '#6653ff'}}
               errorText={this.state.missingType && 'Please select both a target and type or select neither'} >
               <MenuItem value={'no type'} primaryText='no type' />
-              {this.state.target &&
+              {this.state.target !== 'no target' &&
                 utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.state.target]).map((type) => (
                   <MenuItem value={type} primaryText={type} />
                 ))
