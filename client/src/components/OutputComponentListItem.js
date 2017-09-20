@@ -91,7 +91,7 @@ class OutputComponentListItem extends React.Component {
         {this.state.expanded &&
           <div>
             {this.props.outputComponent.children.map((child, childIndex) => (
-              <OutputComponentListItemChild parentComponentId={this.props.id} childIndex={childIndex} name={this.props.outputComponents[child.componentId].name}/>
+              <OutputComponentListItemChild parentComponentId={this.props.id} childIndex={childIndex} name={this.props.outputComponents[child.componentId].name} key={childIndex} />
             )
             )}
           </div>

@@ -296,7 +296,7 @@ p {
   display: flex;
 }
 
-.editPlaceHolder: {
+.editPlaceHolder {
   min-width: 24px;
 }
 

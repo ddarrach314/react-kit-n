@@ -44,7 +44,8 @@ class OutputActionsForm extends React.Component {
             <TableBody displayRowCheckbox={false}>
               {this.props.outputActions.outputActions.map((outputAction, index) => (
                 <OutputAction outputAction={outputAction}
-                  index={index}/>
+                  index={index}
+                  key={index} />
               )
               )}
             </TableBody>

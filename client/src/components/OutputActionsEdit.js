@@ -160,8 +160,8 @@ class OutputActionsEdit extends React.Component {
               selectedMenuItemStyle={{color: '#6653ff'}}
               errorText={this.state.missingTarget && 'Please select both a target and type or select neither'} >
               <MenuItem value={'no target'} primaryText='no target' />
-              {Object.keys(this.props.targetsTypes).map((target) => (
-                <MenuItem value={target} primaryText={target} />
+              {Object.keys(this.props.targetsTypes).map((target, index) => (
+                <MenuItem value={target} primaryText={target} key={index} />
               )
               )}
             </SelectField>
@@ -172,8 +172,8 @@ class OutputActionsEdit extends React.Component {
               errorText={this.state.missingType && 'Please select both a target and type or select neither'} >
               <MenuItem value={'no type'} primaryText='no type' />
               {this.state.target !== 'no target' &&
-                utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.state.target]).map((type) => (
-                  <MenuItem value={type} primaryText={type} />
+                utilities.outputActions.getActionCategoriesForTargetType(this.props.targetsTypes[this.state.target]).map((type, index) => (
+                  <MenuItem value={type} primaryText={type} key={index} />
                 ))
               }
             </SelectField>

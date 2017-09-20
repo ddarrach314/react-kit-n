@@ -54,7 +54,7 @@ export const generateTreeArray = (
 
     key++;
     let childAvailableProps = _getChildAvailableProps(component, availableProps);
-    console.log(treeArray, childAvailableProps);
+    
     outputComponents[componentId].children.forEach((child) => {
       traverseOutputComponents(
         indent + 20,
