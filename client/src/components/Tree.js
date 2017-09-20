@@ -89,7 +89,7 @@ class Modal extends React.Component {
         _.map(state.storeProps, prop => prop.storeProp)
       );
     } else {
-      this.allProps = Object.keys(this.props.editing.availableProps);
+      this.allProps = Object.keys(this.props.editing.availableProps || {});
 
       this.usedProps = new Set(
         _.map(state.parentProps, prop => prop.parentProp)
@@ -229,6 +229,8 @@ class Modal extends React.Component {
                       inputStyle={{marginTop: '0px'}}
                       { ...formInputProps }
                       value={this.state[type][i][sourceKey]}
+                      disabled={_.isEmpty(this.props.editing.availableProps)}
+                      defaultValue={this.state[type][i][nameKey]}
                       onChange={(e, k, payload) => {
                         this.updatePropSource(payload, i, type);
                       }}
@@ -242,7 +244,6 @@ class Modal extends React.Component {
                           value={prop}
                           primaryText={prop}
                           selectionRenderer={(val)=>{
-                            console.log(val);
                             return val;
                           }}
                         />
@@ -349,7 +350,7 @@ class Tree extends React.Component {
           this.props.outputComponents.editing &&
           <Modal
             outputActions={this.props.outputActions.outputActions}
-            outputStore={this.props.outputStore.outputStore}
+            outputStore={this.props.outputStore}
             editing={this.props.outputComponents.editing}
           />
         }

@@ -114,6 +114,8 @@ class TreeBranch extends React.Component {
   }
 
   getActions() {
+    return null;
+    /*console.log(this.props.outputActions);
     let actions = this.props.outputActions
       //.filter(
       // action => (action.id in this.props.outputComponent.actions)
@@ -129,7 +131,7 @@ class TreeBranch extends React.Component {
           }
         </ul>
       </div>
-    );
+    );*/
   }
 
   render() {
