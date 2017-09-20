@@ -37,11 +37,11 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
   let storeArray = [];
   let traverseStore = (object, indent, path, targetName, isElementSchema) => {
     if (isElementSchema) {
-      storeArray.push(<OutputStoreRow path={path} indent={indent} isElementSchema={true} type={object.type} />);
+      storeArray.push(<OutputStoreRow path={path} key={storeArray.length} indent={indent} isElementSchema={true} type={object.type} />);
 
       if (object.type === 'Object') {
         storeArray.push(
-          <div className="outputStoreObjectProperties">
+          <div className="outputStoreObjectProperties" key={storeArray.length}>
             <div style={{marginLeft: indent + 40 + 'px', textDecoration: 'underline'}}>Properties</div>
             <i className="material-icons addButton pointer purple"
               onClick={() => {
@@ -61,13 +61,13 @@ export const generateStoreArray = (outputStore, OutputStoreRow, toggleEditModal)
       object.forEach((property, index) => {
         targetName = targetName === null ? null : `${targetName}${property.name}`;
 
-        storeArray.push(<OutputStoreRow path={path.concat(index)} indent={indent} name={property.name} targetName={targetName} type={property.type} initialValue={property.initialValue} isElementSchema={false} />);
+        storeArray.push(<OutputStoreRow path={path.concat(index)} key={storeArray.length} indent={indent} name={property.name} targetName={targetName} type={property.type} initialValue={property.initialValue} isElementSchema={false} />);
 
         if (property.type === 'Object') {
           targetName = targetName === null ? null : `${targetName}.`;
 
           storeArray.push(
-            <div className="outputStoreObjectProperties">
+            <div className="outputStoreObjectProperties" key={storeArray.length} >
               <div style={{marginLeft: indent + 40 + 'px', textDecoration: 'underline'}}>Properties</div>
               <i className="material-icons addButton pointer purple"
                 onClick={() => {

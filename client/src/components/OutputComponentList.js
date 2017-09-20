@@ -28,7 +28,7 @@ class OutputComponentList extends React.Component {
         </div>
         <div className="outputComponents">
           {_.map(this.props.outputComponents.components, (outputComponent, id) => (
-            <OutputComponentListItem outputComponents={this.props.outputComponents.components} outputComponent={outputComponent} id={id} />
+            <OutputComponentListItem outputComponents={this.props.outputComponents.components} outputComponent={outputComponent} id={id} key={id} />
           )
           )}
         </div>

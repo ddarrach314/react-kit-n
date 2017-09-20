@@ -44,7 +44,7 @@ class OutputStoreEdit extends React.Component {
                                       :
                                       '';
       }
-      console.log(editing.targetName);
+      
       if (!isElementSchema) {
         if (this.state.name === '' 
             || this.state.name.indexOf(' ') >= 0 
@@ -77,7 +77,6 @@ class OutputStoreEdit extends React.Component {
       actions.toggleEditStoreModal(editing.path);
 
     } catch (error) {
-      console.log(error);
       if (error === 'name') {
         this.setState({invalidName: true});
       } else if (error === 'type') {
@@ -102,7 +101,6 @@ class OutputStoreEdit extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.outputStore.editing) {
-      console.log(nextProps.outputStore.editing.path);
       let property = nextProps.outputStore.editing.property;
       this.setState({
         name: property.name || '',
