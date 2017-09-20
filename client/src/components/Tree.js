@@ -196,7 +196,7 @@ class Modal extends React.Component {
                   }}
                 >
                   <i
-                    className="material-icons pointer red"
+                    className="material-icons pointer purple"
                     onClick={() => {
                       this.deleteProp(i, type);
                     }}
@@ -221,6 +221,8 @@ class Modal extends React.Component {
                       onChange={(event) => {
                         this.updatePropName(event.target.value, i, type);
                       }}
+                      underlineFocusStyle={{borderBottomColor: '#6653ff'}}
+                      floatingLabelFocusStyle={{color: '#6653ff'}}
                     />
                   </div>
                   <div className='col-6'>
@@ -234,6 +236,7 @@ class Modal extends React.Component {
                       onChange={(e, k, payload) => {
                         this.updatePropSource(payload, i, type);
                       }}
+                      selectedMenuItemStyle={{color: '#6653ff'}}
                     >
                       { this.allProps.map((prop, j) => (
                         <MenuItem
@@ -265,6 +268,7 @@ class Modal extends React.Component {
         label="Cancel"
         primary={true}
         onClick={actions.closeEditComponentModel}
+        labelStyle={{color: '#6653ff'}}
       />,
       <FlatButton
         label="Submit"
@@ -274,6 +278,7 @@ class Modal extends React.Component {
           actions.submitComponentUpdate(this.validatedForm);
           actions.closeEditComponentModel();
         }}
+        labelStyle={{color: '#6653ff'}}
       />
     ];
 
@@ -321,6 +326,7 @@ class Modal extends React.Component {
                 selectionRenderer={(values) => {
                   return actionNames.join(', ');
                 }}
+                selectedMenuItemStyle={{color: '#6653ff'}}
               >
                 {menuItems}
               </SelectField>
