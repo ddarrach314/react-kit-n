@@ -75,7 +75,7 @@ class TreeBranch extends React.Component {
     let showEditIcon = this.state.hover;
 
     let actionIcons = [
-      {show: showDisconnectIcon, class: 'reactBlue', onClick: this.handleClickConnect, icon: 'link'},
+      {show: showDisconnectIcon, class: 'purple', onClick: this.handleClickConnect, icon: 'link'},
       {show: showConnectIcon, onClick: this.handleClickConnect, icon: 'link'},
       {show: showEditIcon, onClick: this.handleClickEdit, icon: 'edit'},
     ];
