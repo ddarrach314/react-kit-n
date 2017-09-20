@@ -100,40 +100,44 @@ class TreeBranch extends React.Component {
       return (
         <div>
           <b> Props From Store: </b>
-          <p>
-            {
-              _.isEmpty(this.props.outputComponent.storeProps) ?
-                'No Props Specified' :
-                this.props.outputComponent.storeProps.map((prop) => (
-                  <div>
-                  Receives
-                    <b> {prop.storeProp} </b>
-                  from parent as
-                    <b> {prop.propName} </b>
-                  </div>
-                ))
-            }
-          </p>
+          {
+            _.isEmpty(this.props.outputComponent.storeProps) ?
+              <p> 'No Props Specified' </p> :
+              <ul>
+                {
+                  this.props.outputComponent.storeProps.map((prop) => (
+                    <li>
+                    Receives
+                      <b> {prop.storeProp} </b>
+                    from store as
+                      <b> {prop.propName} </b>
+                    </li>
+                  ))
+                }
+              </ul>
+          }
         </div>
       );
     } else if (this.props.inheritsConnection) {
       return (
         <div>
           <b> Inherited Props: </b>
-          <p>
-            {
-              _.isEmpty(this.props.outputComponent.parentProps) ?
-                'No Props Specified' :
-                this.props.outputComponent.parentProps.map((prop) => (
-                  <div>
-                Receives
-                    <b> {prop.parentProp} </b>
-                from parent as
-                    <b> {prop.childProp} </b>
-                  </div>
-                ))
-            }
-          </p>
+          {
+            _.isEmpty(this.props.outputComponent.parentProps) ?
+              <p> No Props Specified </p> :
+              <ul>
+                {
+                  this.props.outputComponent.parentProps.map((prop) => (
+                    <li>
+                    Receives
+                      <b> {prop.parentProp} </b>
+                    from parent as
+                      <b> {prop.childProp} </b>
+                    </li>
+                  ))
+                }
+              </ul>
+          }
         </div>
       );
     } else {
@@ -142,24 +146,26 @@ class TreeBranch extends React.Component {
   }
 
   getActions() {
-    return null;
-    /*console.log(this.props.outputActions);
-    let actions = this.props.outputActions
-      //.filter(
-      // action => (action.id in this.props.outputComponent.actions)
-      //)
+    let actions = this.props.outputActions.outputActions
+      .filter(
+        action => (action.id in this.props.outputComponent.actions)
+      )
       .map( action => action.name );
 
     return (
       <div>
-        <b>Exposed Actions:</b>
-        <ul>
-          {
-            actions.map(action => <li>{action}</li>)
-          }
-        </ul>
+        <b>Actions Specified For This Component:</b>
+        {
+          _.isEmpty(actions) ?
+            <p> No Actions Specified </p> :
+            <ul>
+              {
+                actions.map(action => <li>{action}</li>)
+              }
+            </ul>
+        }
       </div>
-    );*/
+    );
   }
 
   render() {
