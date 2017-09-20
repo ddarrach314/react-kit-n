@@ -100,12 +100,40 @@ class TreeBranch extends React.Component {
       return (
         <div>
           <b> Props From Store: </b>
+          <p>
+            {
+              _.isEmpty(this.props.outputComponent.storeProps) ?
+                'No Props Specified' :
+                this.props.outputComponent.storeProps.map((prop) => (
+                  <div>
+                  Receives
+                    <b> {prop.storeProp} </b>
+                  from parent as
+                    <b> {prop.propName} </b>
+                  </div>
+                ))
+            }
+          </p>
         </div>
       );
     } else if (this.props.inheritsConnection) {
       return (
         <div>
           <b> Inherited Props: </b>
+          <p>
+            {
+              _.isEmpty(this.props.outputComponent.parentProps) ?
+                'No Props Specified' :
+                this.props.outputComponent.parentProps.map((prop) => (
+                  <div>
+                Receives
+                    <b> {prop.parentProp} </b>
+                from parent as
+                    <b> {prop.childProp} </b>
+                  </div>
+                ))
+            }
+          </p>
         </div>
       );
     } else {
