@@ -30,13 +30,30 @@ class OutputStoreEdit extends React.Component {
 
   handleSubmit() {
     try {
-      let isElementSchema = this.props.outputStore.editing.path[this.props.outputStore.editing.path.length - 1] === 'elementSchema'
+      let editing = this.props.outputStore.editing;
+      let isElementSchema = editing.path[editing.path.length - 1] === 'elementSchema'
         ? true
         : false;
       let initialValue = this.state.initialValue;
-
+      let last;
+      let targetNameWithoutLast;
+      if (editing.targetName) {
+        last = editing.targetName.slice(editing.targetName.length - 11);
+        targetNameWithoutLast = editing.targetName.includes('.') ?
+                                      editing.targetName.slice(0, editing.targetName.lastIndexOf('.') + 1)
+                                      :
+                                      '';
+      }
+      console.log(editing.targetName);
       if (!isElementSchema) {
-        if (this.state.name === '' || this.state.name.indexOf(' ') >= 0 || this.state.name.indexOf('.') >= 0) {
+        if (this.state.name === '' 
+            || this.state.name.indexOf(' ') >= 0 
+            || this.state.name.indexOf('.') >= 0
+            || (editing.targetName
+                && (`${targetNameWithoutLast}${this.state.name}` !== editing.targetName 
+                  || this.state.name === 'newProperty' && last === 'newProperty')
+                && `${targetNameWithoutLast}${this.state.name}` in this.props.targets)
+            ) {
           throw 'name';
         }
         if (this.state.type === '') {
@@ -56,10 +73,11 @@ class OutputStoreEdit extends React.Component {
       }
 
       let setProperty = isElementSchema ? {type: this.state.type || undefined} : {name: this.state.name, initialValue, type: this.state.type};
-      actions.setOutputStoreProperty(setProperty, this.props.outputStore.editing.path);
-      actions.toggleEditStoreModal(this.props.outputStore.editing.path);
+      actions.setOutputStoreProperty(setProperty, editing.path);
+      actions.toggleEditStoreModal(editing.path);
 
     } catch (error) {
+      console.log(error);
       if (error === 'name') {
         this.setState({invalidName: true});
       } else if (error === 'type') {
@@ -167,7 +185,7 @@ class OutputStoreEdit extends React.Component {
                 style={{marginRight: '4em'}}
                 underlineFocusStyle={{borderBottomColor: '#6653ff'}}
                 floatingLabelFocusStyle={{color: '#6653ff'}}
-                errorText={this.state.invalidName && 'Please enter a name with no spaces or periods'}/>
+                errorText={this.state.invalidName && 'Please enter a unique name with no spaces or periods'}/>
             }
             {!isElementSchema
               && this.props.outputStore.editing

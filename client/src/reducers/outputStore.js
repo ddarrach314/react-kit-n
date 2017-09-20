@@ -11,15 +11,6 @@ const initialState = {
 
 const outputStoreReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-  /*
-  case types.SET_OUTPUT_STORE:
-    console.log(1);
-    return {
-      outputStore: action.newOutputStore,
-      warning: '',
-      lastUpdatedBy: action.lastUpdatedBy
-    };
-  */
 
   case types.SET_OUTPUT_STORE_PROPERTY: {
     if (
@@ -51,6 +42,7 @@ const outputStoreReducer = (state = initialState, action = {}) => {
 
     } else {
       let path = action.path;
+      let targetName = action.targetName;
       let lookupKeys = path.slice(0, path.length - 1);
       let finalKey = path[path.length - 1];
       let nestedObj = state.properties;
@@ -62,20 +54,11 @@ const outputStoreReducer = (state = initialState, action = {}) => {
         }
       });
 
-      state = utils.safeSet(state, {path, property: nestedObj[finalKey] || {}}, 'editing');
+      state = utils.safeSet(state, {path, targetName, property: nestedObj[finalKey] || {}}, 'editing');
     }
 
     return state;
   }
-
-  /*
-  case types.SET_OUTPUT_STORE_WARNING:
-    console.log(4);
-    state = _.cloneDeep(state);
-    state.warning = action.warning;
-    state.lastUpdatedBy = action.lastUpdatedBy;
-    return state;
-  */
 
   }
 

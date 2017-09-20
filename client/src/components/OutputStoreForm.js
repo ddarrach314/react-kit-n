@@ -43,7 +43,7 @@ class OutputStoreForm extends React.Component {
   }
 
   handleClickAdd() {
-    actions.toggleEditStoreModal(['newProperty']);
+    actions.toggleEditStoreModal(['newProperty'], 'newProperty');
   }
 
   render() {
@@ -57,13 +57,11 @@ class OutputStoreForm extends React.Component {
         <div className={`outputStoreFormTextArea${this.props.leftBorder}`}> 
           {utilities.outputStore.generateStoreArray(this.props.outputStore.properties, OutputStoreRow, actions.toggleEditStoreModal)}
         </div>
-        <OutputStoreEdit />
+        <OutputStoreEdit targets={utilities.outputStore.getTargetsFromOutputStore(this.props.outputStore.properties)}/>
       </div>
     );
   }  
 }
-
-//this.props.outputStore.properties
 
 OutputStoreForm = connect(
   (state) => (
