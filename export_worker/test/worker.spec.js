@@ -37,6 +37,11 @@ const onion = {
       name: 'setUsername',
       type: 'set',
       target: 'username'
+    },
+    5: {
+      name:'defaultAction',
+      type: '',
+      target: 'otherUser'
     }
   },
   components: {
@@ -133,49 +138,58 @@ const onion = {
 
 describe('file creators', () => {
   let actionOutput = '/* Actions file */\n\n'
-    + 'const ADD_TODO = "ADD_TODO";\n'
-    + 'const DELETE_TODO = "DELETE_TODO";\n'
-    + 'const SET_TODO = "SET_TODO";\n'
-    + 'const SET_USERNAME = "SET_USERNAME";\n'
+    + `const ADD_TODO = 'ADD_TODO';\n`
+    + `const DELETE_TODO = 'DELETE_TODO';\n`
+    + `const SET_TODO = 'SET_TODO';\n`
+    + `const SET_USERNAME = 'SET_USERNAME';\n`
+    + `const DEFAULT_ACTION = 'DEFAULT_ACTION';\n`
     + '\n'
     + 'export const types = {\n'
     + '  ADD_TODO,\n'
     + '  DELETE_TODO,\n'
     + '  SET_TODO,\n'
     + '  SET_USERNAME,\n'
-    + '}\n'
+    + '  DEFAULT_ACTION,\n'
+    + '};\n'
     + '\n'
     + 'const addTodo = (item) => ({\n'
     + '  type: ADD_TODO,\n'
     + '  item\n'
-    + '})\n'
+    + '});\n'
     + '\n'
     + 'const deleteTodo = (index) => ({\n'
     + '  type: DELETE_TODO,\n'
     + '  index\n'
-    + '})\n'
+    + '});\n'
     + '\n'
     + 'const setTodo = (index, value) => ({\n'
     + '  type: SET_TODO,\n'
     + '  index,\n'
     + '  value\n'
-    + '})\n'
+    + '});\n'
     + '\n'
     + 'const setUsername = (value) => ({\n'
     + '  type: SET_USERNAME,\n'
     + '  value\n'
-    + '})\n'
+    + '});\n'
+    + '\n'
+    + 'const defaultAction = (/* FILL ME IN */) => ({\n'
+    + '  type: DEFAULT_ACTION,\n'
+    + '  /* FILL ME IN */\n'
+    + '});\n'
     + '\n'
     + 'export const actions = {\n'
     + '  addTodo,\n'
     + '  deleteTodo,\n'
     + '  setTodo,\n'
     + '  setUsername,\n'
+    + '  defaultAction,\n'
     + '};\n';
 
   let reducersOutput = `/* Reducers File */\n`
     + `\n`
-    + `import { types } from './actions'\n`
+    + `import _ from 'lodash';\n`
+    + `import { types } from './actions';\n`
     + `\n`
     + `const INITIAL_STATE = {\n`
     + `  "todos": [],\n`
@@ -187,24 +201,28 @@ describe('file creators', () => {
     + `  switch (action.type) {\n`
     + `\n`
     + `    case types.ADD_TODO:\n`
-    + `      let state = _.cloneDeep(state);\n`
+    + `      state = _.cloneDeep(state);\n`
     + `      state.todos.push(action.item);\n`
     + `      return state;\n`
     + `    case types.DELETE_TODO:\n`
-    + `      let state = _.cloneDeep(state);\n`
+    + `      state = _.cloneDeep(state);\n`
     + `      state.todos.splice(index, 1);\n`
     + `      return state;\n`
     + `    case types.SET_TODO:\n`
-    + `      let state = _.cloneDeep(state);\n`
+    + `      state = _.cloneDeep(state);\n`
     + `      state.todos[action.index] = action.value;\n`
     + `      return state;\n`
     + `    case types.SET_USERNAME:\n`
-    + `      let state = _.cloneDeep(state);\n`
+    + `      state = _.cloneDeep(state);\n`
     + `      state.username = action.value;\n`
+    + `      return state;\n`
+    + `    case types.DEFAULT_ACTION:\n`
+    + `      state = _.cloneDeep(state);\n`
+    + `      /* FILL ME IN */\n`
     + `      return state;\n`
     + `    default:\n`
     + `      return state;\n`
-    + `  };\n`
+    + `  }\n`
     + `};\n`
     + `\n`
     + `export default reducer;\n`;
@@ -395,11 +413,11 @@ describe('Composer', () => {
 
   });
 
-  after((done) => {
-    fs.unlinkSync(zipFile);
-    fs.rmdirSync(testFolder);  
-    done();  
-  });
+  // after((done) => {
+  //   fs.unlinkSync(zipFile);
+  //   fs.rmdirSync(testFolder);  
+  //   done();  
+  // });
 
   it('creates a zip file', () => {
     expect(fs.existsSync(zipFile)).to.be.true;
