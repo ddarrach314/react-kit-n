@@ -1,7 +1,7 @@
 import * as types from '../actions/types';
 import utils from '../utilities';
 import _ from 'lodash';
-const { makeMutableCopy, safeSet, safeDelete } = utils;
+const { makeMutableCopy, safeSet, safeDelete, tree } = utils;
 
 const initialState = {
   selected: '0',
@@ -95,7 +95,9 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       return newState;
 
     case types.ADD_CHILD_COMPONENT:
-      if (action.parent in state.components[action.child]) {
+      let childIsAncestor = tree.isComponentAncestor(state.components, action.child, action.parent);
+
+      if (childIsAncestor) {
         throw 'You may not add a child to a parent if the child has the parent as a child';
       } else if (action.parent === action.child) {
         throw 'You may not a component to itself as a child';
