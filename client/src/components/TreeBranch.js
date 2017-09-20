@@ -19,9 +19,8 @@ class TreeBranch extends React.Component {
 
     this.handleClickConnect = this.handleClickConnect.bind(this);
     this.handleClickEdit = this.handleClickEdit.bind(this);
-    //this.handleClickHide = this.handleClickHide.bind(this);
-    //this.handleClickExpand = this.handleClickExpand.bind(this);
   }
+
 
   handleDragOver(event) {
     event.preventDefault();
@@ -35,12 +34,6 @@ class TreeBranch extends React.Component {
 
   handleClickEdit() {
     actions.openEditComponentModel(this.props.id, this.props.availableProps);
-  }
-
-  handleClickExpand() {
-  }
-
-  handleClickHide() {
   }
 
   handleMouseEnter() {
@@ -81,16 +74,6 @@ class TreeBranch extends React.Component {
     let showDisconnectIcon = this.props.outputComponent.connected;
     let showEditIcon = this.state.hover;
 
-    let ExpandIcon = (
-      <i
-        className={'material-icons pointer'}
-        onClick={this.handleClickExpand}
-        ref={(icon => this.expandIcon = icon )}
-      >
-        keyboard_arrow_down
-      </i>
-    );
-
     let actionIcons = [
       {show: showDisconnectIcon, class: 'reactBlue', onClick: this.handleClickConnect, icon: 'link'},
       {show: showConnectIcon, onClick: this.handleClickConnect, icon: 'link'},
@@ -100,7 +83,6 @@ class TreeBranch extends React.Component {
     return actionIcons.map((icon, i) => {
       if (icon.show) {
         return (
-          icon.jsx ||
           <i
             key={i}
             className={'material-icons pointer ' + (icon.class || '')}
@@ -132,6 +114,8 @@ class TreeBranch extends React.Component {
   }
 
   getActions() {
+    return null;
+    /*console.log(this.props.outputActions);
     let actions = this.props.outputActions
       //.filter(
       // action => (action.id in this.props.outputComponent.actions)
@@ -147,7 +131,7 @@ class TreeBranch extends React.Component {
           }
         </ul>
       </div>
-    );
+    );*/
   }
 
   render() {

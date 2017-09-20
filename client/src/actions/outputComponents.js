@@ -15,13 +15,9 @@ export const openEditComponentModel = (id, availableProps) => ({
   availableProps
 });
 
-export const editComponentUpdate = (update) => ({
-  type: types.EDIT_COMPONENT_UPDATE,
+export const submitComponentUpdate = (update) => ({
+  type: types.SUBMIT_COMPONENT_UPDATE,
   update
-});
-
-export const saveComponentUpdate = () => ({
-  type: types.SAVE_COMPONENT_UPDATE
 });
 
 export const closeEditComponentModel = () => ({

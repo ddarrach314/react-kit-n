@@ -34,4 +34,4 @@ export const updateActionsForRemovedTarget = (target) => (
     type: types.UPDATE_ACTIONS_FOR_REMOVED_TARGET,
     target
   }
-)
+);

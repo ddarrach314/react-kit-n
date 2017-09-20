@@ -6,7 +6,7 @@ export const _getChildAvailableProps = (component, availableProps) => {
     return new Set(
       component.parentProps
         .filter(prop => availableProps.has(prop.parentProp))
-        .map(prop => prop.childProps)
+        .map(prop => prop.childProp)
     );
   } else if (component.connected) {
     return new Set(
@@ -23,6 +23,7 @@ export const generateTreeArray = (
 ) => {
   let treeArray = [];
 
+  let key = 0;
   const traverseOutputComponents = (
     indent,
     componentId,
@@ -36,18 +37,24 @@ export const generateTreeArray = (
 
     treeArray.push(
       <TreeBranch
+        key={key}
         id={componentId}
         outputComponent={component}
         indent={indent}
         inheritsConnection={inheritsConnection}
         connectionCanBeToggled={connectionCanBeToggled}
         outputActions={outputActions}
-        availableProps={availableProps}
+        availableProps={
+          availableProps ?
+            _.keyBy(Array.from(availableProps.values())) : //turn set to object
+            undefined
+        }
       />
     );
 
+    key++;
     let childAvailableProps = _getChildAvailableProps(component, availableProps);
-
+    console.log(treeArray, childAvailableProps);
     outputComponents[componentId].children.forEach((child) => {
       traverseOutputComponents(
         indent + 20,
@@ -71,26 +78,67 @@ export const getAncestorKeys = (ancestryPath) => {
   );
 };
 
-export const checkForInheritedConnection = (outputPropsKey, componentProps) => {
-  let ancestorKeys = getAncestorKeys(outputPropsKey);
-  for (let ancestorKey of ancestorKeys) {
-    if ( componentProps[ancestorKey] &&
-         componentProps[ancestorKey].connected === true ) {
-      return true;
-    }
-  }
-  return false;
-};
-
 export const checkForConnectedDescendants = (componentId, outputComponents) => {
   let component = outputComponents[componentId];
+
   if (component.children.length === 0) {
     return false;
   }
+
   return _.some(
     component.children,
     (child) =>
       outputComponents[child.componentId].connected ||
       checkForConnectedDescendants(child.componentId, outputComponents)
   );
+};
+
+export const applyToComponentTree = (componentTree, callback, test, stop) => {
+  test = test || function() { return true; };
+
+  const _recurse = (id, component, history = []) => {
+    let resolvedTest = test(id, component, history);
+
+    if (resolvedTest) {
+      callback(id, component, history);
+    }
+
+
+    let shouldContinue = (
+      (stop === undefined) ||
+      (!resolvedTest && stop === 'success') ||
+      (resolvedTest && stop === 'failure')
+    );
+
+    if (shouldContinue) {
+      let updatedHistory = history.concat(id);
+      for (let child of component.children) {
+        let childId = child.componentId;
+        let childComponent = componentTree[childId];
+        _recurse(childId, childComponent, updatedHistory);
+      }
+    }
+  };
+  _recurse(0, componentTree[0], []);
+};
+
+export const isComponentAncestor = (outputComponents, testId, descendantId) => {
+  let pathsToDescendant = [];
+
+  applyToComponentTree (
+    outputComponents,
+    (id, component, history) => pathsToDescendant.push(history),
+    (id, component, history) => {
+      return id === descendantId;
+    },
+    'success'
+  );
+
+  for (let path of pathsToDescendant) {
+    if (_.includes(path, testId)) {
+      return true;
+    }
+  }
+
+  return false;
 };

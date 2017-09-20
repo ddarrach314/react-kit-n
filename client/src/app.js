@@ -9,7 +9,7 @@ import OutputStoreForm from './components/OutputStoreForm';
 import OutputActionsForm from './components/OutputActionsForm';
 import SubmitForm from './components/SubmitForm';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { CSSTransitionGroup } from 'react-transition-group'
+import { CSSTransitionGroup } from 'react-transition-group';
 
 class ConnectedApp extends React.Component {
   constructor(props) {
@@ -50,20 +50,20 @@ class ConnectedApp extends React.Component {
   render() {
     let leftBorderTree = this.state.displayOutputComponentsList ? ' leftBorder' : ' noLeftBorder';
     let leftBorderStore = !this.state.displayOutputComponentsList && !this.state.displayTree ?
-                            ' noLeftBorder'
-                            :
-                            ' leftBorder';
+      ' noLeftBorder'
+      :
+      ' leftBorder';
     let leftBorderActions = !this.state.displayOutputComponentsList 
                               && !this.state.displayTree 
                               && !this.state.displayOutputStoreForm ?
-                                ' noLeftBorder'
-                                :
-                                ' leftBorder';
+      ' noLeftBorder'
+      :
+      ' leftBorder';
 
-    let componentsUnderline = this.state.displayOutputComponentsList ? ' whiteUnderline': '';
-    let treeUnderline = this.state.displayTree ? ' whiteUnderline': '';
-    let storeUnderline = this.state.displayOutputStoreForm ? ' whiteUnderline': '';
-    let actionsUnderline = this.state.displayOutputActionsForm ? ' whiteUnderline': '';
+    let componentsUnderline = this.state.displayOutputComponentsList ? ' whiteUnderline' : '';
+    let treeUnderline = this.state.displayTree ? ' whiteUnderline' : '';
+    let storeUnderline = this.state.displayOutputStoreForm ? ' whiteUnderline' : '';
+    let actionsUnderline = this.state.displayOutputActionsForm ? ' whiteUnderline' : '';
 
     return (
       <Provider store={store}>
@@ -105,9 +105,9 @@ class ConnectedApp extends React.Component {
             </nav>
             
             <CSSTransitionGroup className="row no-gutters pageContent"
-                transitionName="pageSection"
-                transitionEnterTimeout={500}
-                transitionLeave={false}>
+              transitionName="pageSection"
+              transitionEnterTimeout={500}
+              transitionLeave={false}>
               {this.state.displayOutputComponentsList && 
                 <OutputComponentList key={1} colWidth={`col-lg-${12 / this.state.displays} pageSection`} />}
               {this.state.displayTree && 
@@ -124,6 +124,6 @@ class ConnectedApp extends React.Component {
       </Provider>
     );
   }
-};
+}
 
 ReactDOM.render(<ConnectedApp />, document.getElementById('root'));

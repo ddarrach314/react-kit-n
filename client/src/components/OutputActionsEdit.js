@@ -168,7 +168,7 @@ class OutputActionsEdit extends React.Component {
             <SelectField floatingLabelText="Type"
               value={this.state.type}
               onChange={this.handleChangeType.bind(this)}
-              selectedMenuItemStyle={{color:'#6653ff'}}
+              selectedMenuItemStyle={{color: '#6653ff'}}
               errorText={this.state.missingType && 'Please select both a target and type or select neither'} >
               <MenuItem value={'no type'} primaryText='no type' />
               {this.state.target &&
