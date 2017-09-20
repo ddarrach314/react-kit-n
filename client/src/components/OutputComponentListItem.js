@@ -22,7 +22,7 @@ class OutputComponentListItem extends React.Component {
   }
 
   handleChange(event) {
-    actions.updateComponent(this.props.id, {name: event.target.value});
+    actions.updateComponentName(this.props.id, event.target.value);
   }
 
   handlePencilClick() {
@@ -78,10 +78,10 @@ class OutputComponentListItem extends React.Component {
     ) : (
       <div>
         <div className="outputComponentListItem" onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>
-          <div className="outputComponentListItemName move" 
-            draggable="true" 
+          <div className="outputComponentListItemName move"
+            draggable="true"
             onDragStart={this.handleDragStart.bind(this)}
-            onDragOver={this.handleDragOver.bind(this)} 
+            onDragOver={this.handleDragOver.bind(this)}
             onDrop={this.handleDrop.bind(this)}>{this.props.outputComponent.name}</div>
           {this.state.hover && this.state.expanded && <i className="material-icons pointer purple" onClick={this.handleClickHide.bind(this)}>keyboard_arrow_up</i>}
           {this.state.hover && !this.state.expanded && <i className="material-icons pointer purple" onClick={this.handleClickExpand.bind(this)}>keyboard_arrow_down</i>}
