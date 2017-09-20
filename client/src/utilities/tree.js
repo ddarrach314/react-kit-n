@@ -6,7 +6,7 @@ export const _getChildAvailableProps = (component, availableProps) => {
     return new Set(
       component.parentProps
         .filter(prop => availableProps.has(prop.parentProp))
-        .map(prop => prop.childProps)
+        .map(prop => prop.childProp)
     );
   } else if (component.connected) {
     return new Set(
@@ -53,8 +53,8 @@ export const generateTreeArray = (
     );
 
     key++;
-
     let childAvailableProps = _getChildAvailableProps(component, availableProps);
+    console.log(treeArray, childAvailableProps);
     outputComponents[componentId].children.forEach((child) => {
       traverseOutputComponents(
         indent + 20,

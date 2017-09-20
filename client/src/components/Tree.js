@@ -95,6 +95,8 @@ class Modal extends React.Component {
         _.map(state.parentProps, prop => prop.parentProp)
       );
     }
+
+    console.log(this.allProps, this.usedProps);
   }
 
   addProp(type = 'parentProps') {
@@ -169,6 +171,8 @@ class Modal extends React.Component {
       'parentProp' :
       'storeProp';
 
+    console.log(this.allProps);
+    console.log(_.isEmpty(this.allProps));
     return (
       <div className='col-lg-6'>
         <div style={{display: 'flex'}}>
@@ -229,7 +233,7 @@ class Modal extends React.Component {
                       inputStyle={{marginTop: '0px'}}
                       { ...formInputProps }
                       value={this.state[type][i][sourceKey]}
-                      disabled={_.isEmpty(this.props.editing.availableProps)}
+                      disabled={_.isEmpty(this.allProps)}
                       defaultValue={this.state[type][i][nameKey]}
                       onChange={(e, k, payload) => {
                         this.updatePropSource(payload, i, type);
