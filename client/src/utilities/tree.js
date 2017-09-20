@@ -35,6 +35,7 @@ export const generateTreeArray = (
     let connectionCanBeToggled = !inheritsConnection && !hasConnectedDescendant;
     let childrenInheritConnection = inheritsConnection || component.connected;
 
+    console.log(key);
     treeArray.push(
       <TreeBranch
         key={key}
@@ -54,7 +55,7 @@ export const generateTreeArray = (
 
     key++;
     let childAvailableProps = _getChildAvailableProps(component, availableProps);
-    
+
     outputComponents[componentId].children.forEach((child) => {
       traverseOutputComponents(
         indent + 20,

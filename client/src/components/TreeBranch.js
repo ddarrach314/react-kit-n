@@ -105,8 +105,8 @@ class TreeBranch extends React.Component {
               <p> 'No Props Specified' </p> :
               <ul>
                 {
-                  this.props.outputComponent.storeProps.map((prop) => (
-                    <li>
+                  this.props.outputComponent.storeProps.map((prop, i) => (
+                    <li key={i}>
                     Receives
                       <b> {prop.storeProp} </b>
                     from store as
@@ -127,8 +127,8 @@ class TreeBranch extends React.Component {
               <p> No Props Specified </p> :
               <ul>
                 {
-                  this.props.outputComponent.parentProps.map((prop) => (
-                    <li>
+                  this.props.outputComponent.parentProps.map((prop, i) => (
+                    <li key={i}>
                     Receives
                       <b> {prop.parentProp} </b>
                     from parent as
@@ -160,7 +160,7 @@ class TreeBranch extends React.Component {
             <p> No Actions Specified </p> :
             <ul>
               {
-                actions.map(action => <li>{action}</li>)
+                actions.map((action, i) => <li key={i}>{action}</li>)
               }
             </ul>
         }

@@ -11,7 +11,7 @@ export const addComponent = () => ({
 
 export const openEditComponentModel = (id, availableProps) => ({
   type: types.OPEN_EDIT_COMPONENT_MODAL,
-  id,
+  id: id.toString(),
   availableProps
 });
 
@@ -24,10 +24,10 @@ export const closeEditComponentModel = () => ({
   type: types.CLOSE_EDIT_COMPONENT_MODAL
 });
 
-export const updateComponentName = (id, update) => ({
-  type: types.UPDATE_COMPONENT,
+export const updateComponentName = (id, name) => ({
+  type: types.UPDATE_COMPONENT_NAME,
   id: id.toString(),
-  update: update
+  name: name
 });
 
 export const removeComponent = (id) => ({

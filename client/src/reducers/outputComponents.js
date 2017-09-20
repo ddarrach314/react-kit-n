@@ -70,14 +70,8 @@ const outputComponentsReducer = (state = initialState, action = {}) => {
       return safeSet(state, null, 'editing');
     }
 
-    case types.UPDATE_COMPONENT:
-      newState = makeMutableCopy(state, `components.${action.id}`);
-      newState.components[action.id] = _.assign(
-        {},
-        newState.components[action.id],
-        action.update
-      );
-      return newState;
+    case types.UPDATE_COMPONENT_NAME:
+      return safeSet(state, action.name, `components.${action.id}.name`);
 
     case types.REMOVE_COMPONENT:
       if (action.id === '0') {

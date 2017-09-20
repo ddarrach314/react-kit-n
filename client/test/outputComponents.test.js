@@ -65,7 +65,7 @@ describe('Component reducer functions', () => {
     let [state2, state1] = applier.applyActions(
       initialState,
       {name: 'addComponent'},
-      {name: 'updateComponent', args: ['1', {name: 'test'}]}
+      {name: 'updateComponentName', args: ['1', {name: 'test'}]}
     );
 
     expect(state2.components[1].name).toBe('test');
